@@ -1,34 +1,35 @@
-version: "3.8"  # Specify Docker Compose version
+version: '3.4'
 
 services:
-  # Web server container
-  webserver:
-    image: httpd:latest
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile.php  # Path to your Dockerfile
     ports:
-      - "80:80"  # Expose port 80 of the container to port 80 of your Mac
+      - "80:80"
     volumes:
-      - "./website:/usr/local/apache2/htdocs"  # Mount your app directory to container's web root
+      - ./php-code:/var/www/html
     depends_on:
-      - mysql  # Wait for mysql container to be ready before starting webserver
+      - mysql
 
-  # Database container
   mysql:
     image: mysql:latest
     environment:
-      MYSQL_ROOT_PASSWORD: "password"  # Set your desired password for MySQL root user
+      MYSQL_ROOT_PASSWORD: "password"
+      #MYSQL_DATABASE: mydb
+      #MYSQL_USER: myuser
+      #MYSQL_PASSWORD: mypassword
     volumes:
-      - mysql-data:/var/lib/mysql  # Persistent storage for database data
+      - ./mysql-data:/var/lib/mysql
 
-  # phpMyAdmin container (optional)
   phpmyadmin:
     image: lscr.io/linuxserver/phpmyadmin:latest
     ports:
-      - "8080:80"  # Expose phpMyAdmin on port 8080 of your Mac
-    depends_on:
-      - mysql  # Wait for mysql container to be ready before starting phpMyAdmin
+      - "8080:80"
     environment:
-      PMA_HOST: mysql  # Connect phpMyAdmin to the mysql container
-
-# Define persistent storage volume for MySQL data
-volumes:
-  mysql-data: {}
+      PMA_HOST: mysql
+      #PMA_PORT: 3306
+      #PMA_USER: myuser
+      #PMA_PASSWORD: mypassword
+    depends_on:
+      - mysql

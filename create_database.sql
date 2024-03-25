@@ -54,16 +54,6 @@ CREATE TABLE IF NOT EXISTS college_events.event
     CONSTRAINT unique_event_date_time UNIQUE (date, time)
 );
 
--- Create 'rso_event' (ISA event) table
-CREATE TABLE IF NOT EXISTS college_events.rso_event 
-(
-    id INT,
-    rso_id INT NOT NULL,
-    PRIMARY KEY (id),
-    CONSTRAINT fk_rso_event_id FOREIGN KEY (id) REFERENCES college_events.event(id),
-    CONSTRAINT fk_rso_event_rso_id FOREIGN KEY (rso_id) REFERENCES college_events.rso(id)
-);
-
 -- Create 'private_event' (ISA event) table
 CREATE TABLE IF NOT EXISTS college_events.private_event 
 (
@@ -95,6 +85,16 @@ CREATE TABLE IF NOT EXISTS college_events.rso
     admin_id INT NOT NULL,
     PRIMARY KEY (id),
     CONSTRAINT fk_rso_admin_id FOREIGN KEY (admin_id) REFERENCES college_events.admin(id)
+);
+
+-- Create 'rso_event' (ISA event) table
+CREATE TABLE IF NOT EXISTS college_events.rso_event 
+(
+    id INT,
+    rso_id INT NOT NULL,
+    PRIMARY KEY (id),
+    CONSTRAINT fk_rso_event_id FOREIGN KEY (id) REFERENCES college_events.event(id),
+    CONSTRAINT fk_rso_event_rso_id FOREIGN KEY (rso_id) REFERENCES college_events.rso(id)
 );
 
 -- Create 'user_in_rso' table
