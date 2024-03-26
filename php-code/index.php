@@ -1,13 +1,27 @@
-<!DOCTYPE html>
-
 <?php
+    
+    session_start();
+
+    // Check if the logout link was clicked
+    if (isset($_GET['logout'])) 
+    {
+
+        // End the session
+        session_destroy();
+
+        // Redirect to the login page
+        header('Location: index.php');
+        exit();
+
+    }
 
     $servername = "mysql";
     $username = "root";
     $password = "password";
+    $database = "college_events";
 
     // Create connection
-    $conn = mysqli_connect($servername, $username, $password);
+    $conn = mysqli_connect($servername, $username, $password, $database);
 
     // Check connection
     if (!$conn) 
@@ -15,15 +29,15 @@
         die("Connection failed: " . mysqli_connect_error());
     }
 
-    echo "Connected successfully";
-
 ?>
+
+<!DOCTYPE html>
 
 <html>
 
     <head>
         <title>College Event Website</title>
-        <link rel="stylesheet" type="text/css" href="styles.css">
+        <link rel="stylesheet" type="text/css" href="css-code/common_styles.css">
     </head>
 
     <body>
@@ -31,12 +45,17 @@
             <nav>
                 <ul>
                     <li><a href="index.php">Home</a></li>
-                    <li><a href="events.php">Events</a></li>
-                    <li><a href="rsos.php">RSOs</a></li>
+                    <li><a href="index.php">Events</a></li>
+                    <li><a href="index.php">RSOs</a></li>
                 </ul>
                 <ul>
-                    <li><a href="login.php">Login</a></li>
-                    <li><a href="register.php">Register</a></li>
+                    <?php if (isset($_SESSION['username'])) :?>
+                        <!-- This content will only be shown if the user is logged in -->
+                        <li><a href="index.php?logout=true">Logout</a></li>
+                    <?php else: ?>
+                        <li><a href="login.php">Login</a></li>
+                        <li><a href="register.php">Register</a></li>
+                    <?php endif; ?>
                 </ul>
             </nav>
         </header>

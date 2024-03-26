@@ -6,6 +6,8 @@ CREATE DATABASE IF NOT EXISTS college_events CHARACTER SET utf8mb4 COLLATE utf8m
 CREATE TABLE IF NOT EXISTS college_events.user 
 (
     id INT AUTO_INCREMENT,
+    username VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
     PRIMARY KEY (id)
 );
 
