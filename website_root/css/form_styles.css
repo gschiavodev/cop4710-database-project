@@ -45,3 +45,15 @@
 .login-form input[type="submit"]:hover {
     background-color: #555;
 }
+
+.login-form input[type="text"]:-webkit-autofill,
+.login-form input[type="password"]:-webkit-autofill {
+    -webkit-text-fill-color: #333;
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+}
+
+.login-form input[type="text"]:-webkit-autofill:focus,
+.login-form input[type="password"]:-webkit-autofill:focus {
+    -webkit-text-fill-color: #333;
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+}

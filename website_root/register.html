@@ -6,15 +6,15 @@
     if (isset($_SESSION['username'])) 
     {
         
-        // User is already logged in, redirect to index.php
-        header('Location: index.php');
+        // User is already logged in, redirect to index.html
+        header('Location: index.html');
         exit();
 
     }
 
     $servername = "mysql";
-    $username = "root";
-    $password = "password";
+    $username = "webserver";
+    $password = "X7g9#4vZ1$2cQ5";
     $database = "college_events";
 
     // Create connection
@@ -26,6 +26,7 @@
         die("Connection failed: " . mysqli_connect_error());
     }
 
+    // Check if the form was submitted
     if ($_SERVER['REQUEST_METHOD'] == 'POST') 
     {
 
@@ -46,12 +47,15 @@
 
             if ($statement->affected_rows === 1) 
             {
-                // Start the session and set session variables
-                $_SESSION['username'] = $username;
 
-                // Redirect to index.php
-                header('Location: index.php');
+                // Set session variables
+                $_SESSION['username'] = $username;
+                $_SESSION['user_id'] = $user['id'];
+
+                // Redirect to index.html
+                header('Location: index.html');
                 exit();
+
             } 
             else 
             {
@@ -73,21 +77,26 @@
 
     <head>
         <title>Register</title>
-        <link rel="stylesheet" type="text/css" href="css-code/common_styles.css">
-        <link rel="stylesheet" type="text/css" href="css-code/form_styles.css">
+        <link rel="stylesheet" type="text/css" href="css/common_styles.css">
+        <link rel="stylesheet" type="text/css" href="css/form_styles.css">
     </head>
 
     <body>
+        
         <header>
             <nav>
                 <ul>
-                    <li><a href="index.php">Home</a></li>
-                    <li><a href="events.php">Events</a></li>
-                    <li><a href="rsos.php">RSOs</a></li>
+
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html">Events</a></li>
+                    <li><a href="index.html">RSOs</a></li>
+
                 </ul>
                 <ul>
-                    <li><a href="login.php">Login</a></li>
-                    <li><a href="register.php">Register</a></li>
+
+                    <li><a href="login.html">Login</a></li>
+                    <li><a href="register.html">Register</a></li>
+                    
                 </ul>
             </nav>
         </header>
@@ -104,7 +113,7 @@
 
                     <p>Please enter a username and password to register.</p>
 
-                    <form method="POST" action="register.php" class="login-form">
+                    <form method="POST" action="register.html" class="login-form">
                         <label for="username">Username:</label>
                         <input type="text" name="username" id="username" required>
                         <label for="password">Password:</label>

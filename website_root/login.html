@@ -6,15 +6,15 @@
     if (isset($_SESSION['username'])) 
     {
 
-        // User is already logged in, redirect to index.php
-        header('Location: index.php');
+        // User is already logged in, redirect to index.html
+        header('Location: index.html');
         exit();
         
     }
 
     $servername = "mysql";
-    $username = "root";
-    $password = "password";
+    $username = "webserver";
+    $password = "X7g9#4vZ1$2cQ5";
     $database = "college_events";
 
     // Create connection
@@ -53,11 +53,10 @@
                 if (password_verify($password, $user['password'])) 
                 {
 
-                    // Password is correct, start the session
-                    session_start();
-                    $_SESSION['userId'] = $user['id'];
+                    // Password is correct, set session variables
                     $_SESSION['username'] = $user['username'];
-                    header('Location: index.php');
+                    $_SESSION['user_id'] = $user['id'];
+                    header('Location: index.html');
                     exit();
 
                 } 
@@ -88,21 +87,26 @@
 
     <head>
         <title>Login</title>
-        <link rel="stylesheet" type="text/css" href="css-code/common_styles.css">
-        <link rel="stylesheet" type="text/css" href="css-code/form_styles.css">
+        <link rel="stylesheet" type="text/css" href="css/common_styles.css">
+        <link rel="stylesheet" type="text/css" href="css/form_styles.css">
     </head>
 
     <body>
+        
         <header>
             <nav>
                 <ul>
-                    <li><a href="index.php">Home</a></li>
-                    <li><a href="events.php">Events</a></li>
-                    <li><a href="rsos.php">RSOs</a></li>
+
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html">Events</a></li>
+                    <li><a href="index.html">RSOs</a></li>
+
                 </ul>
                 <ul>
-                    <li><a href="login.php">Login</a></li>
-                    <li><a href="register.php">Register</a></li>
+
+                    <li><a href="login.html">Login</a></li>
+                    <li><a href="register.html">Register</a></li>
+                    
                 </ul>
             </nav>
         </header>
@@ -119,7 +123,7 @@
 
                     <p>Please enter your username and password to login.</p>
 
-                    <form method="POST" action="login.php" class="login-form">
+                    <form method="POST" action="login.html" class="login-form">
                         <label for="username">Username:</label>
                         <input type="text" name="username" id="username" required>
                         <label for="password">Password:</label>
