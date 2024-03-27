@@ -6,6 +6,7 @@
     if (isset($_SESSION['username'])) 
     {
 
+        // Database connection information
         $servername = "mysql";
         $username = "webserver";
         $password = "X7g9#4vZ1$2cQ5";
@@ -16,36 +17,52 @@
 
         // Check connection
         if (!$conn) 
-        {
             die("Connection failed: " . mysqli_connect_error());
-        }
-
-        // The form was submitted, let's try to log the user in
-        // Assuming $conn is your MySQLi connection
-        $username = $_POST['username'];
-        $password = $_POST['password'];
 
         // Prepare a SELECT statement to get the user with the provided username
-        $statement = $conn->prepare("SELECT * FROM super_admin WHERE id = ? UNION SELECT * FROM admin WHERE id = ?");
-        $statement->bind_param("ii", $_SESSION['user_id'], $_SESSION['user_id']);
+        $statement = $conn->prepare("SELECT * FROM admin WHERE id = ?");
+        $statement->bind_param("i", $_SESSION['user_id']);
         $statement->execute();
 
+        // Get the result of the SELECT query
         $result = $statement->get_result();
 
-        if ($result->num_rows != 0) 
+        // Check if the user exists and set as admin
+        $_SESSION['is_admin'] = $result->num_rows != 0 ? true : false;
+
+        // If the user is not an admin, check if the user is a super admin
+        if (!$_SESSION['is_admin']) 
         {
 
-            // The user is an admin, set session variable
-            $_SESSION['is_admin'] = true;
+            // Prepare a SELECT statement to get the user with the provided username
+            $statement = $conn->prepare("SELECT * FROM super_admin WHERE id = ?");
+            $statement->bind_param("i", $_SESSION['user_id']);
+            $statement->execute();
+
+            // Get the result of the SELECT query
+            $result = $statement->get_result();
+
+            // Check if the user exists and set as super admin
+            $_SESSION['is_super_admin'] = $result->num_rows != 0 ? true : false;
 
         }
-        else
+
+        // If the user is not an admin, redirect to index.html
+        if (!$_SESSION['is_admin'] && !$_SESSION['is_super_admin']) 
         {
 
-            // The user is not an admin, set session variable
-            $_SESSION['is_admin'] = false;
+            header('Location: index.html');
+            exit();
 
         }
+
+    }
+    else
+    {
+
+        // User is not logged in, redirect to login.html
+        header('Location: login.html');
+        exit();
 
     }
 
@@ -58,6 +75,7 @@
     <head>
         <title>College Event Website</title>
         <link rel="stylesheet" type="text/css" href="css/common_styles.css">
+        <link rel="stylesheet" type="text/css" href="css/form_styles.css">
     </head>
 
     <body>
@@ -73,14 +91,7 @@
                 </ul>
                 <ul>
 
-                    <?php if ($_SESSION['is_admin']) :?>
-
-                        <!-- This content will only be shown if the user is an admin -->
-                        <li><a href="admin.html">Admin</a></li>
-                        
-                    <?php endif; ?>
-
-                    <!-- This content will only be shown if the user is logged in -->
+                    <li><a href="admin.html">Admin</a></li>
                     <li><a href="index.html?logout=true">Logout</a></li>
 
                 </ul>
@@ -91,9 +102,126 @@
 
             <div class="row">
 
-                <section class="section">
-                    <h1>Admin</h1>
+                <section>
+                    <?php if ($_SESSION['is_super_admin']): ?>
+                        <h1>Super Admin Panel</h1>
+                    <?php else: ?>
+                        <h1>Admin Panel</h1>
+                    <?php endif; ?>
                 </section>
+                
+            </div>
+            
+            <?php if ($_SESSION['is_super_admin']): ?>
+                <div class="row">
+
+                    <section style="flex: 2">
+                        <h2>Manage Admins</h2>
+                        <p>Use this form to promote or demote a user to or from admin status.</p>
+                    </section>
+                    
+                    <section>
+                        <form method="POST" style="width: 100%">
+                            <label for="username">Username:</label>
+                            <input type="text" id="username" name="username" required>
+                            <input type="submit" value="Promote">
+                            <input type="submit" value="Demote">
+                        </form>
+                    </section>
+
+                </div>
+
+                <div class="row">
+
+                    <section style="flex: 1">
+                        <h2>Create University Profile</h2>
+                        <p>Use this form to create a new university profile.</p>
+                    </section>
+                    
+                    <section style="flex: 2">
+                        <form method="POST" style="width: 100%">
+
+                            <!-- University Name -->
+                            <label for="university_name">University Name:</label>
+                            <input type="text" id="university_name" name="university_name" required>
+
+                            <!-- University Address Fields -->
+                            <label for="address_line_01">Address Line 1:</label>
+                            <input type="text" id="address_line_01" name="address" required>
+                            <label for="address_line_02">Address Line 2:</label>
+                            <input type="text" id="address_line_02" name="address">
+                            <label for="city">City:</label>
+                            <input type="text" id="city" name="city" required>
+                            <label for="state">State:</label>
+                            <input type="text" id="state" name="state" required>
+                            <label for="zip">Area-code:</label>
+                            <input type="text" id="zip" name="zip" required>
+
+                            <!-- University Description -->
+                            <label for="description">Description:</label>
+                            <textarea id="description" name="description" required></textarea>
+
+                            <!-- Number of Students -->
+                            <label for="num_students">Number of Students:</label>
+                            <input type="number" id="num_students" name="num_students" required>
+
+                            <!-- Submit Button -->
+                            <input type="submit" value="Create">
+                        </form>
+                    </section>
+                </div>
+            <?php endif; ?>
+            
+            <div class="row">
+
+                <section>
+                    <h2>Manage Registered Student Organizations</h2>
+                    <p>Use this section to manage registered student organizations that you own.</p>
+                </section>
+            
+            </div>
+
+            <div class="row">
+                
+                <?php
+                        
+                    // Prepare a SELECT statement to get the RSOs that the user owns
+                    $statement = $conn->prepare("SELECT * FROM rso WHERE admin_id = ?");
+                    $statement->bind_param("i", $_SESSION['user_id']);
+                    $statement->execute();
+
+                    // Get the result of the SELECT query
+                    $result = $statement->get_result();
+
+                    // Check if the user owns any RSOs
+                    if ($result->num_rows > 0) 
+                    {
+
+                        // Loop through each RSO
+                        while ($row = $result->fetch_assoc()) 
+                        {
+
+                            // Display the RSO information
+                            echo "<section>";
+                            echo "<h3>" . $row['name'] . "</h3>";
+                            echo "<p>" . $row['description'] . "</p>";
+                            echo "<p>Members: " . $row['num_members'] . "</p>";
+                            echo "<p>University: " . $row['university_id'] . "</p>";
+                            echo "</section>";
+
+                        }
+
+                    }
+                    else
+                    {
+
+                        // Display a message if the user does not own any RSOs
+                        echo "<section style='flex: 1'>";
+                        echo "<p>You do not own any RSOs.</p>";
+                        echo "</section>";
+
+                    }
+                ?>
                 
             </div>
 

@@ -1,5 +1,5 @@
 <?php
-
+    
     session_start();
 
     // Check if the user is already logged in
@@ -12,6 +12,7 @@
 
     }
 
+    // Database connection information
     $servername = "mysql";
     $username = "webserver";
     $password = "X7g9#4vZ1$2cQ5";
@@ -22,14 +23,13 @@
 
     // Check connection
     if (!$conn) 
-    {
         die("Connection failed: " . mysqli_connect_error());
-    }
 
     // Check if the form was submitted
     if ($_SERVER['REQUEST_METHOD'] == 'POST') 
     {
 
+        // Check if the username and password fields are set
         if (isset($_POST['username']) && isset($_POST['password'])) 
         {
 
@@ -45,6 +45,7 @@
             $statement->bind_param("ss", $username, $hashed_password);
             $statement->execute();
 
+            // Check if the user was added successfully
             if ($statement->affected_rows === 1) 
             {
 
@@ -103,17 +104,17 @@
         
         <main>
             <div class="row">
-                <div class="section">
+                <section>
                     <h2>Register</h2>
-                </div>
+                </section>
             </div>
 
             <div class="row">
-                <div class="section">
+                <section>
 
                     <p>Please enter a username and password to register.</p>
 
-                    <form method="POST" action="register.html" class="login-form">
+                    <form method="POST" action="register.html">
                         <label for="username">Username:</label>
                         <input type="text" name="username" id="username" required>
                         <label for="password">Password:</label>
@@ -121,7 +122,7 @@
                         <input type="submit" value="Register">
                     </form> 
 
-                </div>
+                </section>
             </div>
         </main>
 

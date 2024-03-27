@@ -54,17 +54,18 @@ nav ul li a:hover {
 }
 
 main {
+    margin: 0px auto;
     padding: 20px;
+    width: 75%;
 }
 
 .row {
-    width: 80%;
     margin: 0px auto;
     display: flex;
     margin-bottom: 20px;
 }
 
-.section {
+section {
     flex: 1;
     background-color: white;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -72,18 +73,18 @@ main {
     margin-right: 20px;
 }
 
-.section:last-child {
+section:last-child {
     margin-right: 0px;
 }
 
-.section h1, .section h2 {
+section h1, section h2 {
     display: block;
     color: #333;
     margin: 0px;
     padding: 10px;
 }
 
-.section p {
+section p {
     display: block;
     color: #666;
     margin: 0px;
@@ -121,6 +122,10 @@ footer {
 
     nav ul li:last-child {
         margin-bottom: 0px;
+    }
+
+    main {
+        width: calc(100% - 40px);
     }
 
     .row {

@@ -19,6 +19,7 @@
     if (isset($_SESSION['username'])) 
     {
 
+        // Database connection information
         $servername = "mysql";
         $username = "webserver";
         $password = "X7g9#4vZ1$2cQ5";
@@ -29,9 +30,7 @@
 
         // Check connection
         if (!$conn) 
-        {
             die("Connection failed: " . mysqli_connect_error());
-        }
 
         // The form was submitted, let's try to log the user in
         // Assuming $conn is your MySQLi connection
@@ -43,22 +42,11 @@
         $statement->bind_param("ii", $_SESSION['user_id'], $_SESSION['user_id']);
         $statement->execute();
 
+        // Get the result of the SELECT query
         $result = $statement->get_result();
 
-        if ($result->num_rows != 0) 
-        {
-
-            // The user is an admin, set session variable
-            $_SESSION['is_admin'] = true;
-
-        }
-        else
-        {
-
-            // The user is not an admin, set session variable
-            $_SESSION['is_admin'] = false;
-
-        }
+        // Check if the user exists
+        $_SESSION['is_admin'] = $result->num_rows != 0 ? true : false;
 
     }
 
@@ -66,7 +54,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
 
     <head>
         <title>College Event Website</title>
@@ -113,7 +101,7 @@
 
             <div class="row">
 
-                <section class="section">
+                <section>
                     <h1>College Event Website</h1>
                     <p>Welcome to the College Event Website! This platform is designed to help students keep track of events happening around campus. Whether you're looking for social events, fundraising activities, or tech talks, you'll find all the information you need right here. Register to start exploring events, join RSOs, and more!</p>
                 </section>
@@ -122,12 +110,12 @@
 
             <div class="row">
 
-                <section class="section">
+                <section>
                     <h2>Section 1</h2>
                     <p>Section 1 content goes here.</p>
                 </section>
 
-                <section class="section">
+                <section>
                     <h2>Section 2</h2>
                     <p>Section 2 content goes here.</p>
                 </section>

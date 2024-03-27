@@ -12,6 +12,7 @@
         
     }
 
+    // Database connection information
     $servername = "mysql";
     $username = "webserver";
     $password = "X7g9#4vZ1$2cQ5";
@@ -22,9 +23,7 @@
 
     // Check connection
     if (!$conn) 
-    {
         die("Connection failed: " . mysqli_connect_error());
-    }
 
     // Check if the form was submitted
     if ($_SERVER['REQUEST_METHOD'] === 'POST') 
@@ -34,7 +33,6 @@
         {
 
             // The form was submitted, let's try to log the user in
-            // Assuming $conn is your MySQLi connection
             $username = $_POST['username'];
             $password = $_POST['password'];
 
@@ -42,10 +40,14 @@
             $statement = $conn->prepare("SELECT * FROM user WHERE username = ?");
             $statement->bind_param("s", $username);
             $statement->execute();
-
+            
+            // Get the result of the SELECT query
             $result = $statement->get_result();
+
+            // Get the user from the result
             $user = $result->fetch_assoc();
 
+            // Check if the user exists
             if ($user) 
             {
 
@@ -113,17 +115,17 @@
         
         <main>
             <div class="row">
-                <div class="section">
+                <section>
                     <h2>Login</h2>
-                </div>
+                </section>
             </div>
 
             <div class="row">
-                <div class="section">
+                <section>
 
                     <p>Please enter your username and password to login.</p>
 
-                    <form method="POST" action="login.html" class="login-form">
+                    <form method="POST" action="login.html">
                         <label for="username">Username:</label>
                         <input type="text" name="username" id="username" required>
                         <label for="password">Password:</label>
@@ -131,7 +133,7 @@
                         <input type="submit" value="Login">
                     </form> 
 
-                </div>
+                </section>
             </div>
         </main>
 

@@ -42,6 +42,17 @@ CREATE TABLE IF NOT EXISTS college_events.location
     PRIMARY KEY (id)
 );
 
+-- Create 'university' table
+CREATE TABLE IF NOT EXISTS college_events.university 
+(
+    id INT AUTO_INCREMENT,
+    location_id INT NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL,
+    PRIMARY KEY (id),
+    CONSTRAINT fk_university_location_id FOREIGN KEY (location_id) REFERENCES college_events.location(id)
+);
+
 -- Create 'event' table
 CREATE TABLE IF NOT EXISTS college_events.event 
 (
@@ -85,8 +96,12 @@ CREATE TABLE IF NOT EXISTS college_events.rso
 (
     id INT AUTO_INCREMENT,
     admin_id INT NOT NULL,
+    university_id INT NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL,
     PRIMARY KEY (id),
-    CONSTRAINT fk_rso_admin_id FOREIGN KEY (admin_id) REFERENCES college_events.admin(id)
+    CONSTRAINT fk_rso_admin_id FOREIGN KEY (admin_id) REFERENCES college_events.admin(id),
+    CONSTRAINT fk_rso_university_id FOREIGN KEY (university_id) REFERENCES college_events.university(id)
 );
 
 -- Create 'rso_event' (ISA event) table
