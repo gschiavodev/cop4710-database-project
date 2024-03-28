@@ -11,107 +11,7 @@
         exit();
         
     }
-
-    // Database connection information
-    $servername = "mysql";
-    $username = "webserver";
-    $password = "X7g9#4vZ1$2cQ5";
-    $database = "college_events";
-
-    // Create connection
-    $conn = mysqli_connect($servername, $username, $password, $database);
-
-    // Check connection
-    if (!$conn) 
-        die("Connection failed: " . mysqli_connect_error());
-        
-    // Check if the form was submitted
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') 
-    {
-
-        // Check if the university_email and password fields are set
-        if (isset($_POST['university_email']) && isset($_POST['password']))
-        {
-
-            // The form was submitted, let's try to log the user in
-            $university_email = $_POST['university_email'];
-            $password = $_POST['password'];
-
-            // Prepare a SELECT statement to get the user with the provided email
-            $statement = $conn->prepare("SELECT * FROM user WHERE university_email = ?");
-            $statement->bind_param("s", $university_email);
-            $statement->execute();
-            
-            // Get the result of the SELECT query
-            $result = $statement->get_result();
-
-            // Get the user from the result
-            $user = $result->fetch_assoc();
-
-            // Check if the user exists
-            if ($user)
-            {
-
-                // User exists, now we check the password
-                if (password_verify($password, $user['password'])) 
-                {
-
-                    // Password is correct, set session variables
-                    $_SESSION['user_university_email'] = $user['university_email'];
-                    $_SESSION['user_id'] = $user['id'];
-
-                    {
-
-                        // Prepare a SELECT statement to get admins with the provided user id
-                        $statement = $conn->prepare("SELECT * FROM admin WHERE id = ?");
-                        $statement->bind_param("i", $_SESSION['user_id']);
-                        $statement->execute();
-
-                        // Get the result of the SELECT query
-                        $result = $statement->get_result();
-
-                        // Check if the user exists and set as admin
-                        $_SESSION['is_admin'] = $result->num_rows != 0 ? true : false;
-
-                        // Prepare a SELECT statement to get super admins with the provided user id
-                        $statement = $conn->prepare("SELECT * FROM super_admin WHERE id = ?");
-                        $statement->bind_param("i", $_SESSION['user_id']);
-                        $statement->execute();
-
-                        // Get the result of the SELECT query
-                        $result = $statement->get_result();
-
-                        // Check if the user exists and set as super admin
-                        $_SESSION['is_super_admin'] = $result->num_rows != 0 ? true : false;
-
-                    }
-
-                    // Redirect to index.html
-                    header('Location: index.html');
-                    exit();
-
-                } 
-                else 
-                {
-
-                    // Password is incorrect
-                    echo "Wrong password!<br>";
-
-                }
-
-            } 
-            else 
-            {
-
-                // User does not exist
-                echo "User does not exist!<br>";
-
-            }
-
-        }
-
-    }
-
+    
 ?>
 
 <!DOCTYPE html>
@@ -156,7 +56,7 @@
 
                     <p>Please enter your email and password to login.</p>
 
-                    <form method="POST" action="login.html">
+                    <form method="POST" action="php/session/login.php">
                         <label for="university_email">University Email:</label>
                         <input type="text" name="university_email" id="university_email" required>
                         <label for="password">Password:</label>

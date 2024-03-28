@@ -10,7 +10,8 @@ CREATE TABLE IF NOT EXISTS college_events.user
     last_name VARCHAR(255) NOT NULL,
     university_email VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
-    PRIMARY KEY (id)
+    PRIMARY KEY (id),
+    CONSTRAINT unique_user_university_email UNIQUE (university_email)
 );
 
 -- Create 'admin' (ISA user) table 

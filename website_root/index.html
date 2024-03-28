@@ -41,7 +41,7 @@
 
                     <?php if (isset($_SESSION['user_university_email'])): ?>
 
-                        <?php if (($_SESSION['is_admin']) || ($_SESSION['is_super_admin'])): ?>
+                        <?php if (($_SESSION['user_is_admin']) || ($_SESSION['user_is_super_admin'])): ?>
 
                             <!-- This content will only be shown if the user is an admin -->
                             <li><a href="admin.html">Admin</a></li>
@@ -77,15 +77,96 @@
                         
                 <section>
                     <h2>Public Events</h2>
-
-                    <?php
-
-                        // Check for public events in the database
-
-
-                    ?>
+                </section>
 
             </div>
+
+            <?php
+
+                // Include the public_event.php file to display public events
+                include "php/public_event.php";
+
+                // Get the public events
+                $select_public_events = get_public_events();
+
+                // Check if the query was successful
+                if ($select_public_events) 
+                {
+
+                    // Check if there are any public events
+                    if (mysqli_num_rows($select_public_events) > 0) 
+                    {
+
+                        for ($i = 0; $i < mysqli_num_rows($select_public_events); $i++) 
+                        {
+
+                            // Get the next public event
+                            $row = $select_rsos_result->fetch_assoc();
+
+                            if ($i % 3 == 0)
+                                echo "<div class=\"row\">";
+
+                            // Display the event information
+                            echo "<section>";
+                            echo "<h3>" . $row['name'] . "</h3>";
+                            echo "<p>" . $row['description'] . "</p>";
+                            echo "<p>" . $row['category'] . "</p>";
+                            echo "<p>" . $row['date'] . "</p>";
+                            echo "<p>" . $row['time'] . "</p>";
+                            echo "<p>" . $row['phone_number'] . "</p>";
+                            echo "<p>" . $row['email'] . "</p>";
+
+                            // Include the location.php file to get the location information
+                            include "php/location.php";
+
+                            // Get the location information
+                            $event_location = get_location($row['location_id']);
+
+                            // Check if the location exists
+                            if ($event_location) 
+                            {
+
+                                // Display the location information
+                                echo "<p>" . $event_location['name'] . "</p>";
+                                echo "<p>" . $event_location['address_line_1'] . "</p>";
+                                echo "<p>" . $event_location['address_line_2'] . "</p>";
+                                echo "<p>" . $event_location['city'] . "</p>";
+                                echo "<p>" . $event_location['state'] . "</p>";
+                                echo "<p>" . $event_location['zip_code'] . "</p>";
+                                echo "<p>" . $event_location['latitude'] . "</p>";
+                                echo "<p>" . $event_location['longitude'] . "</p>";
+                                echo "</section>";
+
+                            } 
+                            else 
+                            {
+
+                                // Display a message if the location does not exist
+                                echo "<p>Location not found.</p>";
+                                echo "</section>";
+
+                            }
+
+                            // Close the row after every three RSO sections
+                            if ($i % 3 == 2 || $i == $select_rsos_result->num_rows - 1)
+                                echo "</div>";
+
+                        }
+
+                    } 
+                    else 
+                    {
+                        // Display a message if there are no public events
+                        echo "<div class=\"row\">";
+                        echo "<section>";
+                        echo "<p>There are no public events.</p>";
+                        echo "</section>";
+                        echo "</div>";
+                    }
+
+                }
+
+            ?>
 
         </main>
 

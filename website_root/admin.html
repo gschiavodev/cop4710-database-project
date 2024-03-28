@@ -3,7 +3,7 @@
     session_start();
 
     // If the user is not an admin, redirect to index.html
-    if (!$_SESSION['is_admin'] && !$_SESSION['is_super_admin']) 
+    if (!$_SESSION['user_is_admin'] && !$_SESSION['user_is_super_admin']) 
     {
 
         // User is not an admin, redirect to index.html
@@ -11,19 +11,6 @@
         exit();
 
     }
-
-    // Database connection information
-    $servername = "mysql";
-    $username = "webserver";
-    $password = "X7g9#4vZ1$2cQ5";
-    $database = "college_events";
-
-    // Create connection
-    $conn = mysqli_connect($servername, $username, $password, $database);
-
-    // Check connection
-    if (!$conn) 
-        die("Connection failed: " . mysqli_connect_error());
 
 ?>
 
@@ -62,7 +49,7 @@
             <div class="row">
 
                 <section>
-                    <?php if ($_SESSION['is_super_admin']): ?>
+                    <?php if ($_SESSION['user_is_super_admin']): ?>
                         <h1>Super Admin Panel</h1>
                     <?php else: ?>
                         <h1>Admin Panel</h1>
@@ -71,7 +58,7 @@
                 
             </div>
             
-            <?php if ($_SESSION['is_super_admin']): ?>
+            <?php if ($_SESSION['user_is_super_admin']): ?>
                 <div class="row">
 
                     <section style="flex: 2">
@@ -147,59 +134,63 @@
                 </section>
             
             </div>
-
-            <div class="row">
                 
-                <?php
-                        
-                    // Prepare a SELECT statement to get the RSOs that the user owns
-                    $statement = $conn->prepare("SELECT * FROM rso WHERE admin_id = ?");
-                    $statement->bind_param("i", $_SESSION['user_id']);
-                    $statement->execute();
+            <?php
+                    
+                // Include the rso.php file to get the owned RSOs
+                include_once "php/rso.php";
 
-                    // Get the result of the SELECT query
-                    $select_rsos_result = $statement->get_result();
+                // Get the owned RSOs
+                $owned_rsos = get_owned_rsos($_SESSION['user_id']);
 
-                    // Check if the user owns any RSOs
-                    if ($select_rsos_result->num_rows > 0) 
+                // Check if the user owns any RSOs
+                if ($owned_rsos->num_rows > 0) 
+                {
+
+                    for ($i = 0; $i < $owned_rsos->num_rows; $i++) 
                     {
 
-                        // Loop through each RSO
-                        while ($row = $select_rsos_result->fetch_assoc()) 
-                        {
+                        // Get the next RSO
+                        $rso = $owned_rsos->fetch_assoc();
 
-                            // Prepare a SELECT statement to get the university the number of members in the RSO
-                            $statement = $conn->prepare("SELECT * FROM user_in_rso WHERE rso_id = ?");
-                            $statement->bind_param("i", $row['id']);
-                            $statement->execute();
+                        // Include the rso.php file to get the RSO members
+                        include_once "php/rso.php";
 
-                            // Get the result of the SELECT query
-                            $select_members_result = $statement->get_result();
+                        // Get the members of the RSO
+                        $rso_members = get_rso_members($rso['id']);
 
-                            // Display the RSO information
-                            echo "<section>";
-                            echo "<h3>" . $row['name'] . "</h3>";
-                            echo "<p>" . $row['description'] . "</p>";
-                            echo "<p>Members: " . $select_members_result->num_rows . "</p>";
-                            echo "<p>University: " . $row['university_id'] . "</p>";
-                            echo "<button>Manage</button>";
-                            echo "</section>";
+                        // Open a new row after every three RSO sections
+                        if ($i % 3 == 0)
+                            echo "<div class=\"row\">";
 
-                        }
-
-                    }
-                    else
-                    {
-
-                        // Display a message if the user does not own any RSOs
+                        // Display the RSO information
                         echo "<section>";
-                        echo "<p>You do not own any RSOs.</p>";
+                        echo "<h3>" . $rso['name'] . "</h3>";
+                        echo "<p>" . $rso['description'] . "</p>";
+                        echo "<p>Members: " . $rso_members->num_rows . "</p>";
+                        echo "<p>University: " . $rso['university_id'] . "</p>";
+                        echo "<button>Manage</button>";
                         echo "</section>";
 
+                        // Close the row after every three RSO sections
+                        if ($i % 3 == 2 || $i == $select_rsos_result->num_rows - 1)
+                            echo "</div>";
+
                     }
-                ?>
-                
-            </div>
+
+                }
+                else
+                {
+
+                    // Display a message if the user does not own any RSOs
+                    echo "<div class=\"row\">";
+                    echo "<section>";
+                    echo "<p>You do not own any RSOs.</p>";
+                    echo "</section>";
+                    echo "</div>";
+
+                }
+            ?>     
 
         </main>
 

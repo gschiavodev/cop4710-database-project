@@ -21,10 +21,7 @@ form label, form input {
     padding: 10px 0px;
 }
 
-form input[type="text"],
-form input[type="email"],
-form input[type="password"],
-form input[type="number"],
+form input,
 form textarea {
     display: block;
     box-sizing: border-box;
@@ -35,12 +32,12 @@ form textarea {
     font-size: 16px;
 }
 
-
 form textarea {
     resize: vertical;
+    min-height: 100px;
 }
 
-form input[type="submit"] {
+input[type="submit"], button {
     width: 100%;
     padding: 10px;
     margin-top: 20px;;
@@ -52,22 +49,14 @@ form input[type="submit"] {
     transition: background-color 0.3s ease;
 }
 
-form input[type="submit"]:hover {
+input[type="submit"]:hover, button:hover {
     background-color: #555;
 }
 
-form input[type="text"]:-webkit-autofill,
-form input[type="email"]:-webkit-autofill,
-form input[type="number"]:-webkit-autofill,
-form input[type="password"]:-webkit-autofill {
-    -webkit-text-fill-color: #333;
-    -webkit-box-shadow: 0 0 0px 1000px white inset;
-}
-
-form input[type="text"]:-webkit-autofill:focus,
-form input[type="email"]:-webkit-autofill:focus,
-form input[type="number"]:-webkit-autofill:focus,
-form input[type="password"]:-webkit-autofill:focus {
+form input:-webkit-autofill,
+form input:-webkit-autofill:hover, 
+form input:-webkit-autofill:focus, 
+form input:-webkit-autofill:active {
     -webkit-text-fill-color: #333;
     -webkit-box-shadow: 0 0 0px 1000px white inset;
 }
