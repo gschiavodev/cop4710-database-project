@@ -2,69 +2,28 @@
     
     session_start();
 
-    // Check if user is logged in
-    if (isset($_SESSION['username'])) 
+    // If the user is not an admin, redirect to index.html
+    if (!$_SESSION['is_admin'] && !$_SESSION['is_super_admin']) 
     {
 
-        // Database connection information
-        $servername = "mysql";
-        $username = "webserver";
-        $password = "X7g9#4vZ1$2cQ5";
-        $database = "college_events";
-
-        // Create connection
-        $conn = mysqli_connect($servername, $username, $password, $database);
-
-        // Check connection
-        if (!$conn) 
-            die("Connection failed: " . mysqli_connect_error());
-
-        // Prepare a SELECT statement to get the user with the provided username
-        $statement = $conn->prepare("SELECT * FROM admin WHERE id = ?");
-        $statement->bind_param("i", $_SESSION['user_id']);
-        $statement->execute();
-
-        // Get the result of the SELECT query
-        $result = $statement->get_result();
-
-        // Check if the user exists and set as admin
-        $_SESSION['is_admin'] = $result->num_rows != 0 ? true : false;
-
-        // If the user is not an admin, check if the user is a super admin
-        if (!$_SESSION['is_admin']) 
-        {
-
-            // Prepare a SELECT statement to get the user with the provided username
-            $statement = $conn->prepare("SELECT * FROM super_admin WHERE id = ?");
-            $statement->bind_param("i", $_SESSION['user_id']);
-            $statement->execute();
-
-            // Get the result of the SELECT query
-            $result = $statement->get_result();
-
-            // Check if the user exists and set as super admin
-            $_SESSION['is_super_admin'] = $result->num_rows != 0 ? true : false;
-
-        }
-
-        // If the user is not an admin, redirect to index.html
-        if (!$_SESSION['is_admin'] && !$_SESSION['is_super_admin']) 
-        {
-
-            header('Location: index.html');
-            exit();
-
-        }
-
-    }
-    else
-    {
-
-        // User is not logged in, redirect to login.html
-        header('Location: login.html');
+        // User is not an admin, redirect to index.html
+        header('Location: index.html');
         exit();
 
     }
+
+    // Database connection information
+    $servername = "mysql";
+    $username = "webserver";
+    $password = "X7g9#4vZ1$2cQ5";
+    $database = "college_events";
+
+    // Create connection
+    $conn = mysqli_connect($servername, $username, $password, $database);
+
+    // Check connection
+    if (!$conn) 
+        die("Connection failed: " . mysqli_connect_error());
 
 ?>
 
@@ -85,7 +44,7 @@
                 <ul>
 
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="index.html">Events</a></li>
+                    <li><a href="index.html">Universities</a></li>
                     <li><a href="index.html">RSOs</a></li>
 
                 </ul>
@@ -122,8 +81,8 @@
                     
                     <section>
                         <form method="POST" style="width: 100%">
-                            <label for="username">Username:</label>
-                            <input type="text" id="username" name="username" required>
+                            <label for="university_email">University Email:</label>
+                            <input type="text" id="university_email" name="university_email" required>
                             <input type="submit" value="Promote">
                             <input type="submit" value="Demote">
                         </form>
@@ -150,10 +109,16 @@
                             <input type="text" id="address_line_01" name="address" required>
                             <label for="address_line_02">Address Line 2:</label>
                             <input type="text" id="address_line_02" name="address">
+
+                            <!-- University City -->
                             <label for="city">City:</label>
                             <input type="text" id="city" name="city" required>
+
+                            <!-- University State -->
                             <label for="state">State:</label>
                             <input type="text" id="state" name="state" required>
+
+                            <!-- University Zip Code -->
                             <label for="zip">Area-code:</label>
                             <input type="text" id="zip" name="zip" required>
 
@@ -161,14 +126,16 @@
                             <label for="description">Description:</label>
                             <textarea id="description" name="description" required></textarea>
 
-                            <!-- Number of Students -->
+                            <!-- University Number of Students -->
                             <label for="num_students">Number of Students:</label>
                             <input type="number" id="num_students" name="num_students" required>
 
                             <!-- Submit Button -->
                             <input type="submit" value="Create">
+
                         </form>
                     </section>
+
                 </div>
             <?php endif; ?>
             
@@ -191,22 +158,31 @@
                     $statement->execute();
 
                     // Get the result of the SELECT query
-                    $result = $statement->get_result();
+                    $select_rsos_result = $statement->get_result();
 
                     // Check if the user owns any RSOs
-                    if ($result->num_rows > 0) 
+                    if ($select_rsos_result->num_rows > 0) 
                     {
 
                         // Loop through each RSO
-                        while ($row = $result->fetch_assoc()) 
+                        while ($row = $select_rsos_result->fetch_assoc()) 
                         {
+
+                            // Prepare a SELECT statement to get the university the number of members in the RSO
+                            $statement = $conn->prepare("SELECT * FROM user_in_rso WHERE rso_id = ?");
+                            $statement->bind_param("i", $row['id']);
+                            $statement->execute();
+
+                            // Get the result of the SELECT query
+                            $select_members_result = $statement->get_result();
 
                             // Display the RSO information
                             echo "<section>";
                             echo "<h3>" . $row['name'] . "</h3>";
                             echo "<p>" . $row['description'] . "</p>";
-                            echo "<p>Members: " . $row['num_members'] . "</p>";
+                            echo "<p>Members: " . $select_members_result->num_rows . "</p>";
                             echo "<p>University: " . $row['university_id'] . "</p>";
+                            echo "<button>Manage</button>";
                             echo "</section>";
 
                         }
@@ -216,7 +192,7 @@
                     {
 
                         // Display a message if the user does not own any RSOs
-                        echo "<section style='flex: 1'>";
+                        echo "<section>";
                         echo "<p>You do not own any RSOs.</p>";
                         echo "</section>";
 

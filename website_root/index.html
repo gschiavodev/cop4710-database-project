@@ -15,41 +15,6 @@
 
     }
 
-    // Check if user is logged in
-    if (isset($_SESSION['username'])) 
-    {
-
-        // Database connection information
-        $servername = "mysql";
-        $username = "webserver";
-        $password = "X7g9#4vZ1$2cQ5";
-        $database = "college_events";
-
-        // Create connection
-        $conn = mysqli_connect($servername, $username, $password, $database);
-
-        // Check connection
-        if (!$conn) 
-            die("Connection failed: " . mysqli_connect_error());
-
-        // The form was submitted, let's try to log the user in
-        // Assuming $conn is your MySQLi connection
-        $username = $_POST['username'];
-        $password = $_POST['password'];
-
-        // Prepare a SELECT statement to get the user with the provided username
-        $statement = $conn->prepare("SELECT * FROM super_admin WHERE id = ? UNION SELECT * FROM admin WHERE id = ?");
-        $statement->bind_param("ii", $_SESSION['user_id'], $_SESSION['user_id']);
-        $statement->execute();
-
-        // Get the result of the SELECT query
-        $result = $statement->get_result();
-
-        // Check if the user exists
-        $_SESSION['is_admin'] = $result->num_rows != 0 ? true : false;
-
-    }
-
 ?>
 
 <!DOCTYPE html>
@@ -68,15 +33,15 @@
                 <ul>
 
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="index.html">Events</a></li>
+                    <li><a href="index.html">Universities</a></li>
                     <li><a href="index.html">RSOs</a></li>
 
                 </ul>
                 <ul>
 
-                    <?php if (isset($_SESSION['username'])) :?>
+                    <?php if (isset($_SESSION['user_university_email'])): ?>
 
-                        <?php if ($_SESSION['is_admin']) :?>
+                        <?php if (($_SESSION['is_admin']) || ($_SESSION['is_super_admin'])): ?>
 
                             <!-- This content will only be shown if the user is an admin -->
                             <li><a href="admin.html">Admin</a></li>
@@ -109,16 +74,16 @@
             </div>
 
             <div class="row">
-
+                        
                 <section>
-                    <h2>Section 1</h2>
-                    <p>Section 1 content goes here.</p>
-                </section>
+                    <h2>Public Events</h2>
 
-                <section>
-                    <h2>Section 2</h2>
-                    <p>Section 2 content goes here.</p>
-                </section>
+                    <?php
+
+                        // Check for public events in the database
+
+
+                    ?>
 
             </div>
 

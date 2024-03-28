@@ -6,7 +6,9 @@ CREATE DATABASE IF NOT EXISTS college_events CHARACTER SET utf8mb4 COLLATE utf8m
 CREATE TABLE IF NOT EXISTS college_events.user 
 (
     id INT AUTO_INCREMENT,
-    username VARCHAR(255) NOT NULL UNIQUE,
+    first_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255) NOT NULL,
+    university_email VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
     PRIMARY KEY (id)
 );
@@ -60,11 +62,14 @@ CREATE TABLE IF NOT EXISTS college_events.event
     location_id INT NOT NULL,
     name VARCHAR(255) NOT NULL,
     description TEXT NOT NULL,
+    category ENUM('social', 'philanthropy', 'fundraising', 'tech talks') NOT NULL,
     date DATE NOT NULL,
     time TIME NOT NULL,
+    phone_number VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
     PRIMARY KEY (id),
     CONSTRAINT fk_location_id FOREIGN KEY (location_id) REFERENCES college_events.location(id),
-    CONSTRAINT unique_event_date_time UNIQUE (date, time)
+    CONSTRAINT unique_event_date_time UNIQUE (date, time, location_id)
 );
 
 -- Create 'private_event' (ISA event) table

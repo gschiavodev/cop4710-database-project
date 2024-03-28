@@ -21,7 +21,11 @@ form label, form input {
     padding: 10px 0px;
 }
 
-form input[type="text"], form input[type="password"], form input[type="number"] {
+form input[type="text"],
+form input[type="email"],
+form input[type="password"],
+form input[type="number"],
+form textarea {
     display: block;
     box-sizing: border-box;
     width: 100%;
@@ -29,6 +33,11 @@ form input[type="text"], form input[type="password"], form input[type="number"] 
     border: 1px solid #ddd;
     border-radius: 5px;
     font-size: 16px;
+}
+
+
+form textarea {
+    resize: vertical;
 }
 
 form input[type="submit"] {
@@ -48,25 +57,17 @@ form input[type="submit"]:hover {
 }
 
 form input[type="text"]:-webkit-autofill,
+form input[type="email"]:-webkit-autofill,
+form input[type="number"]:-webkit-autofill,
 form input[type="password"]:-webkit-autofill {
     -webkit-text-fill-color: #333;
     -webkit-box-shadow: 0 0 0px 1000px white inset;
 }
 
 form input[type="text"]:-webkit-autofill:focus,
+form input[type="email"]:-webkit-autofill:focus,
+form input[type="number"]:-webkit-autofill:focus,
 form input[type="password"]:-webkit-autofill:focus {
     -webkit-text-fill-color: #333;
     -webkit-box-shadow: 0 0 0px 1000px white inset;
-}
-
-form textarea {
-    display: block;
-    box-sizing: border-box;
-    width: 100%;
-    min-height: 100px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 16px;
-    resize: vertical;
 }

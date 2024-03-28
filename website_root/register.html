@@ -3,7 +3,7 @@
     session_start();
 
     // Check if the user is already logged in
-    if (isset($_SESSION['username'])) 
+    if (isset($_SESSION['user_university_email'])) 
     {
         
         // User is already logged in, redirect to index.html
@@ -30,19 +30,21 @@
     {
 
         // Check if the username and password fields are set
-        if (isset($_POST['username']) && isset($_POST['password'])) 
+        if (isset($_POST['first_name']) && isset($_POST['last_name']) && isset($_POST['university_email']) && isset($_POST['password'])) 
         {
 
             // Assuming $conn is your MySQLi connection
-            $username = $_POST['username'];
+            $first_name = $_POST['first_name'];
+            $last_name = $_POST['last_name'];
+            $university_email = $_POST['university_email'];
             $password = $_POST['password'];
 
             // Hash the password
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
             // Prepare an INSERT statement to add the new user to the database
-            $statement = $conn->prepare("INSERT INTO user (username, password) VALUES (?, ?)");
-            $statement->bind_param("ss", $username, $hashed_password);
+            $statement = $conn->prepare("INSERT INTO user (first_name, last_name, university_email, password) VALUES (?, ?, ?, ?)");
+            $statement->bind_param("ssss", $first_name, $last_name, $university_email, $hashed_password);
             $statement->execute();
 
             // Check if the user was added successfully
@@ -50,8 +52,8 @@
             {
 
                 // Set session variables
-                $_SESSION['username'] = $username;
-                $_SESSION['user_id'] = $user['id'];
+                $_SESSION['user_id'] = $statement->insert_id;
+                $_SESSION['user_university_email'] = $university_email;
 
                 // Redirect to index.html
                 header('Location: index.html');
@@ -63,10 +65,10 @@
                 echo "Error: " . $statement->error;
             }
             
-        } 
+        }
         else 
         {
-            echo "Please fill in both fields.<br>";
+            echo "Please fill in all the fields.<br>";
         }
 
     }
@@ -89,7 +91,7 @@
                 <ul>
 
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="index.html">Events</a></li>
+                    <li><a href="index.html">Universities</a></li>
                     <li><a href="index.html">RSOs</a></li>
 
                 </ul>
@@ -112,11 +114,15 @@
             <div class="row">
                 <section>
 
-                    <p>Please enter a username and password to register.</p>
+                    <p>Please fill out the form below to register.</p>
 
                     <form method="POST" action="register.html">
-                        <label for="username">Username:</label>
-                        <input type="text" name="username" id="username" required>
+                        <label for="first_name">First name:</label>
+                        <input type="text" name="first_name" id="first_name" required>
+                        <label for="last_name">Last name:</label>
+                        <input type="text" name="last_name" id="last_name" required>
+                        <label for="university_email">University Email:</label>
+                        <input type="email" name="university_email" id="university_email" required>
                         <label for="password">Password:</label>
                         <input type="password" name="password" id="password" required>
                         <input type="submit" value="Register">

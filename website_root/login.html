@@ -3,7 +3,7 @@
     session_start();
 
     // Check if the user is already logged in
-    if (isset($_SESSION['username'])) 
+    if (isset($_SESSION['user_university_email'])) 
     {
 
         // User is already logged in, redirect to index.html
@@ -24,21 +24,22 @@
     // Check connection
     if (!$conn) 
         die("Connection failed: " . mysqli_connect_error());
-
+        
     // Check if the form was submitted
     if ($_SERVER['REQUEST_METHOD'] === 'POST') 
     {
 
-        if (isset($_POST['username']) && isset($_POST['password']))
+        // Check if the university_email and password fields are set
+        if (isset($_POST['university_email']) && isset($_POST['password']))
         {
 
             // The form was submitted, let's try to log the user in
-            $username = $_POST['username'];
+            $university_email = $_POST['university_email'];
             $password = $_POST['password'];
 
-            // Prepare a SELECT statement to get the user with the provided username
-            $statement = $conn->prepare("SELECT * FROM user WHERE username = ?");
-            $statement->bind_param("s", $username);
+            // Prepare a SELECT statement to get the user with the provided email
+            $statement = $conn->prepare("SELECT * FROM user WHERE university_email = ?");
+            $statement->bind_param("s", $university_email);
             $statement->execute();
             
             // Get the result of the SELECT query
@@ -48,7 +49,7 @@
             $user = $result->fetch_assoc();
 
             // Check if the user exists
-            if ($user) 
+            if ($user)
             {
 
                 // User exists, now we check the password
@@ -56,16 +57,46 @@
                 {
 
                     // Password is correct, set session variables
-                    $_SESSION['username'] = $user['username'];
+                    $_SESSION['user_university_email'] = $user['university_email'];
                     $_SESSION['user_id'] = $user['id'];
+
+                    {
+
+                        // Prepare a SELECT statement to get admins with the provided user id
+                        $statement = $conn->prepare("SELECT * FROM admin WHERE id = ?");
+                        $statement->bind_param("i", $_SESSION['user_id']);
+                        $statement->execute();
+
+                        // Get the result of the SELECT query
+                        $result = $statement->get_result();
+
+                        // Check if the user exists and set as admin
+                        $_SESSION['is_admin'] = $result->num_rows != 0 ? true : false;
+
+                        // Prepare a SELECT statement to get super admins with the provided user id
+                        $statement = $conn->prepare("SELECT * FROM super_admin WHERE id = ?");
+                        $statement->bind_param("i", $_SESSION['user_id']);
+                        $statement->execute();
+
+                        // Get the result of the SELECT query
+                        $result = $statement->get_result();
+
+                        // Check if the user exists and set as super admin
+                        $_SESSION['is_super_admin'] = $result->num_rows != 0 ? true : false;
+
+                    }
+
+                    // Redirect to index.html
                     header('Location: index.html');
                     exit();
 
                 } 
                 else 
                 {
+
                     // Password is incorrect
                     echo "Wrong password!<br>";
+
                 }
 
             } 
@@ -100,7 +131,7 @@
                 <ul>
 
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="index.html">Events</a></li>
+                    <li><a href="index.html">Universities</a></li>
                     <li><a href="index.html">RSOs</a></li>
 
                 </ul>
@@ -123,11 +154,11 @@
             <div class="row">
                 <section>
 
-                    <p>Please enter your username and password to login.</p>
+                    <p>Please enter your email and password to login.</p>
 
                     <form method="POST" action="login.html">
-                        <label for="username">Username:</label>
-                        <input type="text" name="username" id="username" required>
+                        <label for="university_email">University Email:</label>
+                        <input type="text" name="university_email" id="university_email" required>
                         <label for="password">Password:</label>
                         <input type="password" name="password" id="password" required>
                         <input type="submit" value="Login">
