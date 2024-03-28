@@ -33,13 +33,21 @@
         } 
         else 
         {
-            echo "Error: " . $user_added->error;
+
+            // User was not added successfully
+            $_SESSION['message'] = "Failed to register!";
+            header('Location: ../../register.html');
+            exit();
         }
         
     }
     else 
     {
-        echo "Please fill in all the fields.<br>";
+
+        // All the fields are not set
+        $_SESSION['message'] = "All fields are required!";
+        header('Location: ../../register.html');
+        exit();
     }
 
 ?>

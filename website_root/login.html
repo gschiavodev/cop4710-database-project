@@ -58,11 +58,16 @@
 
                     <form method="POST" action="php/session/login.php">
                         <label for="university_email">University Email:</label>
-                        <input type="text" name="university_email" id="university_email" required>
+                        <input type="email" name="university_email" id="university_email" required>
                         <label for="password">Password:</label>
                         <input type="password" name="password" id="password" required>
                         <input type="submit" value="Login">
-                    </form> 
+                    </form>
+
+                    <?php if (isset($_SESSION['message'])): ?>
+                        <p><?php echo $_SESSION['message']; ?></p>
+                        <?php unset($_SESSION['message']); ?>
+                    <?php endif; ?>
 
                 </section>
             </div>

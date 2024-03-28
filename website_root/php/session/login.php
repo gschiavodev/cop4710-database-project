@@ -32,7 +32,7 @@
                 $_SESSION['user_is_admin'] = is_admin($user['id']);
 
                 // Redirect to index.html
-                header('Location: ..\..\index.html');
+                header('Location: ../../index.html');
                 exit();
 
             } 
@@ -40,7 +40,9 @@
             {
 
                 // Password is incorrect
-                echo "Wrong password!<br>";
+                $_SESSION['message'] = "Password is incorrect! Please enter the correct password.";
+                header('Location: ../../login.html');
+                exit();
 
             }
 
@@ -49,7 +51,9 @@
         {
 
             // User does not exist
-            echo "User does not exist!<br>";
+            $_SESSION['message'] = "Email does not exist! Please enter a valid email or register.";
+            header('Location: ../../login.html');
+            exit();
 
         }
 
