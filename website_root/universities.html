@@ -2,19 +2,6 @@
     
     session_start();
 
-    // Check if the logout link was clicked
-    if (isset($_GET['logout'])) 
-    {
-
-        // End the session
-        session_destroy();
-
-        // Redirect to the login page
-        header('Location: index.html');
-        exit();
-
-    }
-
 ?>
 
 <!DOCTYPE html>
