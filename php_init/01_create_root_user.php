@@ -27,14 +27,30 @@
         include "/var/www/html/php/super_admin.php";
 
         // Insert the root user
-        $user = insert_new_user($root_first_name, $root_last_name, $root_email, $root_password);
+        $success = create_user($root_first_name, $root_last_name, $root_email, $root_password);
 
-        // Add the root user as an admin
-        create_admin_by_user_id($user->insert_id);
+        // If user was inserted successfully
+        if ($success)
+        {
 
-        // Add the root user as a super admin
-        create_super_admin_by_user_id($user->insert_id);
-        
+            // Get the user id
+            $user = get_user_by_university_email($root_email);
+
+            // Add the root user as an admin
+            create_admin_by_user_id($user['id']);
+
+            // Add the root user as a super admin
+            create_super_admin_by_user_id($user['id']);
+
+        }
+        else 
+        {
+
+            // Failed to insert the root user
+            echo "Failed to insert the root user!";
+
+        }
+
     }
 
     // Close the connection

@@ -51,22 +51,51 @@
         close_connection_to_database($conn);
 
         // Check if the location exists
-        return ($location) ? $location : false;
+        return $location;
 
     }
 
-    function get_location_by_full_address($address_line_01, $address_line_02, $city, $state, $zipcode, $latitude = null, $longitude = null)
+    function get_location_by_full_address($address_line_01, $address_line_02, $city, $state, $zip_code, $latitude = null, $longitude = null)
     {
 
+        // Check if only one of latitude or longitude is set
+        if (($latitude === null && $longitude !== null) || ($latitude !== null && $longitude === null)) 
+        {
+
+            // Return an error or a specific value
+            return "Error: Both latitude and longitude must be provided if any.";
+
+        }
+        
         // Open a connection to the database
         $conn = connect_to_database();
 
-        // Query to get the location information
-        $sql = "SELECT * FROM location WHERE address_line_01 = ? AND address_line_02 = ? AND city = ? AND state = ? AND zip_code = ? AND latitude = ? AND longitude = ?";
+        // Base query
+        $sql = "SELECT * FROM location WHERE LOWER(address_line_01) = LOWER(?) AND LOWER(address_line_02) = LOWER(?) AND LOWER(city) = LOWER(?) AND LOWER(state) = LOWER(?) AND LOWER(zip_code) = LOWER(?)";
+
+        // Array to hold parameters and their types
+        $params = array($address_line_01, $address_line_02, $city, $state, $zip_code);
+        $types = array_fill(0, 5, 's'); // All these parameters are strings
+
+        // If latitude and longitude are provided, add them to the query
+        if ($latitude !== null && $longitude !== null) 
+        {
+            $sql .= " AND latitude = ? AND longitude = ?";
+            array_push($params, $latitude, $longitude);
+            array_push($types, 'i', 'i'); // Latitude and longitude are integers
+        } 
+        else 
+        {
+            $sql .= " AND latitude IS NULL AND longitude IS NULL";
+        }
 
         // Prepare the query
         $select_location = $conn->prepare($sql);
-        $select_location->bind_param("sssssii", $address_line_01, $address_line_02, $city, $state, $zipcode, $latitude, $longitude);
+
+        // Bind the parameters
+        $select_location->bind_param(implode('', $types), ...$params);
+
+        // Execute the query
         $select_location->execute();
 
         // Get the result of the query
@@ -78,11 +107,10 @@
         // Close the database connection
         close_connection_to_database($conn);
 
-        // Return the location information
+        // Return the location
         return $location;
 
     }
-
 
     function create_location($name, $address_line_01, $address_line_02, $city, $state, $zip_code, $latitude = null, $longitude = null)
     {
@@ -99,7 +127,7 @@
         close_connection_to_database($conn);
 
         // Return if the location was created
-        return $insert_location;
+        return $insert_location->affected_rows > 0;
 
     }
 

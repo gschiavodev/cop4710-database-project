@@ -43,6 +43,25 @@
         close_connection_to_database($conn);
 
         // Return if the admin was created
+        return $statement->affected_rows > 0;
+
+    }
+
+    function delete_admin_by_user_id($user_id)
+    {
+
+        // Connect to database
+        $conn = connect_to_database();
+
+        // Prepare a DELETE statement to delete an admin with the user information
+        $statement = $conn->prepare("DELETE FROM admin WHERE id = ?");
+        $statement->bind_param("i", $user_id);
+        $statement->execute();
+
+        // Close database connection
+        close_connection_to_database($conn);
+
+        // Return if the admin was deleted
         return $statement->affected_rows != 0 ? true : false;
 
     }

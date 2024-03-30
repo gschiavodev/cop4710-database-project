@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS college_events.admin
 (
     id INT,
     PRIMARY KEY (id),
-    CONSTRAINT fk_user_id FOREIGN KEY (id) REFERENCES college_events.user(id)
+    CONSTRAINT fk_user_id FOREIGN KEY (id) REFERENCES college_events.user(id) ON DELETE CASCADE
 );
 
 -- Create 'super_admin' (ISA user) table
@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS college_events.super_admin
 (
     id INT,
     PRIMARY KEY (id),
-    CONSTRAINT fk_super_admin_id FOREIGN KEY (id) REFERENCES college_events.user(id)
+    CONSTRAINT fk_super_admin_id FOREIGN KEY (id) REFERENCES college_events.user(id) ON DELETE CASCADE
 );
 
 -- Create 'location' table
@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS college_events.university
     description TEXT NOT NULL,
     email_domain VARCHAR(255) NOT NULL,
     PRIMARY KEY (id),
-    CONSTRAINT fk_university_location_id FOREIGN KEY (location_id) REFERENCES college_events.location(id)
+    CONSTRAINT fk_university_location_id FOREIGN KEY (location_id) REFERENCES college_events.location(id) ON DELETE CASCADE
 );
 
 -- Create 'event' table
@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS college_events.event
     phone_number VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
     PRIMARY KEY (id),
-    CONSTRAINT fk_location_id FOREIGN KEY (location_id) REFERENCES college_events.location(id),
+    CONSTRAINT fk_location_id FOREIGN KEY (location_id) REFERENCES college_events.location(id) ON DELETE CASCADE,
     CONSTRAINT unique_event_date_time UNIQUE (date, time, location_id)
 );
 
@@ -81,9 +81,9 @@ CREATE TABLE IF NOT EXISTS college_events.private_event
     admin_id INT NOT NULL,
     super_admin_id INT NOT NULL,
     PRIMARY KEY (id),
-    CONSTRAINT fk_private_event_id FOREIGN KEY (id) REFERENCES college_events.event(id),
-    CONSTRAINT fk_private_event_admin_id FOREIGN KEY (admin_id) REFERENCES college_events.admin(id),
-    CONSTRAINT fk_private_event_super_admin_id FOREIGN KEY (super_admin_id) REFERENCES college_events.super_admin(id)
+    CONSTRAINT fk_private_event_id FOREIGN KEY (id) REFERENCES college_events.event(id) ON DELETE CASCADE,
+    CONSTRAINT fk_private_event_admin_id FOREIGN KEY (admin_id) REFERENCES college_events.admin(id) ON DELETE CASCADE,
+    CONSTRAINT fk_private_event_super_admin_id FOREIGN KEY (super_admin_id) REFERENCES college_events.super_admin(id) ON DELETE CASCADE
 );
 
 -- Create 'public_event' (ISA event) table
@@ -93,9 +93,9 @@ CREATE TABLE IF NOT EXISTS college_events.public_event
     admin_id INT NOT NULL,
     super_admin_id INT NOT NULL,
     PRIMARY KEY (id),
-    CONSTRAINT fk_public_event_id FOREIGN KEY (id) REFERENCES college_events.event(id),
-    CONSTRAINT fk_public_event_admin_id FOREIGN KEY (admin_id) REFERENCES college_events.admin(id),
-    CONSTRAINT fk_public_event_super_admin_id FOREIGN KEY (super_admin_id) REFERENCES college_events.super_admin(id)
+    CONSTRAINT fk_public_event_id FOREIGN KEY (id) REFERENCES college_events.event(id) ON DELETE CASCADE,
+    CONSTRAINT fk_public_event_admin_id FOREIGN KEY (admin_id) REFERENCES college_events.admin(id) ON DELETE CASCADE,
+    CONSTRAINT fk_public_event_super_admin_id FOREIGN KEY (super_admin_id) REFERENCES college_events.super_admin(id) ON DELETE CASCADE
 );
 
 -- Create 'rso' table
@@ -107,8 +107,8 @@ CREATE TABLE IF NOT EXISTS college_events.rso
     name VARCHAR(255) NOT NULL,
     description TEXT NOT NULL,
     PRIMARY KEY (id),
-    CONSTRAINT fk_rso_admin_id FOREIGN KEY (admin_id) REFERENCES college_events.admin(id),
-    CONSTRAINT fk_rso_university_id FOREIGN KEY (university_id) REFERENCES college_events.university(id)
+    CONSTRAINT fk_rso_admin_id FOREIGN KEY (admin_id) REFERENCES college_events.admin(id) ON DELETE CASCADE,
+    CONSTRAINT fk_rso_university_id FOREIGN KEY (university_id) REFERENCES college_events.university(id) ON DELETE CASCADE
 );
 
 -- Create 'rso_event' (ISA event) table
@@ -117,8 +117,8 @@ CREATE TABLE IF NOT EXISTS college_events.rso_event
     id INT,
     rso_id INT NOT NULL,
     PRIMARY KEY (id),
-    CONSTRAINT fk_rso_event_id FOREIGN KEY (id) REFERENCES college_events.event(id),
-    CONSTRAINT fk_rso_event_rso_id FOREIGN KEY (rso_id) REFERENCES college_events.rso(id)
+    CONSTRAINT fk_rso_event_id FOREIGN KEY (id) REFERENCES college_events.event(id) ON DELETE CASCADE,
+    CONSTRAINT fk_rso_event_rso_id FOREIGN KEY (rso_id) REFERENCES college_events.rso(id) ON DELETE CASCADE
 );
 
 -- Create 'user_in_rso' table
@@ -127,8 +127,8 @@ CREATE TABLE IF NOT EXISTS college_events.user_in_rso
     user_id INT NOT NULL,
     rso_id INT NOT NULL,
     PRIMARY KEY (user_id, rso_id),
-    CONSTRAINT fk_user_in_rso_user_id FOREIGN KEY (user_id) REFERENCES college_events.user(id),
-    CONSTRAINT fk_user_in_rso_rso_id FOREIGN KEY (rso_id) REFERENCES college_events.rso(id)
+    CONSTRAINT fk_user_in_rso_user_id FOREIGN KEY (user_id) REFERENCES college_events.user(id) ON DELETE CASCADE,
+    CONSTRAINT fk_user_in_rso_rso_id FOREIGN KEY (rso_id) REFERENCES college_events.rso(id) ON DELETE CASCADE
 );
 
 -- Create 'user_event_comment' table
@@ -139,6 +139,6 @@ CREATE TABLE IF NOT EXISTS college_events.user_event_comment
     comment TEXT NOT NULL,
     rating ENUM('1', '2', '3', '4', '5') NOT NULL,
     PRIMARY KEY (user_id, event_id),
-    CONSTRAINT fk_user_event_comment_user_id FOREIGN KEY (user_id) REFERENCES college_events.user(id),
-    CONSTRAINT fk_user_event_comment_event_id FOREIGN KEY (event_id) REFERENCES college_events.event(id)
+    CONSTRAINT fk_user_event_comment_user_id FOREIGN KEY (user_id) REFERENCES college_events.user(id) ON DELETE CASCADE,
+    CONSTRAINT fk_user_event_comment_event_id FOREIGN KEY (event_id) REFERENCES college_events.event(id) ON DELETE CASCADE
 );

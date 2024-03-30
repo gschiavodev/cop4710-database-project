@@ -12,6 +12,9 @@
         // Get the user information
         $user = get_user_by_university_email($_POST['university_email']);
 
+        // Make sure the email is lowercase
+        $_POST['university_email'] = strtolower($_POST['university_email']);
+
         // Check if the user exists
         if ($user)
         {
@@ -41,7 +44,7 @@
             {
 
                 // Password is incorrect
-                $_SESSION['message'] = "Password is incorrect! Please enter the correct password.";
+                $_SESSION['message_login'] = "Password is incorrect! Please enter the correct password.";
                 header('Location: ../../login.html');
                 exit();
 
@@ -52,7 +55,7 @@
         {
 
             // User does not exist
-            $_SESSION['message'] = "Email does not exist! Please enter a valid email or register.";
+            $_SESSION['message_login'] = "Email does not exist! Please enter a valid email or register.";
             header('Location: ../../login.html');
             exit();
 

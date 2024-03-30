@@ -64,9 +64,9 @@
                         <input type="submit" value="Login">
                     </form>
 
-                    <?php if (isset($_SESSION['message'])): ?>
-                        <p><?php echo $_SESSION['message']; ?></p>
-                        <?php unset($_SESSION['message']); ?>
+                    <?php if (isset($_SESSION['message_login'])): ?>
+                        <p><?php echo $_SESSION['message_login']; ?></p>
+                        <?php unset($_SESSION['message_login']); ?>
                     <?php endif; ?>
 
                 </section>

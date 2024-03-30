@@ -68,9 +68,9 @@
                         <input type="submit" value="Register">
                     </form>
 
-                    <?php if (isset($_SESSION['message'])): ?>
-                        <p><?php echo $_SESSION['message']; ?></p>
-                        <?php unset($_SESSION['message']); ?>
+                    <?php if (isset($_SESSION['message_register'])): ?>
+                        <p><?php echo $_SESSION['message_register']; ?></p>
+                        <?php unset($_SESSION['message_register']); ?>
                     <?php endif; ?>
 
                 </section>

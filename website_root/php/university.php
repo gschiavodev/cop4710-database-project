@@ -18,26 +18,11 @@
             $email_parts = explode('@', $university_email);
             $domain = array_pop($email_parts);
 
-            // Create a new database connection
-            $conn = connect_to_database();
+            // Get the university by the domain
+            $select_college_domain_result = get_university_by_email_domain($domain);
 
-            // Query the database for the university with the given domain
-            $select_college_domain = $conn->prepare("SELECT id FROM college_events.university WHERE email_domain = ?");
-            $select_college_domain->bind_param("s", $domain);
-            $select_college_domain->execute();
-
-            // Get the result
-            $select_college_domain_result = $select_college_domain->get_result();
-
-            // Close the connection
-            close_connection_to_database($conn);
-
-            // If university was found, return them
-            if ($select_college_domain_result->num_rows > 0) 
-                return $select_college_domain_result;
-
-            // No university found
-            return null;
+            // Return the university
+            return $select_college_domain_result;
 
         }
         else
@@ -57,7 +42,7 @@
         $conn = connect_to_database();
 
         // Query the database for the university with the given domain
-        $select_university = $conn->prepare("SELECT * FROM college_events.university WHERE email_domain = ?");
+        $select_university = $conn->prepare("SELECT * FROM college_events.university WHERE LOWER(email_domain) = LOWER(?)");
         $select_university->bind_param("s", $email_domain);
         $select_university->execute();
 
@@ -107,6 +92,9 @@
         // Create a new database connection
         $conn = connect_to_database();
 
+        // Make sure email domain is lowercase
+        $email_domain = strtolower($email_domain);
+
         // Query the database to create a new university
         $insert_university = $conn->prepare("INSERT INTO college_events.university (name, description, email_domain, location_id) VALUES (?, ?, ?, ?)");
         $insert_university->bind_param("sssi", $name, $description, $email_domain, $location_id);
@@ -116,7 +104,7 @@
         close_connection_to_database($conn);
 
         // Return the result
-        return $insert_university;
+        return $insert_university->affected_rows > 0;
 
     }
 

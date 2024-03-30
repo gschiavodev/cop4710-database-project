@@ -30,46 +30,60 @@
     // Get the location information
     $location = get_location_by_full_address($address_line_01, $address_line_02, $city, $state, $zip_code, $latitude, $longitude);
 
-    // Check if the location already exists (if the location exists, use the existing location)
-    if ($result->num_rows > 0) 
+    // Check if the location exists
+    if (!$location) 
     {
-
-        // Get the location information
-        $location = $result->fetch_assoc();
-        
-    } 
-    else 
-    {
-
-        // Include the location.php file
-        include_once "../location.php";
-
+;
         // Create the location
-        $location_created_result = create_location($university_name, $address_line_01, $address_line_02, $city, $state, $zip_code, $latitude, $longitude);
+        $success = create_location($university_name, $address_line_01, $address_line_02, $city, $state, $zip_code, $latitude, $longitude);
+
+        // Check if create_location returned an string
+        if (is_string($location_created_result)) 
+        {
+
+            // Redirect to the admin page
+            $_SESSION['message_create_university'] = $location_created_result;
+            header('Location: ../../admin.html#section_create_university');
+            exit();
+
+        }
 
         // Check if the location was created
-        if ($location_created_result) 
+        if ($success) 
         {
 
             // Get the location information
-            $location = get_location_by_id($location_created_result);
+            $location = get_location_by_full_address($address_line_01, $address_line_02, $city, $state, $zip_code, $latitude, $longitude);
 
         } 
         else 
         {
 
             // Redirect to the admin page
-            $_SESSION['message'] = "Failed to create the location.";
-            header('Location: ../../admin.html');
+            $_SESSION['message_create_university'] = "Failed to create the location.";
+            header('Location: ../../admin.html#section_create_university');
             exit();
 
         }
-
 
     }
 
     // Include the university.php file
     include_once "../university.php";
+
+    // Check if the university already exists
+    $university = get_university_by_email_domain($email_domain);
+
+    // Check if the university exists
+    if ($university) 
+    {
+
+        // Redirect to the admin page
+        $_SESSION['message_create_university'] = "University with the email domain already exists.";
+        header('Location: ../../admin.html#section_create_university');
+        exit();
+
+    }
 
     // Create the university
     $university_created_result = create_university($university_name, $description, $email_domain, $location['id']);
@@ -79,8 +93,8 @@
     {
 
         // Redirect to the admin page
-        $_SESSION['message'] = "University created successfully.";
-        header('Location: ../../admin.html');
+        $_SESSION['message_create_university'] = "University created successfully.";
+        header('Location: ../../admin.html#section_create_university');
         exit();
 
     } 
@@ -88,8 +102,8 @@
     {
 
         // Redirect to the admin page
-        $_SESSION['message'] = "Failed to create the university.";
-        header('Location: ../../admin.html');
+        $_SESSION['message_create_university'] = "Failed to create the university.";
+        header('Location: ../../admin.html#section_create_university');
         exit();
 
     }

@@ -43,7 +43,7 @@
         close_connection_to_database($conn);
 
         // Return if the super admin was created
-        return $statement->affected_rows != 0 ? true : false;
+        return $statement->affected_rows > 0;
 
     }
 

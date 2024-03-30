@@ -17,11 +17,14 @@
         {
 
             // Email is not valid
-            $_SESSION['message'] = "Invalid email address!";
+            $_SESSION['message_register'] = "Invalid email address!";
             header('Location: ../../register.html');
             exit();
 
         }
+
+        // Make sure the email is lowercase
+        $university_email = strtolower($university_email);
 
         // Include the university.php file to get the university id
         include_once "../university.php";
@@ -34,7 +37,7 @@
         {
 
             // University not found
-            $_SESSION['message'] = "No university registered for provided email domain!";
+            $_SESSION['message_register'] = "No university registered for provided email domain!";
             header('Location: ../../register.html');
             exit();
 
@@ -44,15 +47,21 @@
         include_once "../user.php";
 
         // Attempt to add the user
-        $user_added = insert_new_user($first_name, $last_name, $university_email, $password);
+        $success = create_user($first_name, $last_name, $university_email, $password);
 
         // Check if the user was added successfully
-        if ($user_added->affected_rows === 1)
+        if ($success)
         {
 
+            // Include the user.php file to get the user by university email
+            include_once "../user.php";
+
+            // Get the user by university email
+            $user = get_user_by_university_email($university_email);
+
             // Set session variables
-            $_SESSION['user_id'] = $user_added->insert_id;
-            $_SESSION['user_university_email'] = $university_email;
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['user_university_email'] = $user['university_email'];
 
             // Redirect to index.html
             header('Location: ../../index.html');
@@ -63,7 +72,7 @@
         {
 
             // User was not added successfully
-            $_SESSION['message'] = "Failed to register!";
+            $_SESSION['message_register'] = "Failed to register!";
             header('Location: ../../register.html');
             exit();
 
@@ -74,7 +83,7 @@
     {
 
         // All the fields are not set
-        $_SESSION['message'] = "All fields are required!";
+        $_SESSION['message_register'] = "All fields are required!";
         header('Location: ../../register.html');
         exit();
 

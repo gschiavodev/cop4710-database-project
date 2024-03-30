@@ -61,25 +61,32 @@
             <?php if ($_SESSION['user_is_super_admin']): ?>
                 <div class="row">
 
-                    <section style="flex: 2">
+                    <section id="section_manage_admins" style="flex: 2">
                         <h2>Manage Admins</h2>
                         <p>Use this form to promote or demote a user to or from admin status.</p>
                     </section>
                     
                     <section>
-                        <form method="POST" style="width: 100%">
+                        <form method="POST" action="php/action/manage_admin.php" style="width: 100%">
                             <label for="university_email">University Email:</label>
                             <input type="text" id="university_email" name="university_email" required>
-                            <input type="submit" value="Promote">
-                            <input type="submit" value="Demote">
+                            <input type="submit" name="action" value="Promote">
+                            <input type="submit" name="action" value="Demote">
                         </form>
+
+                        <!-- Display a message if the form was submitted -->
+                        <?php if (isset($_SESSION['message_manage_admin'])): ?>
+                            <p><?php echo $_SESSION['message_manage_admin']; ?></p>
+                            <?php unset($_SESSION['message_manage_admin']); ?>
+                        <?php endif; ?>
+                        
                     </section>
 
                 </div>
 
                 <div class="row">
 
-                    <section style="flex: 1">
+                    <section id="section_create_university" style="flex: 1">
                         <h2>Create University Profile</h2>
                         <p>Use this form to create a new university profile.</p>
                     </section>
@@ -127,9 +134,9 @@
                         </form>
 
                         <!-- Display a message if the form was submitted -->
-                        <?php if (isset($_SESSION['message'])): ?>
-                            <p><?php echo $_SESSION['message']; ?></p>
-                            <?php unset($_SESSION['message']); ?>
+                        <?php if (isset($_SESSION['message_create_university'])): ?>
+                            <p><?php echo $_SESSION['message_create_university']; ?></p>
+                            <?php unset($_SESSION['message_create_university']); ?>
                         <?php endif; ?>
 
                     </section>
