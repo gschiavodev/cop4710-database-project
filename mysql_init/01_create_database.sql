@@ -35,8 +35,8 @@ CREATE TABLE IF NOT EXISTS college_events.location
 (
     id INT AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL,
-    address_line_1 VARCHAR(255) NOT NULL,
-    address_line_2 VARCHAR(255),
+    address_line_01 VARCHAR(255) NOT NULL,
+    address_line_02 VARCHAR(255),
     city VARCHAR(255) NOT NULL,
     state VARCHAR(255) NOT NULL,
     zip_code VARCHAR(255) NOT NULL,
@@ -52,6 +52,7 @@ CREATE TABLE IF NOT EXISTS college_events.university
     location_id INT NOT NULL,
     name VARCHAR(255) NOT NULL,
     description TEXT NOT NULL,
+    email_domain VARCHAR(255) NOT NULL,
     PRIMARY KEY (id),
     CONSTRAINT fk_university_location_id FOREIGN KEY (location_id) REFERENCES college_events.location(id)
 );

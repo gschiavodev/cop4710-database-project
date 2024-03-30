@@ -12,6 +12,34 @@
         $university_email = $_POST['university_email'];
         $password = $_POST['password'];
 
+        // Validate the email first
+        if (!filter_var($university_email, FILTER_VALIDATE_EMAIL)) 
+        {
+
+            // Email is not valid
+            $_SESSION['message'] = "Invalid email address!";
+            header('Location: ../../register.html');
+            exit();
+
+        }
+
+        // Include the university.php file to get the university id
+        include_once "../university.php";
+
+        // Get the university id
+        $university_id = get_university_by_email($university_email);
+
+        // Check if the university id is set
+        if (!$university_id)
+        {
+
+            // University not found
+            $_SESSION['message'] = "No university registered for provided email domain!";
+            header('Location: ../../register.html');
+            exit();
+
+        }
+
         // Include the user.php file to insert the new user
         include_once "../user.php";
 
@@ -38,6 +66,7 @@
             $_SESSION['message'] = "Failed to register!";
             header('Location: ../../register.html');
             exit();
+
         }
         
     }
@@ -48,6 +77,7 @@
         $_SESSION['message'] = "All fields are required!";
         header('Location: ../../register.html');
         exit();
+
     }
 
 ?>

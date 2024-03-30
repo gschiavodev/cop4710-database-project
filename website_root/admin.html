@@ -85,17 +85,29 @@
                     </section>
                     
                     <section style="flex: 2">
-                        <form method="POST" style="width: 100%">
+                        <form method="POST" action="php/action/create_university.php" style="width: 100%">
 
                             <!-- University Name -->
                             <label for="university_name">University Name:</label>
                             <input type="text" id="university_name" name="university_name" required>
 
+                            <!-- University Description -->
+                            <label for="description">Description:</label>
+                            <textarea id="description" name="description" required></textarea>
+
+                            <!-- University Email Domain (with example) -->
+                            <label for="email_domain">Email Domain:</label>
+                            <input type="text" id="email_domain" name="email_domain" placeholder="example.edu" required>
+
+                            <!-- University Number of Students -->
+                            <label for="num_students">Number of Students:</label>
+                            <input type="number" id="num_students" name="num_students" required>
+
                             <!-- University Address Fields -->
                             <label for="address_line_01">Address Line 1:</label>
-                            <input type="text" id="address_line_01" name="address" required>
+                            <input type="text" id="address_line_01" name="address_line_01" required>
                             <label for="address_line_02">Address Line 2:</label>
-                            <input type="text" id="address_line_02" name="address">
+                            <input type="text" id="address_line_02" name="address_line_02">
 
                             <!-- University City -->
                             <label for="city">City:</label>
@@ -107,20 +119,19 @@
 
                             <!-- University Zip Code -->
                             <label for="zip">Area-code:</label>
-                            <input type="text" id="zip" name="zip" required>
-
-                            <!-- University Description -->
-                            <label for="description">Description:</label>
-                            <textarea id="description" name="description" required></textarea>
-
-                            <!-- University Number of Students -->
-                            <label for="num_students">Number of Students:</label>
-                            <input type="number" id="num_students" name="num_students" required>
+                            <input type="text" id="zip_code" name="zip_code" required>
 
                             <!-- Submit Button -->
                             <input type="submit" value="Create">
 
                         </form>
+
+                        <!-- Display a message if the form was submitted -->
+                        <?php if (isset($_SESSION['message'])): ?>
+                            <p><?php echo $_SESSION['message']; ?></p>
+                            <?php unset($_SESSION['message']); ?>
+                        <?php endif; ?>
+
                     </section>
 
                 </div>

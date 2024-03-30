@@ -27,7 +27,7 @@
         close_connection_to_database($conn);
 
         // Check if the user exists
-        return ($user) ? $user : false;
+        return $user;
 
     }
 

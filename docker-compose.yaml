@@ -9,18 +9,21 @@ services:
       - "80:80"
     volumes:
       - ./website_root:/var/www/html
+      - ./apache_config/000-default.conf:/etc/apache2/sites-available/000-default.conf
+      - ./php_init:/docker-entrypoint-initphp.d
+      - ./shared_data:/shared_data
     depends_on:
       - mysql
 
   mysql:
-    build:
-      context: .
-      dockerfile: Dockerfile.mysql  # Path to your Dockerfile
+    image: mysql:latest
     environment:
       MYSQL_ROOT_PASSWORD: "password"
       MYSQL_DATABASE: college_events
     volumes:
       - ./mysql_data:/var/lib/mysql
+      - ./mysql_init:/docker-entrypoint-initdb.d/
+      - ./shared_data:/shared_data
 
   phpmyadmin:
     image: lscr.io/linuxserver/phpmyadmin:latest

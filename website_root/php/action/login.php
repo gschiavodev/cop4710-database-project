@@ -24,7 +24,8 @@
                 $_SESSION['user_university_email'] = $user['university_email'];
                 $_SESSION['user_id'] = $user['id'];
 
-                // Include the admin.php file to check if the user is an admin
+                // Include the admin.php and super_admin.php files to check if the user is an admin or super admin
+                include_once "../super_admin.php";
                 include_once "../admin.php";
 
                 // Set sesstion variables for admin and super admin
