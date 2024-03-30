@@ -11,6 +11,7 @@
     <head>
         <title>College Event Website</title>
         <link rel="stylesheet" type="text/css" href="css/common_styles.css">
+        <link rel="stylesheet" type="text/css" href="css/form_styles.css">
     </head>
 
     <body>
@@ -21,7 +22,7 @@
 
                     <li><a href="index.html">Home</a></li>
                     <li><a href="universities.html">Universities</a></li>
-                    <li><a href="index.html">RSOs</a></li>
+                    <li><a href="rsos.html">RSOs</a></li>
 
                 </ul>
                 <ul>
@@ -59,30 +60,47 @@
                 </section>
                 
             </div>
-
+            
             <?php
-                
+                    
                 // Include the university.php file to get the universities
                 include_once "php/university.php";
 
-                // Get the universities
+                // Get all the universities
                 $universities = get_universities();
 
-                // Check if any universities were found
+                // Check if there are any universities
                 if ($universities->num_rows > 0)
                 {
 
-                    // Loop through the universities
-                    while ($university = $universities->fetch_assoc())
+                    // Loop through the universities and place them each in a section, two sections per row
+                    for ($i = 0; $i < $universities->num_rows; $i++)
                     {
 
+                        // Get the next university
+                        $university = $universities->fetch_assoc();
+
+                        // Open a new row after every two university sections
+                        if ($i % 2 == 0)
+                            echo "<div class=\"row\">";
+
                         // Display the university information
-                        echo "<div class='row'>";
                         echo "<section>";
                         echo "<h2>" . $university['name'] . "</h2>";
                         echo "<p>" . $university['description'] . "</p>";
+                        echo "<p>Number of students: " . $university['num_students'] . "</p>";
+
+                        // Create a button to view the university profile
+                        echo "<form action=\"php/profile/university.php\" method=\"get\">";
+                        echo "<input type=\"hidden\" name=\"university_id\" value=\"" . $university['id'] . "\">";
+                        echo "<button type=\"submit\">View Profile</button>";
+                        echo "</form>";
+
                         echo "</section>";
-                        echo "</div>";
+
+                        // Close the row after every two university sections
+                        if ($i % 2 == 1 || $i == $universities->num_rows - 1)
+                            echo "</div>";
 
                     }
 
@@ -99,7 +117,7 @@
 
                 }
 
-            ?>
+            ?> 
 
         </main>
 

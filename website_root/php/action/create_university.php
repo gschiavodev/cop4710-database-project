@@ -16,6 +16,7 @@
     $university_name = $_POST['university_name'];
     $description = $_POST['description'];
     $email_domain = $_POST['email_domain'];
+    $num_students = $_POST['num_students'];
     $address_line_01 = $_POST['address_line_01'];
     $address_line_02 = $_POST['address_line_02'];
     $city = $_POST['city'];
@@ -86,7 +87,7 @@
     }
 
     // Create the university
-    $university_created_result = create_university($university_name, $description, $email_domain, $location['id']);
+    $university_created_result = create_university($university_name, $description, $email_domain, $location['id'], $num_students);
 
     // Check if the university was created
     if ($university_created_result) 

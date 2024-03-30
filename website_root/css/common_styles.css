@@ -103,6 +103,10 @@ section button {
     transition: background-color 0.3s ease;
 }
 
+section button:hover {
+    background-color: #555;
+}
+
 footer {
     margin-top: auto;
     background-color: #222;

@@ -53,6 +53,7 @@ CREATE TABLE IF NOT EXISTS college_events.university
     name VARCHAR(255) NOT NULL,
     description TEXT NOT NULL,
     email_domain VARCHAR(255) NOT NULL,
+    num_students INT NOT NULL,
     PRIMARY KEY (id),
     CONSTRAINT fk_university_location_id FOREIGN KEY (location_id) REFERENCES college_events.location(id) ON DELETE CASCADE
 );

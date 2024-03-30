@@ -1,0 +1,185 @@
+<?php
+    
+    session_start();
+
+?>
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+        <title>College Event Website</title>
+        <link rel="stylesheet" type="text/css" href="css/common_styles.css">
+    </head>
+
+    <body>
+        
+        <header>
+            <nav>
+                <ul>
+
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="universities.html">Universities</a></li>
+                    <li><a href="rsos.html">RSOs</a></li>
+
+                </ul>
+                <ul>
+
+                    <?php if (isset($_SESSION['user_university_email'])): ?>
+
+                        <?php if (($_SESSION['user_is_admin']) || ($_SESSION['user_is_super_admin'])): ?>
+
+                            <!-- This content will only be shown if the user is an admin -->
+                            <li><a href="admin.html">Admin</a></li>
+                            
+                        <?php endif; ?>
+
+                        <!-- This content will only be shown if the user is logged in -->
+                        <li><a href="index.html?logout=true">Logout</a></li>
+
+                    <?php else: ?>
+
+                        <li><a href="login.html">Login</a></li>
+                        <li><a href="register.html">Register</a></li>
+
+                    <?php endif; ?>
+
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+
+            <div class="row">
+
+                <section>
+                    <h1>Registered Student Organizations</h1>
+                    <p>Below is a list of all the registered student organizations at the universities.</p>
+                </section>
+                
+            </div>
+            
+            <?php
+                    
+                // Include the rso.php file to get all the RSOs
+                include_once "php/rso.php";
+
+                // Get all the RSOs
+                $rsos = get_rsos();
+
+                // Check if there are any RSOs
+                if ($rsos->num_rows > 0)
+                {
+
+                    for ($i = 0; $i < $rsos->num_rows; $i++)
+                    {
+
+                        // Get the next RSO
+                        $rso = $rsos->fetch_assoc();
+
+                        // Include the university.php file to get the university of the RSO
+                        include_once "php/university.php";
+
+                        // Get the university of the RSO
+                        $university = get_university_by_rso_id($rso['id']);
+
+                        // Get the members of the RSO
+                        $rso_members = get_rso_members($rso['id']);
+
+                        // Open a new row after every three RSO sections
+                        if ($i % 3 == 0)
+                            echo "<div class=\"row\">";
+
+  
+                        // Display the RSO information
+                        echo "<section>";
+                        echo "<h3>" . $rso['name'] . "</h3>";
+                        echo "<p>" . $rso['description'] . "</p>";
+                        echo "<p>Members: " . $rso_members->num_rows . "</p>";
+                        echo "<p>University: " . $university['name'] . "</p>";
+                        echo "<button>View</button>";
+                        echo "</section>";
+
+                        // Close the row after every three RSO sections
+                        if ($i % 3 == 2 || $i == $rsos->num_rows - 1)
+                            echo "</div>";
+
+                    }
+
+                }
+                else
+                {
+
+                    // Display a message if there are no RSOs
+                    echo "<div class=\"row\">";
+                    echo "<section>";
+                    echo "<p>There are no registered student organizations.</p>";
+                    echo "</section>";
+                    echo "</div>";
+
+                }
+                
+                // We will do something similar to below but for all the RSOs
+                /*
+                // Get the owned RSOs
+                $owned_rsos = get_owned_rsos($_SESSION['user_id']);
+
+                // Check if the user owns any RSOs
+                if ($owned_rsos->num_rows > 0) 
+                {
+
+                    for ($i = 0; $i < $owned_rsos->num_rows; $i++) 
+                    {
+
+                        // Get the next RSO
+                        $rso = $owned_rsos->fetch_assoc();
+
+                        // Include the rso.php file to get the RSO members
+                        include_once "php/rso.php";
+
+                        // Get the members of the RSO
+                        $rso_members = get_rso_members($rso['id']);
+
+                        // Open a new row after every three RSO sections
+                        if ($i % 3 == 0)
+                            echo "<div class=\"row\">";
+
+                        // Display the RSO information
+                        echo "<section>";
+                        echo "<h3>" . $rso['name'] . "</h3>";
+                        echo "<p>" . $rso['description'] . "</p>";
+                        echo "<p>Members: " . $rso_members->num_rows . "</p>";
+                        echo "<p>University: " . $rso['university_id'] . "</p>";
+                        echo "<button>Manage</button>";
+                        echo "</section>";
+
+                        // Close the row after every three RSO sections
+                        if ($i % 3 == 2 || $i == $select_rsos_result->num_rows - 1)
+                            echo "</div>";
+
+                    }
+
+                }
+                else
+                {
+
+                    // Display a message if the user does not own any RSOs
+                    echo "<div class=\"row\">";
+                    echo "<section>";
+                    echo "<p>You do not own any RSOs.</p>";
+                    echo "</section>";
+                    echo "</div>";
+
+                }
+                */
+            ?> 
+
+        </main>
+
+        <footer>
+            <p>&copy; Gabriel Schiavo</p>
+        </footer>
+        
+    </body>
+</html>

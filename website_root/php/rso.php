@@ -3,6 +3,30 @@
     // Include the database connection information
     include_once "database.php";
 
+    function get_rsos()
+    {
+
+        // Connect to the database
+        $conn = connect_to_database();
+
+        // Query to get all the RSOs
+        $sql = "SELECT * FROM rso";
+
+        // Prepare a SELECT statement to get all the RSOs
+        $select_rsos = $conn->prepare($sql);
+        $select_rsos->execute();
+
+        // Get the result of the SELECT query
+        $select_rsos_result = $select_rsos->get_result();
+
+        // Close connection to the database
+        close_connection_to_database($conn);
+
+        // Return the result of the SELECT query
+        return $select_rsos_result;
+        
+    }
+
     function get_owned_rsos($admin_id)
     {
 
