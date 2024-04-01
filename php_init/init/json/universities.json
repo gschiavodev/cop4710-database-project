@@ -1,0 +1,66 @@
+[
+    {
+        "name": "University of Central Florida",
+        "description": "At UCF, we offer an array of academic options for just about every interest. Check out our 240+ degree programs, award-winning faculty and groundbreaking research. You’ll quickly discover all there is to experience and learn at one of the nation’s most innovative universities.",
+        "email_domain": "ucf.edu",
+        "num_students": 60000,
+        "location": {
+            "name": "University of Central Florida",
+            "address_line_01": "4000 Central Florida Blvd",
+            "address_line_02": "",
+            "city": "Orlando",
+            "state": "Florida",
+            "zip_code": "32816",
+            "longitude": null,
+            "latitude": null
+        }
+    },
+    {
+        "name": "Rollins College",
+        "description": "When Florida needed a college, we founded one. We’re entrepreneurial like that. More than 135 years later, we’re still hard at work, preparing a new generation of leaders to meet the challenges of the 21st century.",
+        "email_domain": "rollins.edu",
+        "num_students": 3000,
+        "location": {
+            "name": "Rollins College",
+            "address_line_01": "1000 Holt Ave",
+            "address_line_02": "",
+            "city": "Winter Park",
+            "state": "Florida",
+            "zip_code": "32789",
+            "longitude": null,
+            "latitude": null
+        }
+    },
+    {
+        "name": "Florida State University",
+        "description": "Florida State University is a public research university in Tallahassee, Florida, United States. It is a senior member of the State University System of Florida. Chartered in 1851, it is located on Florida's oldest continuous site of higher education",
+        "email_domain": "fsu.edu",
+        "num_students": 45000,
+        "location": {
+            "name": "Florida State University",
+            "address_line_01": "600 W College Ave",
+            "address_line_02": "",
+            "city": "Tallahassee",
+            "state": "Florida",
+            "zip_code": "32306",
+            "longitude": null,
+            "latitude": null
+        }
+    },
+    {
+        "name": "University of Florida",
+        "description": "A top five public land-grant research university, the University of Florida creates a collaborative environment and accelerates future solutions.",
+        "email_domain": "ufl.edu",
+        "num_students": 55000,
+        "location": {
+            "name": "University of Florida",
+            "address_line_01": "300 SW 13th St",
+            "address_line_02": "",
+            "city": "Gainesville",
+            "state": "Florida",
+            "zip_code": "32611",
+            "longitude": null,
+            "latitude": null
+        }
+    }
+]

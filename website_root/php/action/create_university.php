@@ -39,11 +39,11 @@
         $success = create_location($university_name, $address_line_01, $address_line_02, $city, $state, $zip_code, $latitude, $longitude);
 
         // Check if create_location returned an string
-        if (is_string($location_created_result)) 
+        if (is_string($success)) 
         {
 
             // Redirect to the admin page
-            $_SESSION['message_create_university'] = $location_created_result;
+            $_SESSION['message_create_university'] = $success;
             header('Location: ../../admin.html#section_create_university');
             exit();
 
