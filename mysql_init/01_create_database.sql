@@ -107,6 +107,7 @@ CREATE TABLE IF NOT EXISTS college_events.rso
     university_id INT NOT NULL,
     name VARCHAR(255) NOT NULL,
     description TEXT NOT NULL,
+    is_approved BOOLEAN NOT NULL,
     PRIMARY KEY (id),
     CONSTRAINT fk_rso_admin_id FOREIGN KEY (admin_id) REFERENCES college_events.admin(id) ON DELETE CASCADE,
     CONSTRAINT fk_rso_university_id FOREIGN KEY (university_id) REFERENCES college_events.university(id) ON DELETE CASCADE

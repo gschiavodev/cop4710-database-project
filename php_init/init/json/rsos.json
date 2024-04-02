@@ -1,0 +1,46 @@
+[
+    {
+        "name": "RSO1",
+        "description": "This is a description for RSO1.",
+        "university_domain": "ucf.edu",
+        "members": [
+            {"university_email": "johndoe@ucf.edu"},
+            {"university_email": "janesmith@ucf.edu"},
+            {"university_email": "alicejohnson@ucf.edu"},
+            {"university_email": "bobwilliams@ucf.edu"}
+        ]
+    },
+    {
+        "name": "RSO2",
+        "description": "This is a description for RSO2.",
+        "university_domain": "rollins.edu",
+        "members": [
+            {"university_email": "charliebrown@rollins.edu"},
+            {"university_email": "emilydavis@rollins.edu"},
+            {"university_email": "frankmiller@rollins.edu"},
+            {"university_email": "gracewilson@rollins.edu"}
+        ]
+    },
+    {
+        "name": "RSO3",
+        "description": "This is a description for RSO3.",
+        "university_domain": "fsu.edu",
+        "members": [
+            {"university_email": "harrymoore@fsu.edu"},
+            {"university_email": "ivytaylor@fsu.edu"},
+            {"university_email": "jackanderson@fsu.edu"},
+            {"university_email": "katiethomas@fsu.edu"}
+        ]
+    },
+    {
+        "name": "RSO4",
+        "description": "This is a description for RSO4.",
+        "university_domain": "ufl.edu",
+        "members": [
+            {"university_email": "laurawhite@ufl.edu"},
+            {"university_email": "michaelgreen@ufl.edu"},
+            {"university_email": "nicoleblack@ufl.edu"},
+            {"university_email": "oscarbrown@ufl.edu"}
+        ]
+    }
+]

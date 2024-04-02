@@ -4,7 +4,7 @@
     include_once "/var/www/html/php/location.php";
     include_once "/var/www/html/php/university.php";
 
-    // Fetch the sample data from the sample_data.json file
+    // Fetch the sample data from the universities.json file
     $json_data = file_get_contents("./init/json/universities.json");
     $sample_data = json_decode($json_data, true);
 

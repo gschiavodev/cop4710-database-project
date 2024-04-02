@@ -1,0 +1,98 @@
+[
+    {
+        "first_name": "John",
+        "last_name": "Doe",
+        "university_email": "johndoe@ucf.edu",
+        "password": "password123"
+    },
+    {
+        "first_name": "Jane",
+        "last_name": "Smith",
+        "university_email": "janesmith@ucf.edu",
+        "password": "password123"
+    },
+    {
+        "first_name": "Alice",
+        "last_name": "Johnson",
+        "university_email": "alicejohnson@ucf.edu",
+        "password": "password123"
+    },
+    {
+        "first_name": "Bob",
+        "last_name": "Williams",
+        "university_email": "bobwilliams@ucf.edu",
+        "password": "password123"
+    },
+    {
+        "first_name": "Charlie",
+        "last_name": "Brown",
+        "university_email": "charliebrown@rollins.edu",
+        "password": "password123"
+    },
+    {
+        "first_name": "Emily",
+        "last_name": "Davis",
+        "university_email": "emilydavis@rollins.edu",
+        "password": "password123"
+    },
+    {
+        "first_name": "Frank",
+        "last_name": "Miller",
+        "university_email": "frankmiller@rollins.edu",
+        "password": "password123"
+    },
+    {
+        "first_name": "Grace",
+        "last_name": "Wilson",
+        "university_email": "gracewilson@rollins.edu",
+        "password": "password123"
+    },
+    {
+        "first_name": "Harry",
+        "last_name": "Moore",
+        "university_email": "harrymoore@fsu.edu",
+        "password": "password123"
+    },
+    {
+        "first_name": "Ivy",
+        "last_name": "Taylor",
+        "university_email": "ivytaylor@fsu.edu",
+        "password": "password123"
+    },
+    {
+        "first_name": "Jack",
+        "last_name": "Anderson",
+        "university_email": "jackanderson@fsu.edu",
+        "password": "password123"
+    },
+    {
+        "first_name": "Katie",
+        "last_name": "Thomas",
+        "university_email": "katiethomas@fsu.edu",
+        "password": "password123"
+    },
+    {
+        "first_name": "Laura",
+        "last_name": "White",
+        "university_email": "laurawhite@ufl.edu",
+        "password": "password123"
+    },
+    {
+        "first_name": "Michael",
+        "last_name": "Green",
+        "university_email": "michaelgreen@ufl.edu",
+        "password": "password123"
+    },
+    {
+        "first_name": "Nicole",
+        "last_name": "Black",
+        "university_email": "nicoleblack@ufl.edu",
+        "password": "password123"
+    },
+    {
+        "first_name": "Oscar",
+        "last_name": "Brown",
+        "university_email": "oscarbrown@ufl.edu",
+        "password": "password123"
+    }
+]
