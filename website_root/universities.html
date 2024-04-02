@@ -62,6 +62,9 @@
             </div>
             
             <?php
+
+                // Constants
+                $UNIVERSITIES_PER_ROW = 2;
                     
                 // Include the university.php file to get the universities
                 include_once "php/university.php";
@@ -81,7 +84,7 @@
                         $university = $universities->fetch_assoc();
 
                         // Open a new row after every two university sections
-                        if ($i % 2 == 0)
+                        if ($i % $UNIVERSITIES_PER_ROW == 0)
                             echo "<div class=\"row\">";
 
                         // Display the university information
@@ -98,9 +101,18 @@
 
                         echo "</section>";
 
-                        // Close the row after every two university sections
-                        if ($i % 2 == 1 || $i == $universities->num_rows - 1)
+                        // Close the row after every three RSO sections
+                        if ($i % $UNIVERSITIES_PER_ROW == ($UNIVERSITIES_PER_ROW - 1) || $i == $universities->num_rows - 1)
+                        {
+
+                            // If last row has less than three RSOs, add empty sections to fill the row
+                            for ($j = 0; $j < $UNIVERSITIES_PER_ROW - ($i % $UNIVERSITIES_PER_ROW) - 1; $j++)
+                                echo "<section><p></p></section>";
+
+                            // Close the row
                             echo "</div>";
+                            
+                        }
 
                     }
 

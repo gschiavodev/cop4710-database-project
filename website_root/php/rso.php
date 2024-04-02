@@ -3,6 +3,28 @@
     // Include the database connection information
     include_once "database.php";
 
+    function get_rso_by_id($rso_id)
+    {
+
+        // Connect to the database
+        $conn = connect_to_database();
+
+        // Prepare a SELECT statement to get the RSO with the provided ID
+        $select_rso = $conn->prepare("SELECT * FROM rso WHERE id = ?");
+        $select_rso->bind_param("i", $rso_id);
+        $select_rso->execute();
+
+        // Get the result of the SELECT query
+        $rso = $select_rso->get_result()->fetch_assoc();
+
+        // Close connection to the database
+        close_connection_to_database($conn);
+
+        // Return the result of the SELECT query
+        return $rso;
+        
+    }
+
     function get_approved_rsos()
     {
 
@@ -103,6 +125,10 @@
     function create_rso($rso_name, $rso_description, $rso_university_id, $user_ids)
     {
 
+        // Check that there are at least 4 users in the RSO
+        if (count($user_ids) < 4)
+            return null;
+
         // Admin ID is the first user ID in the list
         $admin_id = $user_ids[0];
 
@@ -165,6 +191,85 @@
         // Return the ID of the RSO that was just created
         return $rso_id;
         
+    }
+
+    function delete_rso_by_id($rso_id)
+    {
+
+        // Check if the admin who owns the RSO is an admin of the system
+        $rso = get_rso_by_id($rso_id);
+        $admin_id = $rso['admin_id'];
+
+        // Include the admin.php
+        include_once "admin.php";
+
+        // Check if the user who created the RSO is an admin
+        if (is_admin($admin_id))
+        {
+
+            // Check if the user is an admin of any other RSOs
+            $owned_rsos = get_owned_rsos($admin_id);
+
+            // If the user is not an admin of any other RSOs, remove the admin status
+            if ($owned_rsos->num_rows == 1)
+            {
+
+                // Include the super_admin.php
+                include_once "../super_admin.php";
+
+                // If the user is a super admin, do not remove the admin status
+                if (!is_super_admin($admin_id))
+                {
+
+                    // Remove the admin status from the user
+                    delete_admin_by_user_id($admin_id);
+
+                }
+
+            }
+
+        }
+
+        // Connect to the database
+        $conn = connect_to_database();
+
+        // Prepare a DELETE statement to delete the RSO
+        $delete_rso = $conn->prepare("DELETE FROM rso WHERE id = ?");
+        $delete_rso->bind_param("i", $rso_id);
+        $delete_rso->execute();
+
+        // Close connection to the database
+        close_connection_to_database($conn);
+
+        // Return if the RSO was deleted
+        return $delete_rso->affected_rows > 0;
+        
+    }
+
+    // Function to approve an RSO
+    function approve_rso_by_id($rso_id)
+    {
+
+        // Connect to the database
+        $conn = connect_to_database();
+
+        // Prepare a UPDATE statement to approve the RSO
+        $approve_rso = $conn->prepare("UPDATE rso SET is_approved = 1 WHERE id = ?");
+        $approve_rso->bind_param("i", $rso_id);
+        $approve_rso->execute();
+
+        // Close connection to the database
+        close_connection_to_database($conn);
+
+    }
+
+    // Function to deny an RSO
+    function deny_rso_by_id($rso_id)
+    {
+
+        // Delete the RSO
+        delete_rso_by_id($rso_id);
+
     }
 
 ?>

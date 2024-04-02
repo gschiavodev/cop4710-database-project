@@ -145,77 +145,145 @@
 
                 <div class="row">
 
-                    <section id="section_approve_rso">
-                        <h2>Approve RSO</h2>
-                        <p>Use this form to approve a registered student organization.</p>
+                    <section id="section_approve_deny_rso">
+                        <h2>Manage Registered Student Organizations</h2>
+                        <p>Use this section to approve or deny a registered student organization.</p>
+                        <p>Note: The first member listed will become the owner of the RSO.</p>
                     </section>
 
                 </div>
 
-                <div class="row">
+                <?php
 
-                    <section>
+                    // Constants
+                    $RSOS_PER_ROW = 3;
 
-                        <?php
+                    // Include the rso.php file to get the RSOs that are not approved
+                    include_once "php/rso.php";
 
-                            // Include the rso.php file to get the RSOs that are not approved
-                            include_once "php/rso.php";
+                    // Get the RSOs that are not approved
+                    $unapproved_rsos = get_unapproved_rsos();
 
-                            // Get the RSOs that are not approved
-                            $unapproved_rsos = get_unapproved_rsos();
+                    // Check if there are any RSOs that are not approved
+                    if ($unapproved_rsos->num_rows > 0) 
+                    {
 
-                            // Check if there are any RSOs that are not approved
-                            if ($unapproved_rsos->num_rows > 0) 
+                        // Display the RSOs that are not approved
+                        for ($i = 0; $i < $unapproved_rsos->num_rows; $i++) 
+                        {
+
+                            // Get the next RSO
+                            $rso = $unapproved_rsos->fetch_assoc();
+
+                            // Open a new row after every three RSO sections
+                            if ($i % $RSOS_PER_ROW == 0)
+                                echo "<div class=\"row\">";
+
+                            echo "<section>";
+
+                            // Display the RSO information
+                            echo "<h3>" . $rso['name'] . "</h3>";
+                            echo "<p>" . $rso['description'] . "</p>";
+                            
+                            // Include the university.php file to get the university name
+                            include_once "php/university.php";
+
+                            // Get the university name
+                            $university = get_university_by_rso_id($rso['id']);
+                            echo "<p>" . $university['name'] . "</p>";
+
+                            // Get the members of the RSO
+                            $rso_members = get_rso_members($rso['id']);
+
+                            // Display the members of the RSO as a numbered list
+                            echo "<p>Members:</p>";
+
                             {
 
-                                // Display the RSOs that are not approved
-                                for ($i = 0; $i < $unapproved_rsos->num_rows; $i++) 
+                                // Check if there are any members
+                                if ($rso_members->num_rows > 0) 
                                 {
 
-                                    // Get the next RSO
-                                    $rso = $unapproved_rsos->fetch_assoc();
+                                    echo "<ol>";
 
-                                    // Open a new row after every three RSO sections
-                                    if ($i % 3 == 0)
-                                        echo "<div class=\"row\">";
+                                    for ($j = 0; $j < $rso_members->num_rows; $j++) 
+                                    {
 
-                                    // Display the RSO information
-                                    echo "<section>";
-                                    echo "<h3>" . $rso['name'] . "</h3>";
-                                    echo "<p>" . $rso['description'] . "</p>";
-                                    echo "<p>Members: " . $rso['num_members'] . "</p>";
-                                    echo "<p>University: " . $rso['university_id'] . "</p>";
-                                    echo "<form method=\"POST\" action=\"php/action/approve_rso.php\">";
-                                    echo "<input type=\"hidden\" name=\"rso_id\" value=\"" . $rso['id'] . "\">";
-                                    echo "<input type=\"submit\" value=\"Approve\">";
-                                    echo "<input type=\"submit\" value=\"Deny\">";
-                                    echo "</form>";
-                                    echo "</section>";
+                                        // Get the next RSO member
+                                        $rso_member = $rso_members->fetch_assoc();
+                                        echo "<li>";
+                                        echo "<p>" . "Name: " . $rso_member['first_name'] . " " . $rso_member['last_name'] . "</p>";
+                                        echo "<p>" . "Email: " . $rso_member['university_email'] . "</p>";
+                                        echo "</li>";
 
-                                    // Close the row after every three RSO sections
-                                    if ($i % 3 == 2 || $i == $unapproved_rsos->num_rows - 1)
-                                        echo "</div>";
+                                    }
+
+                                    echo "</ol>";
+
+                                }
+                                else
+                                {
+
+                                    echo "<p>There are no members.</p>";
 
                                 }
 
                             }
-                            else
+
+                            // Display the approve button
+                            echo "<form method=\"POST\" action=\"php/action/approve_deny_rso.php\">";
+                            echo "<input type=\"hidden\" name=\"rso_id\" value=\"" . $rso['id'] . "\">";
+                            echo "<input type=\"hidden\" name=\"action\" value=\"approve\">";
+                            echo "<input type=\"submit\" value=\"Approve\">";
+                            echo "</form>";
+
+                            // Display the deny button
+                            echo "<form method=\"POST\" action=\"php/action/approve_deny_rso.php\">";
+                            echo "<input type=\"hidden\" name=\"rso_id\" value=\"" . $rso['id'] . "\">";
+                            echo "<input type=\"hidden\" name=\"action\" value=\"deny\">";
+                            echo "<input type=\"submit\" value=\"Deny\">";
+                            echo "</form>";
+
+                            // Close the section
+                            echo "</section>";
+
+                            // Close the row after every three RSO sections
+                            if ($i % $RSOS_PER_ROW == ($RSOS_PER_ROW - 1) || $i == $unapproved_rsos->num_rows - 1)
                             {
 
-                                // Display a message if there are no RSOs that are not approved
-                                echo "<div class=\"row\">";
-                                echo "<section>";
-                                echo "<p>There are no RSOs to approved.</p>";
-                                echo "</section>";
+                                // If last row has less than three RSOs, add empty sections to fill the row
+                                for ($j = 0; $j < $RSOS_PER_ROW - ($i % $RSOS_PER_ROW) - 1; $j++)
+                                    echo "<section><p></p></section>";
+
+                                // Close the row
                                 echo "</div>";
 
                             }
-                        
-                        ?>
+                        }
 
-                    </section>
+                    }
+                    else
+                    {
 
-                </div>
+                        // Display a message if there are no RSOs that are not approved
+                        echo "<div class=\"row\">";
+                        echo "<section>";
+                        echo "<p>There are no RSOs to approve.</p>";
+                        echo "</section>";
+                        echo "</div>";
+
+                    }
+                
+                ?>
+
+                <?php if (isset($_SESSION['message_approve_deny_rso'])): ?>
+                    <div class="row">
+                        <section>
+                            <p><?php echo $_SESSION['message_approve_deny_rso']; ?></p>
+                            <?php unset($_SESSION['message_approve_deny_rso']); ?>
+                        </section>
+                    </div>
+                <?php endif; ?>
 
             <?php endif; ?>
             
