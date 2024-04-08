@@ -1,0 +1,100 @@
+<?php
+
+    session_start();
+
+    // Check if the user is an admin
+    if (!isset($_SESSION['university_id']))
+    {
+        header("Location: ../../index.html");
+        exit();
+    }
+    
+?>
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+        <title>Create Event</title>
+        <link rel="stylesheet" type="text/css" href="../../css/common_styles.css">
+        <link rel="stylesheet" type="text/css" href="../../css/form_styles.css">
+    </head>
+
+    <body>
+        
+        <header>
+            <nav>
+                <ul>
+
+                    <li><a href="../../index.html">Home</a></li>
+                    <li><a href="../../universities.html">Universities</a></li>
+                    <li><a href="../../rsos.html">RSOs</a></li>
+
+                </ul>
+                <ul>
+
+                    <li><a href="login.html">Login</a></li>
+                    <li><a href="register.html">Register</a></li>
+                    
+                </ul>
+            </nav>
+        </header>
+        
+        <main>
+            <div class="row">
+                <section>
+                    <h2>Create Event</h2>
+                </section>
+            </div>
+
+            <div class="row">
+                <section>
+
+                    <p>Fill out the form below to create an event.</p>
+
+                    <form action="../action/create_event.php" method="post">
+
+                        <label for="event_name">Event Name:</label>
+                        <input type="text" id="event_name" name="event_name" required>
+
+                        <label for="event_description">Event Description:</label>
+                        <textarea id="event_description" name="event_description" required></textarea>
+
+                        <label for="event_date">Event Date:</label>
+                        <input type="date" id="event_date" name="event_date" required>
+
+                        <label for="event_time">Event Time:</label>
+                        <input type="time" id="event_time" name="event_time" required>
+
+                        <label for="event_location">Event Location:</label>
+                        <input type="text" id="event_location" name="event_location" required>
+
+                        <label for="event_category">Event Category:</label>
+                        <select id="event_category" name="event_category" required>
+                            <option value="Social">Academic</option>
+                            <option value="Philanthropy">Athletic</option>
+                            <option value="Fundraising">Cultural</option>
+                            <option value="Tech-talks">Social</option>
+                        </select>
+
+                        <label for="event_type">Event Type:</label>
+                        <select id="event_type" name="event_type" required>
+                            <option value="Public">Public</option>
+                            <option value="Private">Private</option>
+                            <option value="RSO">RSO</option>
+                        </select>
+
+                        <input type="submit" value="Create Event">
+
+                </section>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; Gabriel Schiavo</p>
+        </footer>
+
+    </body>
+
+</html>

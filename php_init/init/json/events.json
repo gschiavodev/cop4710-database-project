@@ -1,0 +1,322 @@
+[
+    {
+        "name": "Event 1",
+        "description": "This is a description for Event 1",
+        "category": "social",
+        "date": "2022-01-01",
+        "time": "10:00:00",
+        "phone_number": "123-456-7891",
+        "email": "event1@ucf.edu",
+        "location": 
+        {
+            "name": "University of Central Florida",
+            "address_line_01": "4000 Central Florida Blvd",
+            "address_line_02": "",
+            "city": "Orlando",
+            "state": "Florida",
+            "zip_code": "32816",
+            "longitude": null,
+            "latitude": null
+        }
+    },
+    {
+        "name": "Event 2",
+        "description": "This is a description for Event 2",
+        "category": "philanthropy",
+        "date": "2022-02-02",
+        "time": "11:00:00",
+        "phone_number": "123-456-7892",
+        "email": "event2@ucf.edu",
+        "location": 
+        {
+            "name": "University of Central Florida",
+            "address_line_01": "4000 Central Florida Blvd",
+            "address_line_02": "",
+            "city": "Orlando",
+            "state": "Florida",
+            "zip_code": "32816",
+            "longitude": null,
+            "latitude": null
+        }
+    },
+    {
+        "name": "Event 3",
+        "description": "This is a description for Event 3",
+        "category": "fundraising",
+        "date": "2022-03-03",
+        "time": "12:00:00",
+        "phone_number": "123-456-7893",
+        "email": "event3@rollins.edu",
+        "location": 
+        {
+            "name": "Rollins College",
+            "address_line_01": "1000 Holt Ave",
+            "address_line_02": "",
+            "city": "Winter Park",
+            "state": "Florida",
+            "zip_code": "32789",
+            "longitude": null,
+            "latitude": null
+        }
+    },
+    {
+        "name": "Event 4",
+        "description": "This is a description for Event 4",
+        "category": "tech talks",
+        "date": "2022-04-04",
+        "time": "13:00:00",
+        "phone_number": "123-456-7894",
+        "email": "event4@rollins.edu",
+        "location": 
+        {
+            "name": "Rollins College",
+            "address_line_01": "1000 Holt Ave",
+            "address_line_02": "",
+            "city": "Winter Park",
+            "state": "Florida",
+            "zip_code": "32789",
+            "longitude": null,
+            "latitude": null
+        }
+    },
+    {
+        "name": "Event 5",
+        "description": "This is a description for Event 5",
+        "category": "social",
+        "date": "2022-05-05",
+        "time": "14:00:00",
+        "phone_number": "123-456-7895",
+        "email": "event5@fsu.edu",
+        "location": 
+        {
+            "name": "Florida State University",
+            "address_line_01": "600 W College Ave",
+            "address_line_02": "",
+            "city": "Tallahassee",
+            "state": "Florida",
+            "zip_code": "32306",
+            "longitude": null,
+            "latitude": null
+        }
+    },
+    {
+        "name": "Event 6",
+        "description": "This is a description for Event 6",
+        "category": "philanthropy",
+        "date": "2022-06-06",
+        "time": "15:00:00",
+        "phone_number": "123-456-7896",
+        "email": "event6@fsu.edu",
+        "location": 
+        {
+            "name": "Florida State University",
+            "address_line_01": "600 W College Ave",
+            "address_line_02": "",
+            "city": "Tallahassee",
+            "state": "Florida",
+            "zip_code": "32306",
+            "longitude": null,
+            "latitude": null
+        }
+    },
+    {
+        "name": "Event 7",
+        "description": "This is a description for Event 7",
+        "category": "fundraising",
+        "date": "2022-07-07",
+        "time": "16:00:00",
+        "phone_number": "123-456-7897",
+        "email": "event7@ufl.edu",
+        "location": 
+        {
+            "name": "University of Florida",
+            "address_line_01": "300 SW 13th St",
+            "address_line_02": "",
+            "city": "Gainesville",
+            "state": "Florida",
+            "zip_code": "32611",
+            "longitude": null,
+            "latitude": null
+        }
+    },
+    {
+        "name": "Event 8",
+        "description": "This is a description for Event 8",
+        "category": "tech talks",
+        "date": "2022-08-08",
+        "time": "17:00:00",
+        "phone_number": "123-456-7898",
+        "email": "event8@ufl.edu",
+        "location": 
+        {
+            "name": "University of Florida",
+            "address_line_01": "300 SW 13th St",
+            "address_line_02": "",
+            "city": "Gainesville",
+            "state": "Florida",
+            "zip_code": "32611",
+            "longitude": null,
+            "latitude": null
+        }
+    },
+    {
+        "name": "Event 9",
+        "description": "This is a description for Event 9",
+        "category": "social",
+        "date": "2022-09-09",
+        "time": "18:00:00",
+        "phone_number": "123-456-7899",
+        "email": "event9@ucf.edu",
+        "location": 
+        {
+            "name": "University of Central Florida",
+            "address_line_01": "4000 Central Florida Blvd",
+            "address_line_02": "",
+            "city": "Orlando",
+            "state": "Florida",
+            "zip_code": "32816",
+            "longitude": null,
+            "latitude": null
+        }
+    },
+    {
+        "name": "Event 10",
+        "description": "This is a description for Event 10",
+        "category": "philanthropy",
+        "date": "2022-10-10",
+        "time": "19:00:00",
+        "phone_number": "123-456-7810",
+        "email": "event10@ucf.edu",
+        "location": 
+        {
+            "name": "University of Central Florida",
+            "address_line_01": "4000 Central Florida Blvd",
+            "address_line_02": "",
+            "city": "Orlando",
+            "state": "Florida",
+            "zip_code": "32816",
+            "longitude": null,
+            "latitude": null
+        }
+    },
+    {
+        "name": "Event 11",
+        "description": "This is a description for Event 11",
+        "category": "fundraising",
+        "date": "2022-11-11",
+        "time": "20:00:00",
+        "phone_number": "123-456-7811",
+        "email": "event11@rollins.edu",
+        "location": 
+        {
+            "name": "Rollins College",
+            "address_line_01": "1000 Holt Ave",
+            "address_line_02": "",
+            "city": "Winter Park",
+            "state": "Florida",
+            "zip_code": "32789",
+            "longitude": null,
+            "latitude": null
+        }
+    },
+    {
+        "name": "Event 12",
+        "description": "This is a description for Event 12",
+        "category": "tech talks",
+        "date": "2022-12-12",
+        "time": "21:00:00",
+        "phone_number": "123-456-7812",
+        "email": "event12@rollins.edu",
+        "location": 
+        {
+            "name": "Rollins College",
+            "address_line_01": "1000 Holt Ave",
+            "address_line_02": "",
+            "city": "Winter Park",
+            "state": "Florida",
+            "zip_code": "32789",
+            "longitude": null,
+            "latitude": null
+        }
+    },
+    {
+        "name": "Event 13",
+        "description": "This is a description for Event 13",
+        "category": "social",
+        "date": "2023-01-13",
+        "time": "22:00:00",
+        "phone_number": "123-456-7813",
+        "email": "event13@fsu.edu",
+        "location": 
+        {
+            "name": "Florida State University",
+            "address_line_01": "600 W College Ave",
+            "address_line_02": "",
+            "city": "Tallahassee",
+            "state": "Florida",
+            "zip_code": "32306",
+            "longitude": null,
+            "latitude": null
+        }
+    },
+    {
+        "name": "Event 14",
+        "description": "This is a description for Event 14",
+        "category": "philanthropy",
+        "date": "2023-02-14",
+        "time": "23:00:00",
+        "phone_number": "123-456-7814",
+        "email": "event14@fsu.edu",
+        "location": 
+        {
+            "name": "Florida State University",
+            "address_line_01": "600 W College Ave",
+            "address_line_02": "",
+            "city": "Tallahassee",
+            "state": "Florida",
+            "zip_code": "32306",
+            "longitude": null,
+            "latitude": null
+        }
+    },
+    {
+        "name": "Event 15",
+        "description": "This is a description for Event 15",
+        "category": "fundraising",
+        "date": "2023-03-15",
+        "time": "00:00:00",
+        "phone_number": "123-456-7815",
+        "email": "event15@ufl.edu",
+        "location": 
+        {
+            "name": "University of Florida",
+            "address_line_01": "300 SW 13th St",
+            "address_line_02": "",
+            "city": "Gainesville",
+            "state": "Florida",
+            "zip_code": "32611",
+            "longitude": null,
+            "latitude": null
+        }
+    },
+    {
+        "name": "Event 16",
+        "description": "This is a description for Event 16",
+        "category": "tech talks",
+        "date": "2023-04-16",
+        "time": "01:00:00",
+        "phone_number": "123-456-7816",
+        "email": "event16@ufl.edu",
+        "location": 
+        {
+            "name": "University of Florida",
+            "address_line_01": "300 SW 13th St",
+            "address_line_02": "",
+            "city": "Gainesville",
+            "state": "Florida",
+            "zip_code": "32611",
+            "longitude": null,
+            "latitude": null
+        }
+    }
+]

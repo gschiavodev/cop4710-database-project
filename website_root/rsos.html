@@ -11,6 +11,7 @@
     <head>
         <title>College Event Website</title>
         <link rel="stylesheet" type="text/css" href="css/common_styles.css">
+        <link rel="stylesheet" type="text/css" href="css/form_styles.css">
     </head>
 
     <body>
@@ -40,8 +41,8 @@
 
                     <?php else: ?>
 
-                        <li><a href="login.html">Login</a></li>
-                        <li><a href="register.html">Register</a></li>
+                        <li><a href="php/form/login.html">Login</a></li>
+                        <li><a href="php/form/register.html">Register</a></li>
 
                     <?php endif; ?>
 
@@ -72,6 +73,9 @@
                 if ($rsos->num_rows > 0)
                 {
 
+                    // Constants
+                    $RSOS_PER_ROW = 3;
+
                     for ($i = 0; $i < $rsos->num_rows; $i++)
                     {
 
@@ -88,7 +92,7 @@
                         $rso_members = get_rso_members($rso['id']);
 
                         // Open a new row after every three RSO sections
-                        if ($i % 3 == 0)
+                        if ($i % $RSOS_PER_ROW == 0)
                             echo "<div class=\"row\">";
 
                         // Display the RSO information
@@ -97,11 +101,17 @@
                         echo "<p>" . $rso['description'] . "</p>";
                         echo "<p>Members: " . $rso_members->num_rows . "</p>";
                         echo "<p>University: " . $university['name'] . "</p>";
-                        echo "<button>View</button>";
+
+                        // Create a button to view the RSOs profile
+                        echo "<form action=\"php/profile/rso.php\" method=\"get\">";
+                        echo "<input type=\"hidden\" name=\"rso_id\" value=\"" . $rso['id'] . "\">";
+                        echo "<button type=\"submit\">View Profile</button>";
+                        echo "</form>";
+
                         echo "</section>";
 
                         // Close the row after every three RSO sections
-                        if ($i % 3 == 2 || $i == $rsos->num_rows - 1)
+                        if ($i % $RSOS_PER_ROW == ($RSOS_PER_ROW - 1) || $i == $rsos->num_rows - 1)
                             echo "</div>";
 
                     }
@@ -119,60 +129,85 @@
 
                 }
                 
-                // We will do something similar to below but for all the RSOs
-                /*
-                // Get the owned RSOs
-                $owned_rsos = get_owned_rsos($_SESSION['user_id']);
+            ?>
 
-                // Check if the user owns any RSOs
-                if ($owned_rsos->num_rows > 0) 
-                {
+            <?php if (isset($_SESSION['user_university_email'])): ?>
 
-                    for ($i = 0; $i < $owned_rsos->num_rows; $i++) 
-                    {
+                <div class="row">
 
-                        // Get the next RSO
-                        $rso = $owned_rsos->fetch_assoc();
+                <section id="section_request_to_create_rso" style="flex: 1">
+                    <h2>Request to create an RSO</h2>
+                    <p>Fill out the form below to request to create a registered student organization.</p>
+                    <p>At least three student emails from the same university are required to create an RSO.</p>
+                    <p>You will be the first member of the RSO and the admin.</p>
+                </section>
 
-                        // Include the rso.php file to get the RSO members
-                        include_once "php/rso.php";
+                <section style="flex: 2">
+                    <form method="POST" action="php/action/create_rso.php" style="width: 100%">
 
-                        // Get the members of the RSO
-                        $rso_members = get_rso_members($rso['id']);
+                        <!-- Organization name -->
+                        <label for="rso_name">Organization Name:</label>
+                        <input type="text" id="rso_name" name="rso_name" required>
 
-                        // Open a new row after every three RSO sections
-                        if ($i % 3 == 0)
-                            echo "<div class=\"row\">";
+                        <!-- Organization description -->
+                        <label for="rso_description">Organization Description:</label>
+                        <textarea id="rso_description" name="rso_description" required></textarea>
 
-                        // Display the RSO information
-                        echo "<section>";
-                        echo "<h3>" . $rso['name'] . "</h3>";
-                        echo "<p>" . $rso['description'] . "</p>";
-                        echo "<p>Members: " . $rso_members->num_rows . "</p>";
-                        echo "<p>University: " . $rso['university_id'] . "</p>";
-                        echo "<button>Manage</button>";
-                        echo "</section>";
+                        <!-- Ten student fields to enter the student emails (3 required) -->
+                        <label for="student_email_01">Student Email:</label>
+                        <input type="email" id="student_email_01" name="student_email_01" placeholder="required" required>
 
-                        // Close the row after every three RSO sections
-                        if ($i % 3 == 2 || $i == $select_rsos_result->num_rows - 1)
-                            echo "</div>";
+                        <label for="student_email_02">Student Email:</label>
+                        <input type="email" id="student_email_02" name="student_email_02" placeholder="required" required>
 
-                    }
+                        <label for="student_email_03">Student Email:</label>
+                        <input type="email" id="student_email_03" name="student_email_03" placeholder="required" required>
+                        
+                        <script>
 
-                }
-                else
-                {
+                            function add_student_email_field() 
+                            {
 
-                    // Display a message if the user does not own any RSOs
-                    echo "<div class=\"row\">";
-                    echo "<section>";
-                    echo "<p>You do not own any RSOs.</p>";
-                    echo "</section>";
-                    echo "</div>";
+                                // Check if there are already 10 email fields
+                                if (document.querySelectorAll('input[type=email]').length >= 10) 
+                                {
+                                    alert('You cannot add more than 10 student emails.\n\nMore students can join after the RSO is created.');
+                                    return;
+                                }
 
-                }
-                */
-            ?> 
+                                // Create new input element
+                                var new_input = document.createElement('input');
+                                new_input.type = 'email';
+                                new_input.name = 'student_email_' + (document.querySelectorAll('input[type=email]').length + 1);
+                                new_input.id = 'student_email_' + (document.querySelectorAll('input[type=email]').length + 1);
+
+                                // Create new label element
+                                var new_label = document.createElement('label');
+                                new_label.for = new_input.id;
+                                new_label.innerHTML = 'Student Email:';
+
+                                // Append the new input and label to the form
+                                var last_stuent_email_input = document.querySelectorAll('input[type=email]')[document.querySelectorAll('input[type=email]').length - 1];
+                                last_stuent_email_input.parentNode.insertBefore(new_label, last_stuent_email_input.nextSibling);
+                                last_stuent_email_input.parentNode.insertBefore(new_input, new_label.nextSibling);
+
+                            }
+
+                        </script>
+
+                        <!-- Add button -->
+                        <button onclick="add_student_email_field()">Add another student email</button>
+
+                        <!-- Request button -->
+                        <input type="submit" value="Request">
+
+                    </form>
+
+                </section>
+
+                </div>
+
+            <?php endif; ?>
 
         </main>
 

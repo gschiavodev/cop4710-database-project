@@ -297,7 +297,7 @@
             </div>
                 
             <?php
-                    
+                
                 // Include the rso.php file to get the owned RSOs
                 include_once "php/rso.php";
 
@@ -307,6 +307,9 @@
                 // Check if the user owns any RSOs
                 if ($owned_rsos->num_rows > 0) 
                 {
+
+                    // Constants
+                    $RSOS_PER_ROW = 3;
 
                     for ($i = 0; $i < $owned_rsos->num_rows; $i++) 
                     {
@@ -325,7 +328,7 @@
                         $rso_members = get_rso_members($rso['id']);
 
                         // Open a new row after every three RSO sections
-                        if ($i % 3 == 0)
+                        if ($i % $RSOS_PER_ROW == 0)
                             echo "<div class=\"row\">";
 
                         // Display the RSO information
@@ -334,11 +337,17 @@
                         echo "<p>" . $rso['description'] . "</p>";
                         echo "<p>Members: " . $rso_members->num_rows . "</p>";
                         echo "<p>University: " . $rso['university_id'] . "</p>";
-                        echo "<button>Manage</button>";
+
+                        // Create a button to view the RSOs profile
+                        echo "<form action=\"php/profile/rso.php\" method=\"get\">";
+                        echo "<input type=\"hidden\" name=\"rso_id\" value=\"" . $rso['id'] . "\">";
+                        echo "<button type=\"submit\">Manage</button>";
+                        echo "</form>";
+
                         echo "</section>";
 
                         // Close the row after every three RSO sections
-                        if ($i % 3 == 2 || $i == $select_rsos_result->num_rows - 1)
+                        if ($i % $RSOS_PER_ROW == ($RSOS_PER_ROW - 1) || $i == $select_rsos_result->num_rows - 1)
                             echo "</div>";
 
                     }

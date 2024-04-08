@@ -60,8 +60,8 @@
 
                     <?php else: ?>
 
-                        <li><a href="../../login.html">Login</a></li>
-                        <li><a href="../../register.html">Register</a></li>
+                        <li><a href="../form/login.html">Login</a></li>
+                        <li><a href="../form/register.html">Register</a></li>
 
                     <?php endif; ?>
 
@@ -80,7 +80,70 @@
                 
             </div>
 
-            <!-- Rest of the page -->
+            <?php
+
+                // Get the university id of the user from the user email domain
+                $user_university_id = get_university_by_email($_SESSION['user_university_email']);
+
+                // Check if the user is part of the university
+                if ($user_university_id == $university_id)
+                {
+
+                    // Include the event.php file to get the private events
+                    include_once "../event.php";
+
+                    // Get the private events by university id
+                    $private_events = get_private_events_by_university_id($university_id);
+
+                    // Check if there are private events
+                    if ($private_events->num_rows > 0)
+                    {
+
+                        // Loop through each private event
+                        while ($private_event = $private_events->fetch_assoc())
+                        {
+
+                            // Get the event data
+                            $event_name = $event['name'];
+                            $event_category = $event['category'];
+                            $event_description = $event['description'];
+                            $event_date = $event['date'];
+                            $event_time = $event['time'];
+                            $phone_number = $event['phone_number'];
+                            $email = $event['email'];
+
+                            // TODO: Get the location of the event
+
+                            // Display the private event information
+                            echo "<div class='row'>";
+                            echo "<section>";
+                            echo "<h2>$event_name</h2>";
+                            echo "<p>$event_description</p>";
+                            echo "<p>$event_date</p>";
+                            echo "<p>$event_time</p>";
+                            echo "<p>$phone_number</p>";
+                            echo "<p>$email</p>";
+                            echo "</section>";
+                            echo "</div>";
+
+                        }
+
+                    }
+                    else
+                    {
+
+                        // Display a message if there are no private events
+                        echo "<div class='row'>";
+                        echo "<section>";
+                        echo "<p>There are no private events for this university.</p>";
+                        echo "</section>";
+                        echo "</div>";
+
+                    }
+
+                }
+
+            ?>
 
         </main>
 

@@ -1,17 +1,17 @@
 <?php
-
+    
     session_start();
 
     // Check if the user is already logged in
     if (isset($_SESSION['user_university_email'])) 
     {
-
-        // User is already logged in, redirect to index.html
-        header('Location: index.html');
-        exit();
         
+        // User is already logged in, redirect to index.html
+        header('Location: ../../index.html');
+        exit();
+
     }
-    
+
 ?>
 
 <!DOCTYPE html>
@@ -19,9 +19,9 @@
 <html lang="en">
 
     <head>
-        <title>Login</title>
-        <link rel="stylesheet" type="text/css" href="css/common_styles.css">
-        <link rel="stylesheet" type="text/css" href="css/form_styles.css">
+        <title>Register</title>
+        <link rel="stylesheet" type="text/css" href="../../css/common_styles.css">
+        <link rel="stylesheet" type="text/css" href="../../css/form_styles.css">
     </head>
 
     <body>
@@ -30,9 +30,9 @@
             <nav>
                 <ul>
 
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="universities.html">Universities</a></li>
-                    <li><a href="rsos.html">RSOs</a></li>
+                    <li><a href="../../index.html">Home</a></li>
+                    <li><a href="../../universities.html">Universities</a></li>
+                    <li><a href="../../rsos.html">RSOs</a></li>
 
                 </ul>
                 <ul>
@@ -47,26 +47,30 @@
         <main>
             <div class="row">
                 <section>
-                    <h2>Login</h2>
+                    <h2>Register</h2>
                 </section>
             </div>
 
             <div class="row">
                 <section>
 
-                    <p>Please enter your email and password to login.</p>
+                    <p>Please fill out the form below to register.</p>
 
-                    <form method="POST" action="php/action/login.php">
+                    <form method="POST" action="../action/register.php">
+                        <label for="first_name">First name:</label>
+                        <input type="text" name="first_name" id="first_name" required>
+                        <label for="last_name">Last name:</label>
+                        <input type="text" name="last_name" id="last_name" required>
                         <label for="university_email">University Email:</label>
                         <input type="email" name="university_email" id="university_email" required>
                         <label for="password">Password:</label>
                         <input type="password" name="password" id="password" required>
-                        <input type="submit" value="Login">
+                        <input type="submit" value="Register">
                     </form>
 
-                    <?php if (isset($_SESSION['message_login'])): ?>
-                        <p><?php echo $_SESSION['message_login']; ?></p>
-                        <?php unset($_SESSION['message_login']); ?>
+                    <?php if (isset($_SESSION['message_register'])): ?>
+                        <p><?php echo $_SESSION['message_register']; ?></p>
+                        <?php unset($_SESSION['message_register']); ?>
                     <?php endif; ?>
 
                 </section>

@@ -75,6 +75,31 @@
         
     }
 
+    function get_approved_rsos_by_university_id($university_id)
+    {
+
+        // Only get the approved RSOs
+        $is_approved = true;
+
+        // Connect to the database
+        $conn = connect_to_database();
+
+        // Prepare a SELECT statement to get the RSOs by university ID
+        $select_rsos_by_university_id = $conn->prepare("SELECT * FROM rso WHERE university_id = ? AND is_approved = ?");
+        $select_rsos_by_university_id->bind_param("ii", $university_id, $is_approved);
+        $select_rsos_by_university_id->execute();
+
+        // Get the result of the SELECT query
+        $rsos_by_university_id = $select_rsos_by_university_id->get_result();
+
+        // Close connection to the database
+        close_connection_to_database($conn);
+
+        // Return the result of the SELECT query
+        return $rsos_by_university_id;
+        
+    }
+
     function get_owned_rsos($admin_id)
     {
 
@@ -119,6 +144,28 @@
 
         // Return the result of the SELECT query
         return $rso_members;
+        
+    }
+
+    function check_if_user_in_rso_by_rso_id_and_user_id($rso_id, $user_id)
+    {
+
+        // Connect to the database
+        $conn = connect_to_database();
+
+        // Prepare a SELECT statement to check if the user is in the RSO
+        $select_user_in_rso = $conn->prepare("SELECT * FROM user_in_rso WHERE user_id = ? AND rso_id = ?");
+        $select_user_in_rso->bind_param("ii", $user_id, $rso_id);
+        $select_user_in_rso->execute();
+
+        // Get the result of the SELECT query
+        $user_in_rso = $select_user_in_rso->get_result();
+
+        // Close connection to the database
+        close_connection_to_database($conn);
+
+        // Return if the user is in the RSO
+        return $user_in_rso->num_rows > 0;
         
     }
 

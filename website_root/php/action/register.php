@@ -18,7 +18,7 @@
 
             // Email is not valid
             $_SESSION['message_register'] = "Invalid email address!";
-            header('Location: ../../register.html');
+            header('Location: ../form/register.html');
             exit();
 
         }
@@ -38,7 +38,7 @@
 
             // University not found
             $_SESSION['message_register'] = "No university registered for provided email domain!";
-            header('Location: ../../register.html');
+            header('Location: ../form/register.html');
             exit();
 
         }
@@ -73,7 +73,7 @@
 
             // User was not added successfully
             $_SESSION['message_register'] = "Failed to register!";
-            header('Location: ../../register.html');
+            header('Location: ../form/register.html');
             exit();
 
         }
@@ -84,7 +84,7 @@
 
         // All the fields are not set
         $_SESSION['message_register'] = "All fields are required!";
-        header('Location: ../../register.html');
+        header('Location: ../.form/register.html');
         exit();
 
     }
