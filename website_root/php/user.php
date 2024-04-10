@@ -40,6 +40,17 @@
 
     }
 
+    function get_user_id_by_university_email($user_university_email)
+    {
+
+        // Get the user by university email
+        $user = get_user_by_university_email($user_university_email);
+
+        // Return the user ID
+        return $user != null ? $user['id'] : null;
+
+    }
+
     function create_user($user_first_name, $user_last_name, $user_email, $user_password)
     {
 

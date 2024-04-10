@@ -1,10 +1,10 @@
 <?php
 
+    // Include the database connection file
+    include_once "database.php";
+
     function get_approved_public_events()
     {
-
-        // Include the database connection file
-        include_once "database.php";
 
         // Connect to the database
         $conn = connect_to_database();
@@ -27,9 +27,6 @@
     function get_unapproved_public_events()
     {
 
-        // Include the database connection file
-        include_once "database.php";
-
         // Connect to the database
         $conn = connect_to_database();
 
@@ -50,9 +47,6 @@
 
     function get_private_events_by_rso_id($rso_id)
     {
-
-        // Include the database connection file
-        include_once "database.php";
 
         // Connect to the database
         $conn = connect_to_database();
@@ -76,14 +70,13 @@
     function get_private_events_by_university_id($university_id)
     {
 
-        // Include the database connection file
-        include_once "database.php";
-
         // Connect to the database
         $conn = connect_to_database();
 
         // Include the RSO.php file to get the RSOs
         include_once "rso.php";
+
+        /*
 
         // Get the approved RSOs
         $rsos_by_university_id = get_approved_rsos_by_university_id($university_id);
@@ -123,14 +116,13 @@
         
         // Return the result of the SELECT query
         return $private_events_by_university_id;
-        
+        */
+
+
     }
 
     function get_rso_events_by_rso_id($rso_id)
     {
-
-        // Include the database connection file
-        include_once "database.php";
 
         // Connect to the database
         $conn = connect_to_database();

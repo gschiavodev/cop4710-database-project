@@ -30,7 +30,7 @@
         include_once "../university.php";
 
         // Get the university id
-        $university_id = get_university_by_email($university_email);
+        $university_id = get_university_by_university_email($university_email);
 
         // Check if the university id is set
         if (!$university_id)

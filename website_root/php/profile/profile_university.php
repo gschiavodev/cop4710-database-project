@@ -83,7 +83,7 @@
             <?php
 
                 // Get the university id of the user from the user email domain
-                $user_university_id = get_university_by_email($_SESSION['user_university_email']);
+                $user_university_id = get_university_by_university_email($_SESSION['user_university_email'])['id'];
 
                 // Check if the user is part of the university
                 if ($user_university_id == $university_id)

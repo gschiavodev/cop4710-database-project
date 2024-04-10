@@ -1,25 +1,25 @@
 <?php
 
-    session_start();
-
     // Get the rso ID from the URL
     $rso_id = $_GET['rso_id'];
 
-    // Include the university.php file to get the university
+    // Include the rso.php file to get the rso
     include_once "../rso.php";
 
-    // Get the university by id
+    // Get the rso by id
     $rso = get_rso_by_id($rso_id);
 
-    // Check if the university was found
+    // Check if the rso was found
     if (!$rso)
     {
 
-        // Redirect to the universities page
+        // Redirect to the rsos page
         header("Location: ../../rsos.html");
         exit();
 
     }
+
+    session_start();
 
 ?>
 
@@ -82,10 +82,11 @@
 
             <?php
 
-                // Include the event.php, rso.php, and university.php files
+                // Includes
                 include_once "../event.php";
                 include_once "../rso.php";
                 include_once "../university.php";
+                include_once "../user_in_rso.php";
                 
                 // Get the events
                 $events = array
@@ -103,7 +104,7 @@
                 {
 
                     // If checking for university events, and user is not from the university, skip
-                    if (($index == 0) && ($rso['university_id'] != get_university_by_email($_SESSION['user_university_email'])['id']))
+                    if (($index == 0) && ($rso['university_id'] != get_university_by_university_email($_SESSION['user_university_email'])['id']))
                         continue;
 
                     // If checking for organization events, and user is not part of the RSO, skip

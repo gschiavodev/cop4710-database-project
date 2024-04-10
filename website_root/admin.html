@@ -185,15 +185,16 @@
                             echo "<h3>" . $rso['name'] . "</h3>";
                             echo "<p>" . $rso['description'] . "</p>";
                             
-                            // Include the university.php file to get the university name
+                            // Include the university.php, and user_in_rso.php files to get the university name and RSO members
                             include_once "php/university.php";
+                            include_once "php/user_in_rso.php";
 
                             // Get the university name
                             $university = get_university_by_rso_id($rso['id']);
                             echo "<p>" . $university['name'] . "</p>";
 
                             // Get the members of the RSO
-                            $rso_members = get_rso_members($rso['id']);
+                            $rso_members = get_users_in_rso_by_rso_id($rso['id']);
 
                             // Display the members of the RSO as a numbered list
                             echo "<p>Members:</p>";
@@ -322,10 +323,10 @@
                             continue;
 
                         // Include the rso.php file to get the RSO members
-                        include_once "php/rso.php";
+                        include_once "php/user_in_rso.php";
 
                         // Get the members of the RSO
-                        $rso_members = get_rso_members($rso['id']);
+                        $rso_members = get_users_in_rso_by_rso_id($rso['id']);
 
                         // Open a new row after every three RSO sections
                         if ($i % $RSOS_PER_ROW == 0)
@@ -339,7 +340,7 @@
                         echo "<p>University: " . $rso['university_id'] . "</p>";
 
                         // Create a button to view the RSOs profile
-                        echo "<form action=\"php/profile/rso.php\" method=\"get\">";
+                        echo "<form action=\"php/profile/profile_rso.php\" method=\"get\">";
                         echo "<input type=\"hidden\" name=\"rso_id\" value=\"" . $rso['id'] . "\">";
                         echo "<button type=\"submit\">Manage</button>";
                         echo "</form>";

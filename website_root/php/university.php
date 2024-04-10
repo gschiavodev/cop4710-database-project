@@ -60,7 +60,7 @@
         
     }
 
-    function get_university_by_email($university_email)
+    function get_university_by_university_email($university_email)
     {
 
         // Check if the university email is set

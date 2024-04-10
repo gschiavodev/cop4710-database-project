@@ -82,14 +82,15 @@
                         // Get the next RSO
                         $rso = $rsos->fetch_assoc();
 
-                        // Include the university.php file to get the university of the RSO
+                        // Include the university.php file, and user_in_rso.php file to get the university and members of the RSO
                         include_once "php/university.php";
+                        include_once "php/user_in_rso.php";
 
                         // Get the university of the RSO
                         $university = get_university_by_rso_id($rso['id']);
 
                         // Get the members of the RSO
-                        $rso_members = get_rso_members($rso['id']);
+                        $rso_members = get_users_in_rso_by_rso_id($rso['id']);
 
                         // Open a new row after every three RSO sections
                         if ($i % $RSOS_PER_ROW == 0)
@@ -103,7 +104,7 @@
                         echo "<p>University: " . $university['name'] . "</p>";
 
                         // Create a button to view the RSOs profile
-                        echo "<form action=\"php/profile/rso.php\" method=\"get\">";
+                        echo "<form action=\"php/profile/profile_rso.php\" method=\"get\">";
                         echo "<input type=\"hidden\" name=\"rso_id\" value=\"" . $rso['id'] . "\">";
                         echo "<button type=\"submit\">View Profile</button>";
                         echo "</form>";
@@ -143,7 +144,7 @@
                 </section>
 
                 <section style="flex: 2">
-                    <form method="POST" action="php/action/create_rso.php" style="width: 100%">
+                    <form method="POST" action="php/action/request_to_create_rso.php" style="width: 100%">
 
                         <!-- Organization name -->
                         <label for="rso_name">Organization Name:</label>
@@ -154,14 +155,14 @@
                         <textarea id="rso_description" name="rso_description" required></textarea>
 
                         <!-- Ten student fields to enter the student emails (3 required) -->
-                        <label for="student_email_01">Student Email:</label>
-                        <input type="email" id="student_email_01" name="student_email_01" placeholder="required" required>
+                        <label for="student_email_1">Student Email:</label>
+                        <input type="email" id="student_email_1" name="student_email_1" placeholder="required" required>
 
-                        <label for="student_email_02">Student Email:</label>
-                        <input type="email" id="student_email_02" name="student_email_02" placeholder="required" required>
+                        <label for="student_email_2">Student Email:</label>
+                        <input type="email" id="student_email_2" name="student_email_2" placeholder="required" required>
 
-                        <label for="student_email_03">Student Email:</label>
-                        <input type="email" id="student_email_03" name="student_email_03" placeholder="required" required>
+                        <label for="student_email_3">Student Email:</label>
+                        <input type="email" id="student_email_3" name="student_email_3" placeholder="required" required>
                         
                         <script>
 
@@ -202,6 +203,11 @@
                         <input type="submit" value="Request">
 
                     </form>
+
+                    <?php if (isset($_SESSION['message_rsos'])): ?>
+                        <p><?php echo $_SESSION['message_rsos']; ?></p>
+                        <?php unset($_SESSION['message_rsos']); ?>
+                    <?php endif; ?>
 
                 </section>
 
