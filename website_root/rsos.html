@@ -99,9 +99,9 @@
                         // Display the RSO information
                         echo "<section>";
                         echo "<h3>" . $rso['name'] . "</h3>";
+                        echo "<p>" . $university['name'] . "</p>";
                         echo "<p>" . $rso['description'] . "</p>";
                         echo "<p>Members: " . $rso_members->num_rows . "</p>";
-                        echo "<p>University: " . $university['name'] . "</p>";
 
                         // Create a button to view the RSOs profile
                         echo "<form action=\"php/profile/profile_rso.php\" method=\"get\">";

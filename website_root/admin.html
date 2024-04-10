@@ -12,6 +12,9 @@
 
     }
 
+    // Load the global configuration file
+    require 'php/data/config.php';
+
 ?>
 
 <!DOCTYPE html>
@@ -122,7 +125,10 @@
 
                             <!-- University State -->
                             <label for="state">State:</label>
-                            <input type="text" id="state" name="state" required>
+                            <select id="state">
+                                <option value="" disabled selected>Select a state</option>
+                                <?php include "php/data/states.php"; ?>
+                            </select>
 
                             <!-- University Zip Code -->
                             <label for="zip">Area-code:</label>
@@ -130,6 +136,12 @@
 
                             <!-- Submit Button -->
                             <input type="submit" value="Create">
+
+                            <!-- Include the auto_complete.js file if the Google API key is set -->
+                            <?php if ($google_api_key): ?>
+                                <script>window.google_api_key = "<?= $google_api_key ?>";</script>
+                                <script src="javascript/auto_complete.js"></script>
+                            <?php endif; ?>
 
                         </form>
 
@@ -322,8 +334,12 @@
                         if ($rso['is_approved'] == false)
                             continue;
 
-                        // Include the rso.php file to get the RSO members
+                        // Includes
                         include_once "php/user_in_rso.php";
+                        include_once "php/university.php";
+
+                        // Get the university of the RSO
+                        $university = get_university_by_rso_id($rso['id']);
 
                         // Get the members of the RSO
                         $rso_members = get_users_in_rso_by_rso_id($rso['id']);
@@ -335,9 +351,9 @@
                         // Display the RSO information
                         echo "<section>";
                         echo "<h3>" . $rso['name'] . "</h3>";
+                        echo "<p>University: " . $university['name'] . "</p>";
                         echo "<p>" . $rso['description'] . "</p>";
                         echo "<p>Members: " . $rso_members->num_rows . "</p>";
-                        echo "<p>University: " . $rso['university_id'] . "</p>";
 
                         // Create a button to view the RSOs profile
                         echo "<form action=\"php/profile/profile_rso.php\" method=\"get\">";

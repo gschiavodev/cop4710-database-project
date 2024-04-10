@@ -1,5 +1,7 @@
 <?php
 
+    session_start();
+
     // Get the rso ID from the URL
     $rso_id = $_GET['rso_id'];
 
@@ -18,8 +20,6 @@
         exit();
 
     }
-
-    session_start();
 
 ?>
 
@@ -162,6 +162,31 @@
                         echo "<p>There are no events to display.</p>";
 
                     }
+
+                    echo "</section>";
+                    echo "</div>";
+
+                }
+
+            ?>
+
+            <?php
+
+                // Check if the user is the admin of the RSO
+                if ($rso['admin_id'] == $_SESSION['user_id'])
+                {
+
+                    // Display the create event form
+                    echo "<div class='row'>";
+                    echo "<section>";
+                    echo "<h2>Create Event</h2>";
+                    echo "<p>Please use the following page to create an event for your RSO.</p>";
+                   
+                    // Create a button to view the create event form
+                    echo "<form action=\"../form/create_event.html\" method=\"get\">";
+                    echo "<input type=\"hidden\" name=\"rso_id\" value=\"" . $rso['id'] . "\">";
+                    echo "<button type=\"submit\">Create Event</button>";
+                    echo "</form>";
 
                     echo "</section>";
                     echo "</div>";

@@ -2,13 +2,16 @@
 
     session_start();
 
-    // Check if the user is an admin
-    if (!isset($_SESSION['university_id']))
+    // Check if the user is logged in
+    if (!isset($_SESSION['user_id'])) 
     {
-        header("Location: ../../index.html");
+        header('Location: login.html');
         exit();
     }
-    
+
+    // Load the global configuration file
+    require '../data/config.php';
+
 ?>
 
 <!DOCTYPE html>
@@ -51,41 +54,76 @@
             <div class="row">
                 <section>
 
-                    <p>Fill out the form below to create an event.</p>
+                    <div class="row">
+                        <section>
+                            <p>Fill out the form below to create an event.</p>
+                        </section>
+                    </div>
 
-                    <form action="../action/create_event.php" method="post">
+                    <div class="row">
+                        <section>
+                            <form action="../action/create_event.php" method="post">
+                                
+                                <label for="event_name">Event Name:</label>
+                                <input type="text" id="event_name" name="event_name" required>
 
-                        <label for="event_name">Event Name:</label>
-                        <input type="text" id="event_name" name="event_name" required>
+                                <label for="event_description">Event Description:</label>
+                                <textarea id="event_description" name="event_description" required></textarea>
 
-                        <label for="event_description">Event Description:</label>
-                        <textarea id="event_description" name="event_description" required></textarea>
+                                <label for="event_category">Event Category:</label>
+                                <select id="event_category" name="event_category" required>
+                                    <option value="Social">Academic</option>
+                                    <option value="Philanthropy">Athletic</option>
+                                    <option value="Fundraising">Cultural</option>
+                                    <option value="Tech-talks">Social</option>
+                                </select>
 
-                        <label for="event_date">Event Date:</label>
-                        <input type="date" id="event_date" name="event_date" required>
+                                <label for="event_type">Event Type:</label>
+                                <select id="event_type" name="event_type" required>
+                                    <option value="Public">Public</option>
+                                    <option value="Private">Private</option>
+                                    <option value="RSO">RSO</option>
+                                </select>
 
-                        <label for="event_time">Event Time:</label>
-                        <input type="time" id="event_time" name="event_time" required>
+                                <label for="event_date">Event Date:</label>
+                                <input type="date" id="event_date" name="event_date" required>
 
-                        <label for="event_location">Event Location:</label>
-                        <input type="text" id="event_location" name="event_location" required>
+                                <label for="event_time">Event Time:</label>
+                                <input type="time" id="event_time" name="event_time" required>
 
-                        <label for="event_category">Event Category:</label>
-                        <select id="event_category" name="event_category" required>
-                            <option value="Social">Academic</option>
-                            <option value="Philanthropy">Athletic</option>
-                            <option value="Fundraising">Cultural</option>
-                            <option value="Tech-talks">Social</option>
-                        </select>
+                                <!-- Event Address Fields -->
+                                <label for="address_line_01">Address Line 1:</label>
+                                <input type="text" id="address_line_01" name="address_line_01">
+                                <label for="address_line_02">Address Line 2:</label>
+                                <input type="text" id="address_line_02" name="address_line_02">
 
-                        <label for="event_type">Event Type:</label>
-                        <select id="event_type" name="event_type" required>
-                            <option value="Public">Public</option>
-                            <option value="Private">Private</option>
-                            <option value="RSO">RSO</option>
-                        </select>
+                                <!-- Event City -->
+                                <label for="city">City:</label>
+                                <input type="text" id="city" name="city">
 
-                        <input type="submit" value="Create Event">
+                                <!-- Event State -->
+                                <label for="state">State:</label>
+                                <select id="state">
+                                    <option value="" disabled selected>Select a state</option>
+                                    <?php include "../data/states.php"; ?>
+                                </select>
+
+                                <!-- Event Zip Code -->
+                                <label for="zip_code">Area-code:</label>
+                                <input type="text" id="zip_code" name="zip_code">
+
+                                <input type="submit" value="Create Event">
+
+                                <!-- Include the auto_complete.js file if the Google API key is set -->
+                                <?php if ($google_api_key): ?>
+                                    <script>window.google_api_key = "<?= $google_api_key ?>";</script>
+                                    <script src="../../javascript/auto_complete.js"></script>
+                                <?php endif; ?>
+
+                            </form>
+
+                        </section>
+                    </div>
 
                 </section>
             </div>

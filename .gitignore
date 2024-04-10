@@ -3,3 +3,4 @@
 /mysql_data/
 /shared_data/
 accounts.txt
+*.ini

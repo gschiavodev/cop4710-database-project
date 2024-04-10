@@ -76,8 +76,6 @@
         // Include the RSO.php file to get the RSOs
         include_once "rso.php";
 
-        /*
-
         // Get the approved RSOs
         $rsos_by_university_id = get_approved_rsos_by_university_id($university_id);
         
@@ -95,7 +93,7 @@
             close_connection_to_database($conn);
         
             // Return an empty result
-            return new mysqli_result();
+            return null;
 
         }
         
@@ -116,7 +114,6 @@
         
         // Return the result of the SELECT query
         return $private_events_by_university_id;
-        */
 
 
     }

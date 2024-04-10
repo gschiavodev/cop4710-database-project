@@ -82,6 +82,13 @@
 
             <?php
 
+                // Private events title
+                echo "<div class='row'>";
+                echo "<section>";
+                echo "<h2>Private events</h2>";
+                echo "</section>";
+                echo "</div>";
+
                 // Get the university id of the user from the user email domain
                 $user_university_id = get_university_by_university_email($_SESSION['user_university_email'])['id'];
 
@@ -140,6 +147,17 @@
                         echo "</div>";
 
                     }
+
+                }
+                else
+                {
+
+                    // Display a message if the user is not part of the university
+                    echo "<div class='row'>";
+                    echo "<section>";
+                    echo "<p>You are not part of this university.</p>";
+                    echo "</section>";
+                    echo "</div>";
 
                 }
 

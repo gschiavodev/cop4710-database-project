@@ -93,6 +93,9 @@
                 if ($select_public_events) 
                 {
 
+                    // Constants
+                    $EVENTS_PER_ROW = 3;
+
                     // Check if there are any public events
                     if (mysqli_num_rows($select_public_events) > 0) 
                     {
@@ -103,7 +106,7 @@
                             // Get the next public event
                             $row = $select_rsos_result->fetch_assoc();
 
-                            if ($i % 3 == 0)
+                            if ($i % $EVENTS_PER_ROW == 0)
                                 echo "<div class=\"row\">";
 
                             // Display the event information
@@ -148,7 +151,7 @@
                             }
 
                             // Close the row after every three RSO sections
-                            if ($i % 3 == 2 || $i == $select_rsos_result->num_rows - 1)
+                            if ($i % $EVENTS_PER_ROW == ($EVENTS_PER_ROW - 1) || $i == $select_rsos_result->num_rows - 1)
                                 echo "</div>";
 
                         }
