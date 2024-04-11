@@ -58,6 +58,10 @@
     foreach ($emails as $email)
     {
 
+        // If the email is empty, skip it
+        if ($email == "")
+            continue;
+
         // Check if the user exists
         if (get_user_id_by_university_email($email) === null)
         {

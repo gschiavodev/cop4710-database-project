@@ -329,6 +329,23 @@
     function deny_rso_by_id($rso_id)
     {
 
+        // Include the ros_event.php and private_event.php, and event.php files
+        include_once "rso_event.php";
+        include_once "private_event.php";
+        include_once "event.php";
+
+        // Get all the events of the RSO
+        $rso_events = get_rso_events_by_rso_id($rso_id);
+        $private_events = get_private_events_by_rso_id($rso_id);
+
+        // Delete all the RSO events
+        while ($rso_event = $rso_events->fetch_assoc())
+            delete_event_by_event_id($rso_event['id']);
+
+        // Delete all the private events
+        while ($private_event = $private_events->fetch_assoc())
+            delete_event_by_event_id($private_event['id']);
+
         // Delete the RSO
         delete_rso_by_id($rso_id);
 
