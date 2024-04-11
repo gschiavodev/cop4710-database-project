@@ -17,6 +17,7 @@
     $description = $_POST['description'];
     $email_domain = $_POST['email_domain'];
     $num_students = $_POST['num_students'];
+    $location_name = $_POST['location_name'];
     $address_line_01 = $_POST['address_line_01'];
     $address_line_02 = $_POST['address_line_02'];
     $city = $_POST['city'];
@@ -36,7 +37,7 @@
     {
 ;
         // Create the location
-        $success = create_location($university_name, $address_line_01, $address_line_02, $city, $state, $zip_code, $latitude, $longitude);
+        $success = create_location($location_name, $address_line_01, $address_line_02, $city, $state, $zip_code, $latitude, $longitude);
 
         // Check if create_location returned an string
         if (is_string($success)) 

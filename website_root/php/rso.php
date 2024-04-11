@@ -166,6 +166,23 @@
         
     }
 
+    function get_rso_from_private_event_id($event_id)
+    {
+
+        // Include the private_event.php
+        include_once "private_event.php";
+
+        // Get the RSO ID from the private event ID
+        $rso_id = get_private_event_by_event_id($event_id)['rso_id'];
+
+        // Get the RSO from the RSO ID
+        $rso = get_rso_by_id($rso_id);
+
+        // Return the RSO
+        return $rso;
+
+    }
+
     function create_rso($rso_name, $rso_description, $rso_university_id, $user_ids)
     {
 

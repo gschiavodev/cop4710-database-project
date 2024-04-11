@@ -59,7 +59,7 @@
     {
 
         // Check if the user exists
-        if (get_user_id_by_university_email($email) == null)
+        if (get_user_id_by_university_email($email) === null)
         {
 
             // Redirect to the RSOs page with an error message
@@ -102,7 +102,7 @@
     $rso_id = create_rso($rso_name, $rso_description, $university_id, $user_ids);
 
     // Check if the RSO was created
-    if ($rso_id == null)
+    if ($rso_id === null)
     {
 
         // Redirect to the RSOs page wit an error message

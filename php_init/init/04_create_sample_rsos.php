@@ -35,7 +35,7 @@
             $user = get_user_by_university_email($member_email);
 
             // Check if the user exists
-            if ($user == null)
+            if ($user === null)
             {
     
                 // User does not exist, output an error message and exit
@@ -53,7 +53,7 @@
         $university = get_university_by_email_domain($rso_university_domain);
 
         // Check if the university exists
-        if ($university == null)
+        if ($university === null)
         {
 
             // University does not exist, output an error message and exit
@@ -69,7 +69,7 @@
         $rso_id = create_rso($rso_name, $rso_description, $rso_university_id, $member_ids);
 
         // Check if the RSO was created successfully
-        if ($rso_id == null)
+        if ($rso_id === null)
         {
 
             // RSO was not created successfully, output an error message and exit

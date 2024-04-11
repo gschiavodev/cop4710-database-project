@@ -83,10 +83,11 @@
             <?php
 
                 // Includes
-                include_once "../event.php";
                 include_once "../rso.php";
                 include_once "../university.php";
                 include_once "../user_in_rso.php";
+                include_once "../private_event.php";
+                include_once "../rso_event.php";
                 
                 // Get the events
                 $events = array
@@ -152,6 +153,8 @@
                             echo "<p>" . $email . "</p>";
                             echo "</div>";
 
+                            // TODO: Display the location of the event
+
                         }
 
                     }
@@ -184,8 +187,9 @@
                    
                     // Create a button to view the create event form
                     echo "<form action=\"../form/create_event.html\" method=\"get\">";
+                    echo "<input type=\"hidden\" name=\"event_type\" value=\"private_or_rso_event\">";
                     echo "<input type=\"hidden\" name=\"rso_id\" value=\"" . $rso['id'] . "\">";
-                    echo "<button type=\"submit\">Create Event</button>";
+                    echo "<button type=\"submit\">Create Event Form</button>";
                     echo "</form>";
 
                     echo "</section>";

@@ -1,16 +1,123 @@
 <?php
 
+    // Utility function
+    function redirect_to_previous_page() 
+    {
+
+        if (isset($_SERVER['HTTP_REFERER'])) 
+        {
+
+            // Redirect to the previous page if the event type is not set
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+
+        } 
+        else 
+        {
+
+            // Default redirect if HTTP_REFERER is not set
+            header('Location: ../../index.html');
+
+        }
+
+        exit();
+
+    }
+
+    // Start the session
     session_start();
 
     // Check if the user is logged in
     if (!isset($_SESSION['user_id'])) 
     {
-        header('Location: login.html');
-        exit();
+
+        // Redirect to the previous page if the user is not logged in
+        redirect_to_previous_page();
+
+    }
+
+    // Get the event type from the GET request
+    $event_type = $_GET['event_type'];
+
+    // Check if the event type is set
+    if (!isset($_GET['event_type'])) 
+    {
+
+        // Redirect to the previous page if the event type is not set
+        redirect_to_previous_page();
+
+    }
+
+    // Check event type
+    switch ($event_type) 
+    {
+
+        case 'private_or_rso_event':
+        {
+
+            // Redirect to the previous page if the RSO ID is not set
+            if (!isset($_GET['rso_id'])) 
+            {
+
+                // ...
+                redirect_to_previous_page();
+
+            }
+
+            // Get the RSO ID from the GET request
+            $rso_id = $_GET['rso_id'];
+
+            // Include the rso.php file
+            require "../rso.php";
+
+            // Check if the RSO exists
+            $rso = get_rso_by_id($rso_id);
+
+            // Redirect to the previous page if the RSO does not exist
+            if (!$rso) 
+            {
+
+                // ...
+                redirect_to_previous_page();
+
+            }
+
+            // Get the RSO admin ID
+            $rso_admin_id = get_rso_admin_id_by_rso_id($rso_id);
+
+            // Check if the user is an admin of the RSO
+            if ($_SESSION['user_id'] != $rso_admin_id) 
+            {
+
+                // ...
+                redirect_to_previous_page();
+
+            }
+
+            break;
+
+        }
+
+        case 'public_event':
+        {
+
+            break;
+
+        }
+
+        default:
+        {
+            
+            // Redirect to the previous page if the event type is not set
+            redirect_to_previous_page();
+
+            break;
+
+        }
+
     }
 
     // Load the global configuration file
-    require '../data/config.php';
+    require "../data/config.php";
 
 ?>
 
@@ -19,6 +126,15 @@
 <html lang="en">
 
     <head>
+
+        <?php if ($event_type == 'private_or_rso_event'): ?>
+            <title>Create Event</title>
+        <?php endif; ?>
+
+        <?php if ($event_type == 'public_event'): ?>
+            <title>Request Public Event</title>
+        <?php endif; ?>
+
         <title>Create Event</title>
         <link rel="stylesheet" type="text/css" href="../../css/common_styles.css">
         <link rel="stylesheet" type="text/css" href="../../css/form_styles.css">
@@ -37,9 +153,25 @@
                 </ul>
                 <ul>
 
-                    <li><a href="login.html">Login</a></li>
-                    <li><a href="register.html">Register</a></li>
-                    
+                    <?php if (isset($_SESSION['user_university_email'])): ?>
+
+                        <?php if (($_SESSION['user_is_admin']) || ($_SESSION['user_is_super_admin'])): ?>
+
+                            <!-- This content will only be shown if the user is an admin -->
+                            <li><a href="../../admin.html">Admin</a></li>
+                            
+                        <?php endif; ?>
+
+                        <!-- This content will only be shown if the user is logged in -->
+                        <li><a href="../../index.html?logout=true">Logout</a></li>
+
+                    <?php else: ?>
+
+                        <li><a href="../form/login.html">Login</a></li>
+                        <li><a href="../form/register.html">Register</a></li>
+
+                    <?php endif; ?>
+
                 </ul>
             </nav>
         </header>
@@ -47,7 +179,13 @@
         <main>
             <div class="row">
                 <section>
-                    <h2>Create Event</h2>
+                    <?php if ($event_type == 'private_or_rso_event'): ?>
+                        <h2>Create Event</h2>
+                    <?php endif; ?>
+
+                    <?php if ($event_type == 'public_event'): ?>
+                        <h2>Request Public Event</h2>
+                    <?php endif; ?>
                 </section>
             </div>
 
@@ -56,7 +194,13 @@
 
                     <div class="row">
                         <section>
-                            <p>Fill out the form below to create an event.</p>
+                            <?php if ($event_type == 'private_or_rso_event'): ?>
+                                <p>Fill out the form below to create an event.</p>
+                            <?php endif; ?>
+
+                            <?php if ($event_type == 'public_event'): ?>
+                                <p>Fill out the form below to request a public event.</p>
+                            <?php endif; ?>
                         </section>
                     </div>
 
@@ -70,49 +214,83 @@
                                 <label for="event_description">Event Description:</label>
                                 <textarea id="event_description" name="event_description" required></textarea>
 
+                                <!-- Event Category -->
                                 <label for="event_category">Event Category:</label>
                                 <select id="event_category" name="event_category" required>
-                                    <option value="Social">Academic</option>
-                                    <option value="Philanthropy">Athletic</option>
-                                    <option value="Fundraising">Cultural</option>
-                                    <option value="Tech-talks">Social</option>
+                                    <option value="Social">Social</option>
+                                    <option value="Philanthropy">Philanthropy</option>
+                                    <option value="Fundraising">Fundraising</option>
+                                    <option value="Tech-talk">Tech-talk</option>
                                 </select>
 
+                                <!-- Event Type -->
                                 <label for="event_type">Event Type:</label>
                                 <select id="event_type" name="event_type" required>
-                                    <option value="Public">Public</option>
-                                    <option value="Private">Private</option>
-                                    <option value="RSO">RSO</option>
+
+                                    <?php if ($event_type == 'private_or_rso_event'): ?>
+                                        <option value="rso_event">Organization</option>
+                                        <option value="private_event">University</option>
+                                    <?php endif; ?>
+
+                                    <?php if ($event_type == 'public_event'): ?>
+                                        <option value="public_event">Public</option>
+                                    <?php endif; ?>
+
                                 </select>
 
+                                <!-- Event Email -->
+                                <label for="event_email">Event Email:</label>
+                                <p style="padding-left: 0px; padding-top: 0px;">Optional: Your email will be used instead if left blank.</p>
+                                <input type="email" id="event_email" name="event_email">
+
+                                <!-- Event Phone Number -->
+                                <label for="event_phone_number">Event Phone Number:</label>
+                                <input type="tel" id="event_phone_number" name="event_phone_number" placeholder="123-456-7890" required>
+
+                                <!-- Event Date -->
                                 <label for="event_date">Event Date:</label>
                                 <input type="date" id="event_date" name="event_date" required>
 
+                                <!-- Event Time -->
                                 <label for="event_time">Event Time:</label>
                                 <input type="time" id="event_time" name="event_time" required>
 
+                                <!-- Event Location Name -->
+                                <label for="location_name">Location Name:</label>
+                                <input type="text" id="location_name" name="location_name" required>
+
                                 <!-- Event Address Fields -->
                                 <label for="address_line_01">Address Line 1:</label>
-                                <input type="text" id="address_line_01" name="address_line_01">
+                                <input type="text" id="address_line_01" name="address_line_01" required>
                                 <label for="address_line_02">Address Line 2:</label>
                                 <input type="text" id="address_line_02" name="address_line_02">
 
                                 <!-- Event City -->
                                 <label for="city">City:</label>
-                                <input type="text" id="city" name="city">
+                                <input type="text" id="city" name="city" required>
 
                                 <!-- Event State -->
                                 <label for="state">State:</label>
-                                <select id="state">
+                                <select id="state" name="state" required>
                                     <option value="" disabled selected>Select a state</option>
                                     <?php include "../data/states.php"; ?>
                                 </select>
 
                                 <!-- Event Zip Code -->
                                 <label for="zip_code">Area-code:</label>
-                                <input type="text" id="zip_code" name="zip_code">
+                                <input type="text" id="zip_code" name="zip_code" required>
+                                
+                                <?php if ($event_type == 'private_or_rso_event'): ?>
 
-                                <input type="submit" value="Create Event">
+                                    <!-- Private Event Create Button -->
+                                    <input type="hidden" name="rso_id" value="<?= $rso_id ?>">
+                                    <input type="submit" value="Create Event">
+                                <?php else: ?>
+
+                                    <!-- Public Event Request Button -->
+                                    <input type="submit" value="Request Event">
+
+                                <?php endif; ?>
 
                                 <!-- Include the auto_complete.js file if the Google API key is set -->
                                 <?php if ($google_api_key): ?>
@@ -121,6 +299,11 @@
                                 <?php endif; ?>
 
                             </form>
+
+                            <?php if (isset($_SESSION['message_create_event'])): ?>
+                                <p><?php echo $_SESSION['message_create_event']; ?></p>
+                                <?php unset($_SESSION['message_create_event']); ?>
+                            <?php endif; ?>
 
                         </section>
                     </div>

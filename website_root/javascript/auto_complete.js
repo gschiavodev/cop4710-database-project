@@ -2,11 +2,11 @@ function init_auto_complete()
 {
 
     // Create the autocomplete object, restricting the search to geographical location types.
-    var input = document.getElementById('address_line_01');
+    var input = document.getElementById('location_name');
     var auto_complete = new google.maps.places.Autocomplete(input);
 
     // Set the data fields to return when the user selects a place.
-    auto_complete.setFields(['address_components', 'geometry']);
+    auto_complete.setFields(['address_components', 'geometry', 'name']);
 
     // Mapping of state names to abbreviations
     var state_mapping = 
@@ -81,6 +81,7 @@ function init_auto_complete()
         }
 
         // Reset the fields
+        document.getElementById('location_name').value = place.name;
         document.getElementById('address_line_01').value = '';
         document.getElementById('address_line_02').value = '';
         document.getElementById('city').value = '';

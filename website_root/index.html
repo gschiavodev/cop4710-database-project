@@ -87,7 +87,7 @@
                 include "php/public_event.php";
 
                 // Get the public events
-                $select_public_events = get_public_events();
+                $select_public_events = get_approved_public_events();
 
                 // Check if the query was successful
                 if ($select_public_events) 
@@ -95,77 +95,79 @@
 
                     // Constants
                     $EVENTS_PER_ROW = 3;
-
+       
                     // Check if there are any public events
-                    if (mysqli_num_rows($select_public_events) > 0) 
+                    if ($select_public_events->num_rows > 0) 
                     {
 
-                        for ($i = 0; $i < mysqli_num_rows($select_public_events); $i++) 
+                        // Loop through each public event
+                        while ($public_event = $select_public_events->fetch_assoc())
                         {
 
-                            // Get the next public event
-                            $row = $select_rsos_result->fetch_assoc();
+                            // Get the event data
+                            $event_name = $public_event['name'];
+                            $event_description = $public_event['description'];
+                            $event_category = $public_event['category'];
+                            $event_date = $public_event['date'];
+                            $event_time = $public_event['time'];
+                            $phone_number = $public_event['phone_number'];
+                            $email = $public_event['email'];
 
-                            if ($i % $EVENTS_PER_ROW == 0)
-                                echo "<div class=\"row\">";
+                            // TODO: Get the location of the event
 
-                            // Display the event information
+                            // Display the public event information
+                            echo "<div class='row'>";
                             echo "<section>";
-                            echo "<h3>" . $row['name'] . "</h3>";
-                            echo "<p>" . $row['description'] . "</p>";
-                            echo "<p>" . $row['category'] . "</p>";
-                            echo "<p>" . $row['date'] . "</p>";
-                            echo "<p>" . $row['time'] . "</p>";
-                            echo "<p>" . $row['phone_number'] . "</p>";
-                            echo "<p>" . $row['email'] . "</p>";
+                            echo "<h2>$event_name</h2>";
+                            echo "<p>$event_description</p>";
+                            echo "<p>$event_category</p>";
+                            echo "<p>$event_date</p>";
+                            echo "<p>$event_time</p>";
+                            echo "<p>$phone_number</p>";
+                            echo "<p>$email</p>";
+                            echo "</section>";
+                            echo "</div>";
 
-                            // Include the location.php file to get the location information
-                            include "php/location.php";
-
-                            // Get the location information
-                            $event_location = get_location($row['location_id']);
-
-                            // Check if the location exists
-                            if ($event_location) 
-                            {
-
-                                // Display the location information
-                                echo "<p>" . $event_location['name'] . "</p>";
-                                echo "<p>" . $event_location['address_line_1'] . "</p>";
-                                echo "<p>" . $event_location['address_line_2'] . "</p>";
-                                echo "<p>" . $event_location['city'] . "</p>";
-                                echo "<p>" . $event_location['state'] . "</p>";
-                                echo "<p>" . $event_location['zip_code'] . "</p>";
-                                echo "<p>" . $event_location['latitude'] . "</p>";
-                                echo "<p>" . $event_location['longitude'] . "</p>";
-                                echo "</section>";
-
-                            } 
-                            else 
-                            {
-
-                                // Display a message if the location does not exist
-                                echo "<p>Location not found.</p>";
-                                echo "</section>";
-
-                            }
-
-                            // Close the row after every three RSO sections
-                            if ($i % $EVENTS_PER_ROW == ($EVENTS_PER_ROW - 1) || $i == $select_rsos_result->num_rows - 1)
-                                echo "</div>";
+                            // TODO: Display the location of the event
 
                         }
 
-                    } 
-                    else 
+                    }
+                    else
                     {
+
                         // Display a message if there are no public events
-                        echo "<div class=\"row\">";
+                        echo "<div class='row'>";
                         echo "<section>";
                         echo "<p>There are no public events.</p>";
                         echo "</section>";
                         echo "</div>";
+
                     }
+                    
+                }
+                
+            ?>
+
+            <?php
+
+                // Check if the user is logged in
+                if (isset($_SESSION['user_university_email'])){
+
+                    // Display the create event form
+                    echo "<div class='row'>";
+                    echo "<section>";
+                    echo "<h2>Request to Create Public Event</h2>";
+                    echo "<p>Please use the following page to request to create a public event.</p>";
+
+                    // Create a button to view the create event form
+                    echo "<form action=\"php/form/create_event.html\" method=\"get\">";
+                    echo "<input type=\"hidden\" name=\"event_type\" value=\"public_event\">";
+                    echo "<button type=\"submit\">Request Event Form</button>";
+                    echo "</form>";
+
+                    echo "</section>";
+                    echo "</div>";
 
                 }
 

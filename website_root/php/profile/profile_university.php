@@ -89,6 +89,9 @@
                 echo "</section>";
                 echo "</div>";
 
+                // Include the university.php file to get the university id by university email
+                include_once "../university.php";
+
                 // Get the university id of the user from the user email domain
                 $user_university_id = get_university_by_university_email($_SESSION['user_university_email'])['id'];
 
@@ -96,8 +99,8 @@
                 if ($user_university_id == $university_id)
                 {
 
-                    // Include the event.php file to get the private events
-                    include_once "../event.php";
+                    // Includes
+                    include_once "../private_event.php";
 
                     // Get the private events by university id
                     $private_events = get_private_events_by_university_id($university_id);
@@ -110,14 +113,25 @@
                         while ($private_event = $private_events->fetch_assoc())
                         {
 
+                            // Get the RSO hosting the event
+                            $rso_id = $private_event['rso_id'];
+                            $event_id = $private_event['id'];
+
+                            // Include the rso.php file
+                            include_once "../rso.php";
+
+                            // Get the RSO by ID
+                            $rso = get_rso_from_private_event_id($event_id);
+
                             // Get the event data
-                            $event_name = $event['name'];
-                            $event_category = $event['category'];
-                            $event_description = $event['description'];
-                            $event_date = $event['date'];
-                            $event_time = $event['time'];
-                            $phone_number = $event['phone_number'];
-                            $email = $event['email'];
+                            $event_name = $private_event['name'];
+                            $event_host = $rso['name'];
+                            $event_category = $private_event['category'];
+                            $event_description = $private_event['description'];
+                            $event_date = $private_event['date'];
+                            $event_time = $private_event['time'];
+                            $phone_number = $private_event['phone_number'];
+                            $email = $private_event['email'];
 
                             // TODO: Get the location of the event
 
@@ -125,6 +139,7 @@
                             echo "<div class='row'>";
                             echo "<section>";
                             echo "<h2>$event_name</h2>";
+                            echo "<p>$event_host</p>";
                             echo "<p>$event_description</p>";
                             echo "<p>$event_date</p>";
                             echo "<p>$event_time</p>";
@@ -132,6 +147,8 @@
                             echo "<p>$email</p>";
                             echo "</section>";
                             echo "</div>";
+
+                            // TODO: Display the location of the event
 
                         }
 

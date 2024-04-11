@@ -18,7 +18,7 @@
         $user_password = $user_data["password"];
 
         // Check if the user already exists
-        if (get_user_by_university_email($user_email) == null)
+        if (get_user_by_university_email($user_email) === null)
         {
 
             // Create the user
