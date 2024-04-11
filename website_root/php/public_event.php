@@ -65,6 +65,28 @@
         
     }
 
+    function get_public_event_by_event_id($event_id)
+    {
+
+        // Connect to the database
+        $conn = connect_to_database();
+
+        // Prepare a SELECT statement to get the public event by event ID
+        $select_public_event = $conn->prepare("SELECT * FROM public_event WHERE id = ?");
+        $select_public_event->bind_param("i", $event_id);
+        $select_public_event->execute();
+
+        // Get the result of the SELECT query
+        $public_event = $select_public_event->get_result()->fetch_assoc();
+
+        // Close connection to the database
+        close_connection_to_database($conn);
+
+        // Return the result of the SELECT query
+        return $public_event;
+        
+    }
+
     function create_public_event_by_event_id($event_id)
     {
 

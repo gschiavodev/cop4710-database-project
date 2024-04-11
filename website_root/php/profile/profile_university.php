@@ -145,18 +145,21 @@
                             if ($i % $EVENTS_PER_ROW == 0)
                                 echo "<div class='row'>";
 
-                            // Display the private event information
                             echo "<section>";
-                            echo "<h2>$event_name</h2>";
-                            echo "<p>$event_host</p>";
-                            echo "<p>$event_description</p>";
-                            echo "<p>$event_date</p>";
-                            echo "<p>$event_time</p>";
-                            echo "<p>$phone_number</p>";
-                            echo "<p>$email</p>";
-                            echo "</section>";
+
+                            // Display the private event information
+                            echo "<h3>" . $event_name . "</h3>";
+                            echo "<p>Host: " . $event_host . "</p>";
+                            echo "<p>Category: " . $event_category . "</p>";
+                            echo "<p>Description: " . $event_description . "</p>";
+                            echo "<p>Date: " . $event_date . "</p>";
+                            echo "<p>Time: " . $event_time . "</p>";
+                            echo "<p>Phone Number: " . $phone_number . "</p>";
+                            echo "<p>Email: " . $email . "</p>";
 
                             // TODO: Display the location of the event
+
+                            echo "</section>";
 
                             // Close the row after every three event sections
                             if ($i % $EVENTS_PER_ROW == ($EVENTS_PER_ROW - 1) || $i == $private_events->num_rows - 1)

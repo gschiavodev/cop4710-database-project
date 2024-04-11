@@ -151,16 +151,20 @@
                             if ($i % $EVENTS_PER_ROW == 0)
                                 echo "<div class='row'>";
 
-                            // Display the event
                             echo "<section>";
-                            echo "<h3>" . $event_name . "</h3>";
-                            echo "<p>" . $event_description . "</p>";
-                            echo "<p>" . $event_date . " at " . $event_time . "</p>";
-                            echo "<p>" . $phone_number . "</p>";
-                            echo "<p>" . $email . "</p>";
-                            echo "</section>";
 
+                            // Display the event
+                            echo "<h3>" . $event_name . "</h3>";
+                            echo "<p>Category: " . $event_category . "</p>";
+                            echo "<p>Description: " . $event_description . "</p>";
+                            echo "<p>Date: " . $event_date . "</p>";
+                            echo "<p>Time: " . $event_time . "</p>";
+                            echo "<p>Phone Number: " . $phone_number . "</p>";
+                            echo "<p>Email: " . $email . "</p>";
+                            
                             // TODO: Display the location of the event
+
+                            echo "</section>";
 
                             // Close the row after every three event sections
                             if ($i % $EVENTS_PER_ROW == ($EVENTS_PER_ROW - 1) || $i == $event_data->num_rows - 1)

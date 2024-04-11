@@ -166,6 +166,120 @@
 
                 <div class="row">
 
+                    <section id="section_approve_deny_public_event">
+                        <h2>Manage Public Events</h2>
+                        <p>Use this section to approve or deny public events.</p>
+                    </section>
+
+                </div>
+
+                <?php
+
+                    // Constants
+                    $EVENTS_PER_ROW = 3;
+
+                    // Include necessary files
+                    include_once "php/public_event.php";
+
+                    // Get the public events that are not approved
+                    $unapproved_public_events = get_unapproved_public_events();
+
+                    // Check if there are any public events that are not approved
+                    if ($unapproved_public_events->num_rows > 0) 
+                    {
+
+                        // Display the public events that are not approved
+                        for ($i = 0; $i < $unapproved_public_events->num_rows; $i++) 
+                        {
+
+                            // Get the next public event
+                            $public_event = $unapproved_public_events->fetch_assoc();
+
+                            // Open a new row after every three public event sections
+                            if ($i % $EVENTS_PER_ROW == 0)
+                                echo "<div class=\"row\">";
+
+                            // Get the event data
+                            $event_id = $public_event['id'];
+                            $event_name = $public_event['name'];
+                            $event_category = $public_event['category'];
+                            $event_description = $public_event['description'];
+                            $event_date = $public_event['date'];
+                            $event_time = $public_event['time'];
+                            $phone_number = $public_event['phone_number'];
+                            $email = $public_event['email'];
+
+                            // TODO: Get the location information
+
+                            echo "<section>";
+
+                            // Display the event information
+                            echo "<h3>" . $event_name . "</h3>";
+                            echo "<p>Category: " . $event_category . "</p>";
+                            echo "<p>Description: " . $event_description . "</p>";
+                            echo "<p>Date: " . $event_date . "</p>";
+                            echo "<p>Time: " . $event_time . "</p>";
+                            echo "<p>Phone Number: " . $phone_number . "</p>";
+                            echo "<p>Email: " . $email . "</p>";
+
+                            // Display the approve button
+                            echo "<form method=\"POST\" action=\"php/action/approve_deny_public_event.php\">";
+                            echo "<input type=\"hidden\" name=\"event_id\" value=\"" . $event_id . "\">";
+                            echo "<input type=\"hidden\" name=\"action\" value=\"approve\">";
+                            echo "<input type=\"submit\" value=\"Approve\">";
+                            echo "</form>";
+
+                            // Display the deny button
+                            echo "<form method=\"POST\" action=\"php/action/approve_deny_public_event.php\">";
+                            echo "<input type=\"hidden\" name=\"event_id\" value=\"" . $event_id . "\">";
+                            echo "<input type=\"hidden\" name=\"action\" value=\"deny\">";
+                            echo "<input type=\"submit\" value=\"Deny\">";
+                            echo "</form>";
+
+                            // Close the section
+                            echo "</section>";
+
+                            // Close the row after every three public event sections
+                            if ($i % $EVENTS_PER_ROW == ($EVENTS_PER_ROW - 1) || $i == $unapproved_public_events->num_rows - 1)
+                            {
+
+                                // If last row has less than three public events, add empty sections to fill the row
+                                for ($j = 0; $j < $EVENTS_PER_ROW - ($i % $EVENTS_PER_ROW) - 1; $j++)
+                                    echo "<section><p></p></section>";
+
+                                // Close the row
+                                echo "</div>";
+
+                            }
+
+                        }
+
+                    }
+                    else
+                    {
+
+                        // Display a message if there are no public events that are not approved
+                        echo "<div class=\"row\">";
+                        echo "<section>";
+                        echo "<p>There are no public events to approve.</p>";
+                        echo "</section>";
+                        echo "</div>";
+
+                    }
+
+                ?>
+
+                <?php if (isset($_SESSION['message_approve_deny_public_event'])): ?>
+                    <div class="row">
+                        <section>
+                            <p><?php echo $_SESSION['message_approve_deny_public_event']; ?></p>
+                            <?php unset($_SESSION['message_approve_deny_public_event']); ?>
+                        </section>
+                    </div>
+                <?php endif; ?>
+
+                <div class="row">
+
                     <section id="section_approve_deny_rso">
                         <h2>Manage Registered Student Organizations</h2>
                         <p>Use this section to approve or deny a registered student organization.</p>
