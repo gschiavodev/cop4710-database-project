@@ -65,14 +65,14 @@ CREATE TABLE IF NOT EXISTS college_events.event
     location_id INT NOT NULL,
     name VARCHAR(255) NOT NULL,
     description TEXT NOT NULL,
-    category ENUM('social', 'philanthropy', 'fundraising', 'tech-talk') NOT NULL,
+    category ENUM('academic', 'social', 'philanthropy', 'fundraising', 'tech-talk') NOT NULL,
     date DATE NOT NULL,
     time TIME NOT NULL,
     phone_number VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
     PRIMARY KEY (id),
-    CONSTRAINT fk_event_location_id FOREIGN KEY (location_id) REFERENCES college_events.location(id) ON DELETE CASCADE,
-    CONSTRAINT unique_event_date_time_location UNIQUE (date, time, location_id)
+    CONSTRAINT fk_event_location_id FOREIGN KEY (location_id) REFERENCES college_events.location(id) ON DELETE CASCADE
+    -- CONSTRAINT unique_event_date_time_location UNIQUE (date, time, location_id)
 );
 
 -- Create 'public_event' (ISA event) table

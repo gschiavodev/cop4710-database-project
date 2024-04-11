@@ -232,7 +232,7 @@
             include_once "../rso_event.php";
 
             // Create the RSO event
-            $rso_event_id = create_rso_event_by_event_id($event_id, $rso_id);
+            $rso_event_id = create_rso_event_by_event_and_rso_id($event_id, $rso_id);
 
             // Check if the RSO event was created
             if ($rso_event_id === null)

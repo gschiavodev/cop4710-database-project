@@ -26,7 +26,7 @@
         
     }
 
-    function create_rso_event_by_event_id($event_id, $rso_id)
+    function create_rso_event_by_event_and_rso_id($event_id, $rso_id)
     {
 
         // Connect to the database
@@ -37,14 +37,11 @@
         $create_rso_event->bind_param("ii", $event_id, $rso_id);
         $create_rso_event->execute();
 
-        // Get the ID of the created RSO event
-        $rso_event_id = $create_rso_event->insert_id;
-
         // Close connection to the database
         close_connection_to_database($conn);
 
         // Return the ID of the created RSO event
-        return $rso_event_id;
+        return $event_id;
         
     }
 

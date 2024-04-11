@@ -76,14 +76,11 @@
         $create_public_event->bind_param("i", $event_id);
         $create_public_event->execute();
 
-        // Get the ID of the created public event
-        $public_event_id = $create_public_event->insert_id;
-
         // Close connection to the database
         close_connection_to_database($conn);
 
         // Return the ID of the created public event
-        return $public_event_id;
+        return $event_id;
         
     }
 

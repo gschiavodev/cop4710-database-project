@@ -13,7 +13,7 @@
             "address_line_01": "4000 Central Florida Blvd",
             "address_line_02": null,
             "city": "Orlando",
-            "state": "FL",
+            "state": "Florida",
             "zip_code": "32816",
             "latitude": null,
             "longitude": null
@@ -33,7 +33,7 @@
             "address_line_01": "1000 Holt Ave",
             "address_line_02": null,
             "city": "Winter Park",
-            "state": "FL",
+            "state": "Florida",
             "zip_code": "32789",
             "latitude": null,
             "longitude": null
@@ -53,7 +53,7 @@
             "address_line_01": "600 W College Ave",
             "address_line_02": null,
             "city": "Tallahassee",
-            "state": "FL",
+            "state": "Florida",
             "zip_code": "32306",
             "latitude": null,
             "longitude": null
@@ -70,10 +70,10 @@
         "location": 
         {
             "name": "University of Florida",
-            "address_line_01": "Gainesville",
+            "address_line_01": "300 SW 13th St",
             "address_line_02": null,
             "city": "Gainesville",
-            "state": "FL",
+            "state": "Florida",
             "zip_code": "32611",
             "latitude": null,
             "longitude": null

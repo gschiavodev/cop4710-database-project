@@ -47,6 +47,28 @@
         
     }
 
+    function get_rsos_by_admin_id($admin_id)
+    {
+
+        // Connect to the database
+        $conn = connect_to_database();
+
+        // Prepare a SELECT statement to get the RSOs with the provided admin ID
+        $select_rsos = $conn->prepare("SELECT * FROM rso WHERE admin_id = ?");
+        $select_rsos->bind_param("i", $admin_id);
+        $select_rsos->execute();
+
+        // Get the result of the SELECT query
+        $rsos = $select_rsos->get_result();
+
+        // Close connection to the database
+        close_connection_to_database($conn);
+
+        // Return the result of the SELECT query
+        return $rsos;
+
+    }
+
     function get_approved_rsos()
     {
 

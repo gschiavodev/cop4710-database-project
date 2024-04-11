@@ -111,14 +111,11 @@
         $create_private_event->bind_param("ii", $event_id, $rso_id);
         $create_private_event->execute();
 
-        // Get the result of the INSERT query
-        $private_event_id = $create_private_event->insert_id;
-
         // Close connection to the database
         close_connection_to_database($conn);
 
         // Return the ID of the created private event
-        return $private_event_id;
+        return $event_id;
 
     }
 

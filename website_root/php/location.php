@@ -71,7 +71,17 @@
         $conn = connect_to_database();
 
         // Base query
-        $sql = "SELECT * FROM location WHERE LOWER(address_line_01) = LOWER(?) AND LOWER(address_line_02) = LOWER(?) AND LOWER(city) = LOWER(?) AND LOWER(state) = LOWER(?) AND LOWER(zip_code) = LOWER(?)";
+        $sql = "SELECT * FROM location WHERE LOWER(TRIM(address_line_01)) = LOWER(?) AND LOWER(TRIM(address_line_02)) = LOWER(?) AND LOWER(TRIM(city)) = LOWER(?) AND LOWER(TRIM(state)) = LOWER(?) AND LOWER(TRIM(zip_code)) = LOWER(?)";
+
+        // Check if address line 02 is null
+        $address_line_02 = ($address_line_02 === null) ? "" : $address_line_02;
+
+        // Trim the input values
+        $address_line_01 = trim($address_line_01);
+        $address_line_02 = trim($address_line_02);
+        $city = trim($city);
+        $state = trim($state);
+        $zip_code = trim($zip_code);
 
         // Array to hold parameters and their types
         $params = array($address_line_01, $address_line_02, $city, $state, $zip_code);
@@ -118,16 +128,22 @@
         // Open a connection to the database
         $conn = connect_to_database();
 
+        // Check if address line 02 is null
+        $address_line_02 = ($address_line_02 === null) ? "" : $address_line_02;
+
         // Query to create a new location
         $insert_location = $conn->prepare("INSERT INTO location (name, address_line_01, address_line_02, city, state, zip_code, latitude, longitude) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
         $insert_location->bind_param("ssssssii", $name, $address_line_01, $address_line_02, $city, $state, $zip_code, $latitude, $longitude);
         $insert_location->execute();
 
+        // Get the ID of the created location
+        $location_id = $insert_location->insert_id;
+
         // Close the database connection
         close_connection_to_database($conn);
 
         // Return if the location was created
-        return $insert_location->affected_rows > 0;
+        return $location_id;
 
     }
 
