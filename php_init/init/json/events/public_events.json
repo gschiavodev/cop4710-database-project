@@ -1,0 +1,82 @@
+[
+    {
+        "name": "Tech Talk: Quantum Computing",
+        "description": "Join us for a deep dive into the world of Quantum Computing.",
+        "category": "tech-talk",
+        "date": "2022-12-01",
+        "time": "14:00:00",
+        "phone_number": "123-456-7890",
+        "email": "johndoe@ucf.edu",
+        "location": 
+        {
+            "name": "UCF Main Campus",
+            "address_line_01": "4000 Central Florida Blvd",
+            "address_line_02": null,
+            "city": "Orlando",
+            "state": "FL",
+            "zip_code": "32816",
+            "latitude": null,
+            "longitude": null
+        }
+    },
+    {
+        "name": "Winter Charity Gala",
+        "description": "A night of fun and philanthropy. All proceeds go to local charities.",
+        "category": "fundraising",
+        "date": "2022-12-15",
+        "time": "19:00:00",
+        "phone_number": "234-567-8901",
+        "email": "charliebrown@rollins.edu",
+        "location": 
+        {
+            "name": "Rollins College",
+            "address_line_01": "1000 Holt Ave",
+            "address_line_02": null,
+            "city": "Winter Park",
+            "state": "FL",
+            "zip_code": "32789",
+            "latitude": null,
+            "longitude": null
+        }
+    },
+    {
+        "name": "Coding for Social Good Hackathon",
+        "description": "A 24-hour hackathon focused on creating tech solutions for social issues.",
+        "category": "social",
+        "date": "2023-01-20",
+        "time": "09:00:00",
+        "phone_number": "345-678-9012",
+        "email": "harrymoore@fsu.edu",
+        "location": 
+        {
+            "name": "Florida State University",
+            "address_line_01": "600 W College Ave",
+            "address_line_02": null,
+            "city": "Tallahassee",
+            "state": "FL",
+            "zip_code": "32306",
+            "latitude": null,
+            "longitude": null
+        }
+    },
+    {
+        "name": "Annual College Marathon",
+        "description": "Participate in our annual marathon and help raise funds for student scholarships.",
+        "category": "fundraising",
+        "date": "2023-04-01",
+        "time": "07:00:00",
+        "phone_number": "678-901-2345",
+        "email": "laurawhite@ufl.edu",
+        "location": 
+        {
+            "name": "University of Florida",
+            "address_line_01": "Gainesville",
+            "address_line_02": null,
+            "city": "Gainesville",
+            "state": "FL",
+            "zip_code": "32611",
+            "latitude": null,
+            "longitude": null
+        }
+    }
+]

@@ -109,9 +109,15 @@
                     if ($private_events->num_rows > 0)
                     {
 
+                        // Constants
+                        $EVENTS_PER_ROW = 3;
+
                         // Loop through each private event
-                        while ($private_event = $private_events->fetch_assoc())
+                        for ($i = 0; $i < $private_events->num_rows; $i++)
                         {
+
+                            // Get the private event
+                            $private_event = $private_events->fetch_assoc();
 
                             // Get the RSO hosting the event
                             $rso_id = $private_event['rso_id'];
@@ -135,8 +141,11 @@
 
                             // TODO: Get the location of the event
 
+                            // Open a new row after every three event sections
+                            if ($i % $EVENTS_PER_ROW == 0)
+                                echo "<div class='row'>";
+
                             // Display the private event information
-                            echo "<div class='row'>";
                             echo "<section>";
                             echo "<h2>$event_name</h2>";
                             echo "<p>$event_host</p>";
@@ -146,9 +155,20 @@
                             echo "<p>$phone_number</p>";
                             echo "<p>$email</p>";
                             echo "</section>";
-                            echo "</div>";
 
                             // TODO: Display the location of the event
+
+                            // Close the row after every three event sections
+                            if ($i % $EVENTS_PER_ROW == ($EVENTS_PER_ROW - 1) || $i == $private_events->num_rows - 1)
+                            {
+
+                                // If last row has less than three RSOs, add empty sections to fill the row
+                                for ($j = 0; $j < $EVENTS_PER_ROW - ($i % $EVENTS_PER_ROW) - 1; $j++)
+                                    echo "<section><p></p></section>";
+
+                                // Close the row
+                                echo "</div>";
+                            }
 
                         }
 

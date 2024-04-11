@@ -122,16 +122,19 @@
                     echo "</section>";
                     echo "</div>";
 
-                    echo "<div class='row'>";
-                    echo "<section>";
+                    // Constants
+                    $EVENTS_PER_ROW = 3;
 
                     // Check if there are any events
                     if ($event_data->num_rows > 0)
                     {
 
                         // Loop through the events
-                        while ($event = $event_data->fetch_assoc())
+                        for ($i = 0; $i < $event_data->num_rows; $i++)
                         {
+
+                            // Get the event
+                            $event = $event_data->fetch_assoc();
 
                             // Get the event data
                             $event_name = $event['name'];
@@ -144,17 +147,33 @@
 
                             // TODO: Get the location of the event
 
+                            // Open a new row after every three event sections
+                            if ($i % $EVENTS_PER_ROW == 0)
+                                echo "<div class='row'>";
+
                             // Display the event
-                            echo "<div class='event'>";
+                            echo "<section>";
                             echo "<h3>" . $event_name . "</h3>";
                             echo "<p>" . $event_description . "</p>";
                             echo "<p>" . $event_date . " at " . $event_time . "</p>";
                             echo "<p>" . $phone_number . "</p>";
                             echo "<p>" . $email . "</p>";
-                            echo "</div>";
+                            echo "</section>";
 
                             // TODO: Display the location of the event
 
+                            // Close the row after every three event sections
+                            if ($i % $EVENTS_PER_ROW == ($EVENTS_PER_ROW - 1) || $i == $event_data->num_rows - 1)
+                            {
+
+                                // If last row has less than three RSOs, add empty sections to fill the row
+                                for ($j = 0; $j < $EVENTS_PER_ROW - ($i % $EVENTS_PER_ROW) - 1; $j++)
+                                    echo "<section><p></p></section>";
+
+                                // Close the row
+                                echo "</div>";
+                            }
+                            
                         }
 
                     }
@@ -162,12 +181,13 @@
                     {
 
                         // Display a message if there are no events
+                        echo "<div class='row'>";
+                        echo "<section>";
                         echo "<p>There are no events to display.</p>";
+                        echo "</section>";
+                        echo "</div>";
 
                     }
-
-                    echo "</section>";
-                    echo "</div>";
 
                 }
 

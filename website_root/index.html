@@ -101,9 +101,12 @@
                     {
 
                         // Loop through each public event
-                        while ($public_event = $select_public_events->fetch_assoc())
+                        for ($i = 0; $i < $select_public_events->num_rows; $i++) 
                         {
 
+                            // Get the public event data
+                            $public_event = $select_public_events->fetch_assoc();
+                            
                             // Get the event data
                             $event_name = $public_event['name'];
                             $event_description = $public_event['description'];
@@ -112,11 +115,14 @@
                             $event_time = $public_event['time'];
                             $phone_number = $public_event['phone_number'];
                             $email = $public_event['email'];
-
+  
                             // TODO: Get the location of the event
 
+                            // Open a new row after every three public event sections
+                            if ($i % $EVENTS_PER_ROW == 0)
+                                echo "<div class='row'>";
+
                             // Display the public event information
-                            echo "<div class='row'>";
                             echo "<section>";
                             echo "<h2>$event_name</h2>";
                             echo "<p>$event_description</p>";
@@ -126,9 +132,20 @@
                             echo "<p>$phone_number</p>";
                             echo "<p>$email</p>";
                             echo "</section>";
-                            echo "</div>";
 
                             // TODO: Display the location of the event
+
+                            // Close the row after every three public event sections
+                            if ($i % $EVENTS_PER_ROW == ($EVENTS_PER_ROW - 1) || $i == $select_public_events->num_rows - 1)
+                            {
+
+                                // If last row has less than three public events, add empty sections to fill the row
+                                for ($j = 0; $j < $EVENTS_PER_ROW - ($i % $EVENTS_PER_ROW) - 1; $j++)
+                                    echo "<section><p></p></section>";
+
+                                // Close the row
+                                echo "</div>";
+                            }
 
                         }
 

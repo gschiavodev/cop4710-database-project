@@ -1,0 +1,168 @@
+[
+    {
+        "name": "CyberKnights Capture The Flag",
+        "description": "A private Capture The Flag event for CyberKnights members to test their cybersecurity skills.",
+        "category": "tech-talk",
+        "date": "2022-12-01",
+        "time": "14:00:00",
+        "phone_number": "123-456-7890",
+        "email": "johndoe@ucf.edu",
+        "rso_admin_email": "johndoe@ucf.edu",
+        "location": 
+        {
+            "name": "UCF Main Campus",
+            "address_line_01": "4000 Central Florida Blvd",
+            "address_line_02": null,
+            "city": "Orlando",
+            "state": "FL",
+            "zip_code": "32816",
+            "latitude": null,
+            "longitude": null
+        }
+    },
+    {
+        "name": "CyberKnights Networking Workshop",
+        "description": "A private workshop for CyberKnights members to learn about computer networking.",
+        "category": "tech-talk",
+        "date": "2022-12-15",
+        "time": "19:00:00",
+        "phone_number": "234-567-8901",
+        "email": "johndoe@ucf.edu",
+        "rso_admin_email": "johndoe@ucf.edu",
+        "location": 
+        {
+            "name": "UCF Main Campus",
+            "address_line_01": "4000 Central Florida Blvd",
+            "address_line_02": null,
+            "city": "Orlando",
+            "state": "FL",
+            "zip_code": "32816",
+            "latitude": null,
+            "longitude": null
+        }
+    },
+    {
+        "name": "EcoWarriors Tree Planting Event",
+        "description": "A private tree planting event for EcoWarriors members at a local park.",
+        "category": "social",
+        "date": "2023-01-20",
+        "time": "09:00:00",
+        "phone_number": "345-678-9012",
+        "email": "charliebrown@rollins.edu",
+        "rso_admin_email": "charliebrown@rollins.edu",
+        "location": 
+        {
+            "name": "Rollins College",
+            "address_line_01": "1000 Holt Ave",
+            "address_line_02": null,
+            "city": "Winter Park",
+            "state": "FL",
+            "zip_code": "32789",
+            "latitude": null,
+            "longitude": null
+        }
+    },
+    {
+        "name": "EcoWarriors Recycling Workshop",
+        "description": "A private workshop for EcoWarriors members to learn about recycling and waste management.",
+        "category": "social",
+        "date": "2023-02-10",
+        "time": "14:00:00",
+        "phone_number": "456-789-0123",
+        "email": "charliebrown@rollins.edu",
+        "rso_admin_email": "charliebrown@rollins.edu",
+        "location": 
+        {
+            "name": "Rollins College",
+            "address_line_01": "1000 Holt Ave",
+            "address_line_02": null,
+            "city": "Winter Park",
+            "state": "FL",
+            "zip_code": "32789",
+            "latitude": null,
+            "longitude": null
+        }
+    },
+    {
+        "name": "ArtisanAlliance Pottery Class",
+        "description": "A private pottery class for ArtisanAlliance members to learn new pottery techniques.",
+        "category": "social",
+        "date": "2023-03-15",
+        "time": "10:00:00",
+        "phone_number": "567-890-1234",
+        "email": "harrymoore@fsu.edu",
+        "rso_admin_email": "harrymoore@fsu.edu",
+        "location": 
+        {
+            "name": "Florida State University",
+            "address_line_01": "600 W College Ave",
+            "address_line_02": null,
+            "city": "Tallahassee",
+            "state": "FL",
+            "zip_code": "32306",
+            "latitude": null,
+            "longitude": null
+        }
+    },
+    {
+        "name": "ArtisanAlliance Painting Workshop",
+        "description": "A private workshop for ArtisanAlliance members to learn new painting techniques.",
+        "category": "social",
+        "date": "2023-04-01",
+        "time": "07:00:00",
+        "phone_number": "678-901-2345",
+        "email": "harrymoore@fsu.edu",
+        "rso_admin_email": "harrymoore@fsu.edu",
+        "location": 
+        {
+            "name": "Florida State University",
+            "address_line_01": "600 W College Ave",
+            "address_line_02": null,
+            "city": "Tallahassee",
+            "state": "FL",
+            "zip_code": "32306",
+            "latitude": null,
+            "longitude": null
+        }
+    },
+    {
+        "name": "QuantumQuorum Seminar",
+        "description": "A private seminar for QuantumQuorum members to discuss recent advancements in quantum physics.",
+        "category": "tech-talk",
+        "date": "2023-05-01",
+        "time": "14:00:00",
+        "phone_number": "789-012-3456",
+        "email": "laurawhite@ufl.edu",
+        "rso_admin_email": "laurawhite@ufl.edu",
+        "location": {
+            "name": "University of Florida",
+            "address_line_01": "Gainesville",
+            "address_line_02": null,
+            "city": "Gainesville",
+            "state": "FL",
+            "zip_code": "32611",
+            "latitude": null,
+            "longitude": null
+        }
+    },
+    {
+        "name": "QuantumQuorum Workshop",
+        "description": "A private workshop for QuantumQuorum members to learn about quantum computing.",
+        "category": "tech-talk",
+        "date": "2023-05-15",
+        "time": "19:00:00",
+        "phone_number": "890-123-4567",
+        "email": "laurawhite@ufl.edu",
+        "rso_admin_email": "laurawhite@ufl.edu",
+        "location": {
+            "name": "University of Florida",
+            "address_line_01": "Gainesville",
+            "address_line_02": null,
+            "city": "Gainesville",
+            "state": "FL",
+            "zip_code": "32611",
+            "latitude": null,
+            "longitude": null
+        }
+    }
+]

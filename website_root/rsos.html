@@ -113,7 +113,15 @@
 
                         // Close the row after every three RSO sections
                         if ($i % $RSOS_PER_ROW == ($RSOS_PER_ROW - 1) || $i == $rsos->num_rows - 1)
+                        {
+
+                            // If last row has less than three RSOs, add empty sections to fill the row
+                            for ($j = 0; $j < $RSOS_PER_ROW - ($i % $RSOS_PER_ROW) - 1; $j++)
+                                echo "<section><p></p></section>";
+
+                            // Close the row
                             echo "</div>";
+                        }
 
                     }
 
