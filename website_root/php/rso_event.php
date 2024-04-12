@@ -4,6 +4,28 @@
     // Include the database connection file
     include_once "database.php";
 
+    function get_rso_event_by_event_id($event_id)
+    {
+
+        // Connect to the database
+        $conn = connect_to_database();
+
+        // Prepare a SELECT statement to get the RSO event by event ID
+        $select_rso_event_by_event_id = $conn->prepare("SELECT * FROM rso_event WHERE id = ?");
+        $select_rso_event_by_event_id->bind_param("i", $event_id);
+        $select_rso_event_by_event_id->execute();
+
+        // Get the result of the SELECT query
+        $rso_event_by_event_id = $select_rso_event_by_event_id->get_result()->fetch_assoc();
+
+        // Close connection to the database
+        close_connection_to_database($conn);
+
+        // Return the result of the SELECT query
+        return $rso_event_by_event_id;
+        
+    }
+
     function get_rso_events_by_rso_id($rso_id)
     {
 

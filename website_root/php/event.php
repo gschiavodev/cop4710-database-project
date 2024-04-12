@@ -3,6 +3,28 @@
     // Include the database connection file
     include_once "database.php";
 
+    function get_event_by_id($event_id)
+    {
+
+        // Connect to the database
+        $conn = connect_to_database();
+
+        // Prepare a SELECT statement to get the event by ID
+        $get_event = $conn->prepare("SELECT * FROM event WHERE id = ?");
+        $get_event->bind_param("i", $event_id);
+        $get_event->execute();
+
+        // Get the event
+        $event = $get_event->get_result()->fetch_assoc();
+
+        // Close connection to the database
+        close_connection_to_database($conn);
+
+        // Return the event
+        return $event;
+
+    }
+
     function create_event($event_name, $event_description, $event_category, $event_email, $event_phone_number, $event_date, $event_time, $location_id)
     {
 

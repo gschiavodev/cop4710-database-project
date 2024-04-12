@@ -78,3 +78,20 @@ form input:-webkit-autofill:active {
     -webkit-text-fill-color: #333;
     -webkit-box-shadow: 0 0 0px 1000px white inset;
 }
+
+.star-rating {
+    display: flex;
+    justify-content: space-between;
+    width: 150px;
+}
+
+.star {
+    color: lightgray;
+    font-size: 30px;
+    padding: 0 5px;
+    cursor: pointer;
+}
+
+.star.highlight {
+    color: gold;
+}

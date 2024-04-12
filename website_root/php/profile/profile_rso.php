@@ -105,11 +105,11 @@
                 {
 
                     // If checking for university events, and user is not from the university, skip
-                    if (($index == 0) && ($rso['university_id'] != get_university_by_university_email($_SESSION['user_university_email'])['id']))
+                    if (($index == 0) && !$_SESSION['user_is_super_admin'] && ($rso['university_id'] != get_university_by_university_email($_SESSION['user_university_email'])['id']))
                         continue;
 
                     // If checking for organization events, and user is not part of the RSO, skip
-                    if (($index == 1) && (!check_if_user_in_rso_by_rso_id_and_user_id($rso_id, $_SESSION['user_id'])))
+                    if (($index == 1) && !$_SESSION['user_is_super_admin'] && (!check_if_user_in_rso_by_rso_id_and_user_id($rso_id, $_SESSION['user_id'])))
                         continue;
 
                     // Get the title of the events
@@ -137,6 +137,7 @@
                             $event = $event_data->fetch_assoc();
 
                             // Get the event data
+                            $event_id = $event['id'];
                             $event_name = $event['name'];
                             $event_category = $event['category'];
                             $event_description = $event['description'];
@@ -163,6 +164,12 @@
                             echo "<p>Email: " . $email . "</p>";
                             
                             // TODO: Display the location of the event
+
+                            // Create a button to view the event details
+                            echo "<form action=\"profile_event.php\" method=\"get\">";
+                            echo "<input type=\"hidden\" name=\"event_id\" value=\"" . $event_id . "\">";
+                            echo "<button type=\"submit\">View Event</button>";
+                            echo "</form>";
 
                             echo "</section>";
 

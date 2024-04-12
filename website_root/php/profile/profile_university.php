@@ -96,7 +96,7 @@
                 $user_university_id = get_university_by_university_email($_SESSION['user_university_email'])['id'];
 
                 // Check if the user is part of the university
-                if ($user_university_id == $university_id)
+                if (($user_university_id == $university_id) || ($_SESSION['user_is_super_admin']))
                 {
 
                     // Includes
@@ -130,6 +130,7 @@
                             $rso = get_rso_from_private_event_id($event_id);
 
                             // Get the event data
+                            $event_id = $private_event['id'];
                             $event_name = $private_event['name'];
                             $event_host = $rso['name'];
                             $event_category = $private_event['category'];
@@ -158,6 +159,12 @@
                             echo "<p>Email: " . $email . "</p>";
 
                             // TODO: Display the location of the event
+
+                            // Create a button to view the event details
+                            echo "<form action=\"profile_event.php\" method=\"get\">";
+                            echo "<input type=\"hidden\" name=\"event_id\" value=\"" . $event_id . "\">";
+                            echo "<button type=\"submit\">View Event</button>";
+                            echo "</form>";
 
                             echo "</section>";
 

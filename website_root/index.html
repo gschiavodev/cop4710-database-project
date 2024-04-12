@@ -108,6 +108,7 @@
                             $public_event = $select_public_events->fetch_assoc();
                             
                             // Get the event data
+                            $event_id = $public_event['id'];
                             $event_name = $public_event['name'];
                             $event_category = $public_event['category'];
                             $event_description = $public_event['description'];
@@ -134,6 +135,12 @@
                             echo "<p>Email: " . $email . "</p>";
 
                             // TODO: Display the location of the event
+
+                            // Create a button to view the event details
+                            echo "<form action=\"php/profile/profile_event.php\" method=\"get\">";
+                            echo "<input type=\"hidden\" name=\"event_id\" value=\"" . $event_id . "\">";
+                            echo "<button type=\"submit\">View Event</button>";
+                            echo "</form>";
 
                             echo "</section>";
 
