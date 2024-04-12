@@ -18,7 +18,20 @@
             "zip_code": "32816",
             "latitude": null,
             "longitude": null
-        }
+        },
+        "comments": 
+        [
+            {
+                "user_university_email": "johndoe@ucf.edu",
+                "comment": "Very informative talk on Quantum Computing.",
+                "rating": 5
+            },
+            {
+                "user_university_email": "janesmith@ucf.edu",
+                "comment": "Learned a lot about the future of computing.",
+                "rating": 4
+            }
+        ]
     },
     {
         "name": "Winter Charity Gala",
@@ -39,7 +52,20 @@
             "zip_code": "32789",
             "latitude": null,
             "longitude": null
-        }
+        },
+        "comments": 
+        [
+            {
+                "user_university_email": "charliebrown@rollins.edu",
+                "comment": "A wonderful night for a great cause.",
+                "rating": 5
+            },
+            {
+                "user_university_email": "emilydavis@rollins.edu",
+                "comment": "Enjoyed the gala, looking forward to the next one.",
+                "rating": 4
+            }
+        ]
     },
     {
         "name": "Coding for Social Good Hackathon",
@@ -60,7 +86,20 @@
             "zip_code": "32306",
             "latitude": null,
             "longitude": null
-        }
+        },
+        "comments": 
+        [
+            {
+                "user_university_email": "harrymoore@fsu.edu",
+                "comment": "A challenging but rewarding experience.",
+                "rating": 5
+            },
+            {
+                "user_university_email": "ivytaylor@fsu.edu",
+                "comment": "Great to see tech being used for social good.",
+                "rating": 4
+            }
+        ]
     },
     {
         "name": "Annual College Marathon",
@@ -81,6 +120,19 @@
             "zip_code": "32611",
             "latitude": null,
             "longitude": null
-        }
+        },
+        "comments": 
+        [
+            {
+                "user_university_email": "laurawhite@ufl.edu",
+                "comment": "A fun way to raise funds for scholarships.",
+                "rating": 5
+            },
+            {
+                "user_university_email": "michaelgreen@ufl.edu",
+                "comment": "Enjoyed the marathon, great turnout.",
+                "rating": 4
+            }
+        ]
     }
 ]

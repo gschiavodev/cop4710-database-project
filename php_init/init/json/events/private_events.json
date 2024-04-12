@@ -18,7 +18,20 @@
             "zip_code": "32816",
             "latitude": null,
             "longitude": null
-        }
+        },
+        "comments": 
+        [
+            {
+                "user_university_email": "johndoe@ucf.edu",
+                "comment": "Great event, learned a lot!",
+                "rating": 5
+            },
+            {
+                "user_university_email": "janesmith@ucf.edu",
+                "comment": "Very informative.",
+                "rating": 4
+            }
+        ]
     },
     {
         "name": "CyberKnights Workshop",
@@ -39,7 +52,20 @@
             "zip_code": "32816",
             "latitude": null,
             "longitude": null
-        }
+        },
+        "comments": 
+        [
+            {
+                "user_university_email": "alicejohnson@ucf.edu",
+                "comment": "The workshop was very helpful.",
+                "rating": 5
+            },
+            {
+                "user_university_email": "bobwilliams@ucf.edu",
+                "comment": "I enjoyed the hands-on experience.",
+                "rating": 4
+            }
+        ]
     },
     {
         "name": "EcoWarriors Cleanup Event",
@@ -60,7 +86,20 @@
             "zip_code": "32789",
             "latitude": null,
             "longitude": null
-        }
+        },
+        "comments": 
+        [
+            {
+                "user_university_email": "charliebrown@rollins.edu",
+                "comment": "Great initiative, had a good time!",
+                "rating": 5
+            },
+            {
+                "user_university_email": "emilydavis@rollins.edu",
+                "comment": "Loved the community spirit.",
+                "rating": 4
+            }
+        ]
     },
     {
         "name": "EcoWarriors Fundraiser",
@@ -81,7 +120,20 @@
             "zip_code": "32789",
             "latitude": null,
             "longitude": null
-        }
+        },
+        "comments": 
+        [
+            {
+                "user_university_email": "frankmiller@rollins.edu",
+                "comment": "Well organized and for a good cause.",
+                "rating": 5
+            },
+            {
+                "user_university_email": "gracewilson@rollins.edu",
+                "comment": "Enjoyed the event, great job!",
+                "rating": 4
+            }
+        ]
     },
     {
         "name": "ArtisanAlliance Art Exhibition",
@@ -102,7 +154,20 @@
             "zip_code": "32306",
             "latitude": null,
             "longitude": null
-        }
+        },
+        "comments": 
+        [
+            {
+                "user_university_email": "harrymoore@fsu.edu",
+                "comment": "Amazing art pieces, very inspiring.",
+                "rating": 5
+            },
+            {
+                "user_university_email": "ivytaylor@fsu.edu",
+                "comment": "Loved the creativity on display.",
+                "rating": 4
+            }
+        ]
     },
     {
         "name": "ArtisanAlliance Workshop",
@@ -123,7 +188,20 @@
             "zip_code": "32306",
             "latitude": null,
             "longitude": null
-        }
+        },
+        "comments": 
+        [
+            {
+                "user_university_email": "jackanderson@fsu.edu",
+                "comment": "Learned a lot of new techniques.",
+                "rating": 5
+            },
+            {
+                "user_university_email": "katiethomas@fsu.edu",
+                "comment": "Great workshop, very informative.",
+                "rating": 4
+            }
+        ]
     },
     {
         "name": "UF Research Symposium",
@@ -144,7 +222,20 @@
             "zip_code": "32611",
             "latitude": null,
             "longitude": null
-        }
+        },
+        "comments": 
+        [
+            {
+                "user_university_email": "laurawhite@ufl.edu",
+                "comment": "Impressive research presentations.",
+                "rating": 5
+            },
+            {
+                "user_university_email": "michaelgreen@ufl.edu",
+                "comment": "Very insightful discussions.",
+                "rating": 4
+            }
+        ]
     },
     {
         "name": "UF Alumni Reunion",
@@ -165,6 +256,19 @@
             "zip_code": "32611",
             "latitude": null,
             "longitude": null
-        }
+        },
+        "comments": 
+        [
+            {
+                "user_university_email": "nicoleblack@ufl.edu",
+                "comment": "Great to reconnect with everyone.",
+                "rating": 5
+            },
+            {
+                "user_university_email": "oscarbrown@ufl.edu",
+                "comment": "Enjoyed the event, well organized.",
+                "rating": 4
+            }
+        ]
     }
 ]

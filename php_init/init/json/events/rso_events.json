@@ -18,7 +18,20 @@
             "zip_code": "32816",
             "latitude": null,
             "longitude": null
-        }
+        },
+        "comments": 
+        [
+            {
+                "user_university_email": "johndoe@ucf.edu",
+                "comment": "Great event, really tested my skills.",
+                "rating": 5
+            },
+            {
+                "user_university_email": "bobwilliams@ucf.edu",
+                "comment": "Challenging but fun, learned a lot.",
+                "rating": 4
+            }
+        ]
     },
     {
         "name": "CyberKnights Networking Workshop",
@@ -39,7 +52,20 @@
             "zip_code": "32816",
             "latitude": null,
             "longitude": null
-        }
+        },
+        "comments": 
+        [
+            {
+                "user_university_email": "janesmith@ucf.edu",
+                "comment": "Very informative, great workshop.",
+                "rating": 5
+            },
+            {
+                "user_university_email": "alicejohnson@ucf.edu",
+                "comment": "Helped me understand networking better.",
+                "rating": 4
+            }
+        ]
     },
     {
         "name": "EcoWarriors Tree Planting Event",
@@ -60,7 +86,20 @@
             "zip_code": "32789",
             "latitude": null,
             "longitude": null
-        }
+        },
+        "comments": 
+        [
+            {
+                "user_university_email": "charliebrown@rollins.edu",
+                "comment": "Loved the initiative, great event.",
+                "rating": 5
+            },
+            {
+                "user_university_email": "gracewilson@rollins.edu",
+                "comment": "Had a good time planting trees.",
+                "rating": 4
+            }
+        ]
     },
     {
         "name": "EcoWarriors Recycling Workshop",
@@ -81,7 +120,20 @@
             "zip_code": "32789",
             "latitude": null,
             "longitude": null
-        }
+        },
+        "comments": 
+        [
+            {
+                "user_university_email": "emilydavis@rollins.edu",
+                "comment": "Very informative, learned a lot about recycling.",
+                "rating": 5
+            },
+            {
+                "user_university_email": "frankmiller@rollins.edu",
+                "comment": "Great workshop, very helpful.",
+                "rating": 4
+            }
+        ]
     },
     {
         "name": "ArtisanAlliance Pottery Class",
@@ -102,7 +154,20 @@
             "zip_code": "32306",
             "latitude": null,
             "longitude": null
-        }
+        },
+        "comments": 
+        [
+            {
+                "user_university_email": "harrymoore@fsu.edu",
+                "comment": "Loved the class, learned new techniques.",
+                "rating": 5
+            },
+            {
+                "user_university_email": "katiethomas@fsu.edu",
+                "comment": "Great class, very informative.",
+                "rating": 4
+            }
+        ]
     },
     {
         "name": "ArtisanAlliance Painting Workshop",
@@ -123,7 +188,20 @@
             "zip_code": "32306",
             "latitude": null,
             "longitude": null
-        }
+        },
+        "comments": 
+        [
+            {
+                "user_university_email": "ivytaylor@fsu.edu",
+                "comment": "Enjoyed the workshop, learned new painting techniques.",
+                "rating": 5
+            },
+            {
+                "user_university_email": "jackanderson@fsu.edu",
+                "comment": "Great workshop, very helpful.",
+                "rating": 4
+            }
+        ]
     },
     {
         "name": "QuantumQuorum Seminar",
@@ -144,7 +222,20 @@
             "zip_code": "32611",
             "latitude": null,
             "longitude": null
-        }
+        },
+        "comments": 
+        [
+            {
+                "user_university_email": "laurawhite@ufl.edu",
+                "comment": "Very insightful seminar, learned a lot.",
+                "rating": 5
+            },
+            {
+                "user_university_email": "nicoleblack@ufl.edu",
+                "comment": "Great discussions on quantum physics.",
+                "rating": 4
+            }
+        ]
     },
     {
         "name": "QuantumQuorum Workshop",
@@ -165,6 +256,19 @@
             "zip_code": "32611",
             "latitude": null,
             "longitude": null
-        }
+        },
+        "comments": 
+        [
+            {
+                "user_university_email": "michaelgreen@ufl.edu",
+                "comment": "Very informative, learned a lot about quantum computing.",
+                "rating": 5
+            },
+            {
+                "user_university_email": "oscarbrown@ufl.edu",
+                "comment": "Great workshop, very helpful.",
+                "rating": 4
+            }
+        ]
     }
 ]

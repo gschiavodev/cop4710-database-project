@@ -8,6 +8,56 @@
     include_once "/var/www/html/php/rso_event.php";
     include_once "/var/www/html/php/user.php";
     include_once "/var/www/html/php/rso.php";
+    include_once "/var/www/html/php/user_event_comment.php";
+
+    function create_sample_comments($event_data, $event_id)
+    {
+
+        // Get the comments for the event
+        $comments = $event_data["comments"];
+        $event_name = $event_data["name"];
+
+        // Loop through the comments
+        foreach ($comments as $comment)
+        {
+
+            // Get the comment information
+            $comment_email = $comment["user_university_email"];
+            $comment_text = $comment["comment"];
+            $comment_rating = $comment["rating"];
+            
+            // Get the user ID from the user's email
+            $user_id = get_user_id_by_university_email($comment_email);
+
+            // Check if the user ID was found
+            if (!$user_id)
+            {
+
+                // Print an error message and exit
+                echo "CREATE_SAMPLE_COMMENT: Could not find user_id with email " . $comment_email . "\n\n";
+                exit(1);
+
+            }
+
+            // Create the comment
+            $comment_id = create_event_comment_by_user_id_and_event_id($user_id, $event_id, $comment_text, $comment_rating);
+
+            // Check if the comment failed to be created
+            if (!$comment_id)
+            {
+
+                // Print an error message and exit
+                echo "CREATE_SAMPLE_COMMENT: Could not create comment for event " . $event_name . "\n\n";
+                exit(1);
+
+            }
+
+            // Success message
+            echo "CREATE_SAMPLE_COMMENT: Created comment for event " . $event_name . "\n\n";
+        
+        }
+        
+    }
 
     function create_sample_public_events()
     {
@@ -106,6 +156,9 @@
 
             // Success message
             echo "CREATE_SAMPLE_EVENT: Created public event with name " . $event_name . "\n\n";
+
+            // Create the comments for the event
+            create_sample_comments($public_event, $event_id);
 
         }
 
@@ -240,6 +293,9 @@
             // Success message
             echo "CREATE_SAMPLE_EVENT: Created private event with name " . $event_name . "\n\n";
 
+            // Create the comments for the event
+            create_sample_comments($private_event, $event_id);
+
         }
 
     }
@@ -372,6 +428,9 @@
 
             // Success message
             echo "CREATE_SAMPLE_EVENT: Created RSO event with name " . $event_name . "\n\n";
+
+            // Create the comments for the event
+            create_sample_comments($rso_event, $event_id);
 
         }
 

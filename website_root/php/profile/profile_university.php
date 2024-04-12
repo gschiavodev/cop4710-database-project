@@ -214,6 +214,10 @@
 
         </main>
 
+        <footer>
+            <p>&copy; Gabriel Schiavo</p>
+        </footer>
+
     </body>
 
 </html>

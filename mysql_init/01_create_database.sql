@@ -132,11 +132,13 @@ CREATE TABLE IF NOT EXISTS college_events.user_in_rso
 -- Create 'user_event_comment' table
 CREATE TABLE IF NOT EXISTS college_events.user_event_comment 
 (
+    id INT AUTO_INCREMENT,
     user_id INT NOT NULL,
     event_id INT NOT NULL,
     comment TEXT NOT NULL,
     rating ENUM('1', '2', '3', '4', '5') NOT NULL,
     PRIMARY KEY (user_id, event_id),
+    INDEX(id),
     CONSTRAINT fk_user_event_comment_user_id FOREIGN KEY (user_id) REFERENCES college_events.user(id) ON DELETE CASCADE,
     CONSTRAINT fk_user_event_comment_event_id FOREIGN KEY (event_id) REFERENCES college_events.event(id) ON DELETE CASCADE
 );

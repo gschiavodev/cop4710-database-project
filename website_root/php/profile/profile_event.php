@@ -335,75 +335,81 @@
 
             ?>
 
-            <div class="row">
-                <section>
-                        
-                    <!-- Comment Form -->
-                    <?php if (!$user_has_commented): ?>
-                        <form action="../action/comment/create_comment.php" method="post">
-                    <?php else: ?>
-                        <form action="../action/comment/update_delete_comment.php" method="post">
-                    <?php endif; ?>
-
-                        <input type="hidden" name="event_id" value="<?php echo $event_id; ?>">
-
-                        <?php 
-
-                            if ($user_has_commented)
-                            {
-
-                                // Include necessary files
-                                include_once "../user_event_comment.php";
-
-                                // Get the event comment by event ID and user ID
-                                $event_comment = get_event_comment_by_event_id_and_user_id($event_id, $_SESSION['user_id']);
-
-                                // Get the comment
-                                echo "<textarea name='comment' placeholder='Write a comment...' required>";
-                                echo $event_comment['comment'];
-                                echo "</textarea>";
-
-                            }
-                            else
-                            {
-
-                                // Get the comment
-                                echo "<textarea name='comment' placeholder='Write a comment...'' required></textarea>";
-
-                            }
-
-                        ?>
-
-                        <div class="star-rating">
-                            <?php if ($user_has_commented): ?>
-                                <input type="hidden" name="rating" id="rating" value="<?php echo $event_comment['rating']; ?>">
-                            <?php else: ?>
-                                <input type="hidden" name="rating" id="rating" value="3">
-                            <?php endif; ?>
-                            <span class="star" data-value="1">&#9733;</span>
-                            <span class="star" data-value="2">&#9733;</span>
-                            <span class="star" data-value="3">&#9733;</span>
-                            <span class="star" data-value="4">&#9733;</span>
-                            <span class="star" data-value="5">&#9733;</span>
-                        </div>
-                        
-                        <?php if ($user_has_commented): ?>
-                            <div class="horizontal-button-container">
-                                <button type="submit" name="action" value="update">Update Comment</button>
-                                <button type="submit" name="action" value="delete">Delete Comment</button>
-                            </div>
+            <?php if (isset($_SESSION['user_university_email'])): ?>
+                <div class="row">
+                    <section>
+                            
+                        <!-- Comment Form -->
+                        <?php if (!$user_has_commented): ?>
+                            <form action="../action/comment/create_comment.php" method="post">
                         <?php else: ?>
-                            <button type="submit" name="action" value="add">Add Comment</button>
+                            <form action="../action/comment/update_delete_comment.php" method="post">
                         <?php endif; ?>
-                    </form>
 
-                    <!-- Link your JavaScript file here -->
-                    <script src="../../javascript/stars.js"></script>
+                            <input type="hidden" name="event_id" value="<?php echo $event_id; ?>">
 
-                </section>
-            </div>
+                            <?php 
+
+                                if ($user_has_commented)
+                                {
+
+                                    // Include necessary files
+                                    include_once "../user_event_comment.php";
+
+                                    // Get the event comment by event ID and user ID
+                                    $event_comment = get_event_comment_by_event_id_and_user_id($event_id, $_SESSION['user_id']);
+
+                                    // Get the comment
+                                    echo "<textarea name='comment' placeholder='Write a comment...' required>";
+                                    echo $event_comment['comment'];
+                                    echo "</textarea>";
+
+                                }
+                                else
+                                {
+
+                                    // Get the comment
+                                    echo "<textarea name='comment' placeholder='Write a comment...'' required></textarea>";
+
+                                }
+
+                            ?>
+
+                            <div class="star-rating">
+                                <?php if ($user_has_commented): ?>
+                                    <input type="hidden" name="rating" id="rating" value="<?php echo $event_comment['rating']; ?>">
+                                <?php else: ?>
+                                    <input type="hidden" name="rating" id="rating" value="3">
+                                <?php endif; ?>
+                                <span class="star" data-value="1">&#9733;</span>
+                                <span class="star" data-value="2">&#9733;</span>
+                                <span class="star" data-value="3">&#9733;</span>
+                                <span class="star" data-value="4">&#9733;</span>
+                                <span class="star" data-value="5">&#9733;</span>
+                            </div>
+                            
+                            <?php if ($user_has_commented): ?>
+                                <div class="horizontal-button-container">
+                                    <button type="submit" name="action" value="update">Update Comment</button>
+                                    <button type="submit" name="action" value="delete">Delete Comment</button>
+                                </div>
+                            <?php else: ?>
+                                <button type="submit" name="action" value="add">Add Comment</button>
+                            <?php endif; ?>
+                        </form>
+
+                        <!-- Link your JavaScript file here -->
+                        <script src="../../javascript/stars.js"></script>
+
+                    </section>
+                </div>
+            <?php endif; ?>
 
         </main>
+
+        <footer>
+            <p>&copy; Gabriel Schiavo</p>
+        </footer>
 
     </body>
 
