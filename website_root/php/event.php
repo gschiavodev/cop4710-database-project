@@ -34,7 +34,18 @@
         // Prepare an INSERT statement to create the event (location_id, name, description, category, date, time, phone_number, email)
         $create_event = $conn->prepare("INSERT INTO event (location_id, name, description, category, email, phone_number, date, start_time, end_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
         $create_event->bind_param("issssssss", $location_id, $event_name, $event_description, $event_category, $event_email, $event_phone_number, $event_date, $event_start_time, $event_end_time);
-        $create_event->execute();
+        
+        // Check if execution of the statement was successful
+        if (!$create_event->execute())
+        {
+
+            // Close connection to the database
+            close_connection_to_database($conn);
+
+            // Return null
+            return null;
+
+        }
 
         // Get the ID of the created event
         $event_id = $create_event->insert_id;

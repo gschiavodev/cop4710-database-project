@@ -8,62 +8,7 @@ function init_auto_complete()
     // Set the data fields to return when the user selects a place.
     auto_complete.setFields(['address_components', 'geometry', 'name']);
 
-    // Mapping of state names to abbreviations
-    var state_mapping = 
-    {
-        'Alabama': 'AL',
-        'Alaska': 'AK',
-        'Arizona': 'AZ',
-        'Arkansas': 'AR',
-        'California': 'CA',
-        'Colorado': 'CO',
-        'Connecticut': 'CT',
-        'Delaware': 'DE',
-        'District Of Columbia': 'DC',
-        'Florida': 'FL',
-        'Georgia': 'GA',
-        'Hawaii': 'HI',
-        'Idaho': 'ID',
-        'Illinois': 'IL',
-        'Indiana': 'IN',
-        'Iowa': 'IA',
-        'Kansas': 'KS',
-        'Kentucky': 'KY',
-        'Louisiana': 'LA',
-        'Maine': 'ME',
-        'Maryland': 'MD',
-        'Massachusetts': 'MA',
-        'Michigan': 'MI',
-        'Minnesota': 'MN',
-        'Mississippi': 'MS',
-        'Missouri': 'MO',
-        'Montana': 'MT',
-        'Nebraska': 'NE',
-        'Nevada': 'NV',
-        'New Hampshire': 'NH',
-        'New Jersey': 'NJ',
-        'New Mexico': 'NM',
-        'New York': 'NY',
-        'North Carolina': 'NC',
-        'North Dakota': 'ND',
-        'Ohio': 'OH',
-        'Oklahoma': 'OK',
-        'Oregon': 'OR',
-        'Pennsylvania': 'PA',
-        'Rhode Island': 'RI',
-        'South Carolina': 'SC',
-        'South Dakota': 'SD',
-        'Tennessee': 'TN',
-        'Texas': 'TX',
-        'Utah': 'UT',
-        'Vermont': 'VT',
-        'Virginia': 'VA',
-        'Washington': 'WA',
-        'West Virginia': 'WV',
-        'Wisconsin': 'WI',
-        'Wyoming': 'WY'
-    };
-
+    // Listen for the event when the user selects a place
     auto_complete.addListener('place_changed', function() 
     {
 
@@ -133,13 +78,10 @@ function init_auto_complete()
                     if (state_select) 
                     {
 
-                        // Get the state abbreviation
-                        var state_abbreviation = state_mapping[val];
-
                         // Set the selected index
                         for (var j = 0; j < state_select.options.length; j++) 
                         {
-                            if (state_select.options[j].value == state_abbreviation) 
+                            if (state_select.options[j].value == val) 
                             {
                                 state_select.selectedIndex = j;
                                 break;
