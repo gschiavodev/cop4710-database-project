@@ -63,9 +63,15 @@
                         <input type="text" name="last_name" id="last_name" required>
                         <label for="university_email">University Email:</label>
                         <input type="email" name="university_email" id="university_email" required>
+                        
                         <label for="password">Password:</label>
-                        <input type="password" name="password" id="password" required>
-                        <input type="submit" value="Register">
+                        <div class="password-container">
+                            <input type="password" name="password" id="password" required>
+                            <button type="button" id="toggle_password">Show</button>
+                        </div>
+                        <button type="submit" value="Register">Register</button>
+
+                        <script src="../../javascript/toggle_password_visibility.js"></script>
                     </form>
 
                     <?php if (isset($_SESSION['message_register'])): ?>

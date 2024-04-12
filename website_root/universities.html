@@ -87,16 +87,17 @@
                         if ($i % $UNIVERSITIES_PER_ROW == 0)
                             echo "<div class=\"row\">";
 
+                        echo "<section class='justify-space-between'>";
+
                         // Display the university information
-                        echo "<section>";
                         echo "<h3>" . $university['name'] . "</h3>";
                         echo "<p>" . $university['description'] . "</p>";
-                        echo "<p>Number of students: " . $university['num_students'] . "</p>";
+                        echo "<p>Number of students: " . number_format($university['num_students']) . "</p>";
 
                         // Create a button to view the university profile
                         echo "<form action=\"php/profile/profile_university.php\" method=\"get\">";
                         echo "<input type=\"hidden\" name=\"university_id\" value=\"" . $university['id'] . "\">";
-                        echo "<button type=\"submit\">View Profile</button>";
+                        echo "<button style='margin-top: 0px' type=\"submit\">View Profile</button>";
                         echo "</form>";
 
                         echo "</section>";

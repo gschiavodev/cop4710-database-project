@@ -136,7 +136,8 @@
                             $event_category = $private_event['category'];
                             $event_description = $private_event['description'];
                             $event_date = $private_event['date'];
-                            $event_time = $private_event['time'];
+                            $event_start_time = $private_event['start_time'];
+                            $event_end_time = $private_event['end_time'];
                             $phone_number = $private_event['phone_number'];
                             $email = $private_event['email'];
 
@@ -153,8 +154,9 @@
                             echo "<p>Host: " . $event_host . "</p>";
                             echo "<p>Category: " . $event_category . "</p>";
                             echo "<p>Description: " . $event_description . "</p>";
-                            echo "<p>Date: " . $event_date . "</p>";
-                            echo "<p>Time: " . $event_time . "</p>";
+                            echo "<p>Date: " . date("F j, Y", strtotime($event_date)) . "</p>";
+                            echo "<p>Starting Time: " . date("g:i a", strtotime($event_start_time)) . "</p>";
+                            echo "<p>Ending Time: " . date("g:i a", strtotime($event_end_time)) . "</p>";
                             echo "<p>Phone Number: " . $phone_number . "</p>";
                             echo "<p>Email: " . $email . "</p>";
 
@@ -163,7 +165,7 @@
                             // Create a button to view the event details
                             echo "<form action=\"profile_event.php\" method=\"get\">";
                             echo "<input type=\"hidden\" name=\"event_id\" value=\"" . $event_id . "\">";
-                            echo "<button type=\"submit\">View Event</button>";
+                            echo "<button style='margin-top: 0px' type=\"submit\">View Event</button>";
                             echo "</form>";
 
                             echo "</section>";

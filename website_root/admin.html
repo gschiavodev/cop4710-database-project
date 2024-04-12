@@ -77,8 +77,8 @@
                             <form method="POST" action="php/action/manage_admin.php" style="width: 100%">
                                 <label for="university_email">University Email:</label>
                                 <input type="text" id="university_email" name="university_email" required>
-                                <input type="submit" name="action" value="Promote">
-                                <input type="submit" name="action" value="Demote">
+                                <button type="submit" name="action" value="Promote">Promote</button>
+                                <button type="submit" name="action" value="Demote">Demote</button>
                             </form>
 
                             <!-- Display a message if the form was submitted -->
@@ -144,7 +144,7 @@
                             <input type="text" id="zip_code" name="zip_code" required>
 
                             <!-- Submit Button -->
-                            <input type="submit" value="Create">
+                            <button type="submit" value="Create">Create</button>
 
                             <!-- Include the auto_complete.js file if the Google API key is set -->
                             <?php if ($google_api_key): ?>
@@ -205,11 +205,10 @@
                             $event_category = $public_event['category'];
                             $event_description = $public_event['description'];
                             $event_date = $public_event['date'];
-                            $event_time = $public_event['time'];
+                            $event_start_time = $public_event['start_time'];
+                            $event_end_time = $public_event['end_time'];
                             $phone_number = $public_event['phone_number'];
                             $email = $public_event['email'];
-
-                            // TODO: Get the location information
 
                             echo "<section>";
 
@@ -217,8 +216,9 @@
                             echo "<h3>" . $event_name . "</h3>";
                             echo "<p>Category: " . $event_category . "</p>";
                             echo "<p>Description: " . $event_description . "</p>";
-                            echo "<p>Date: " . $event_date . "</p>";
-                            echo "<p>Time: " . $event_time . "</p>";
+                            echo "<p>Date: " . date("F j, Y", strtotime($event_date)) . "</p>";
+                            echo "<p>Starting Time: " . date("g:i a", strtotime($event_start_time)) . "</p>";
+                            echo "<p>Ending Time: " . date("g:i a", strtotime($event_end_time)) . "</p>";
                             echo "<p>Phone Number: " . $phone_number . "</p>";
                             echo "<p>Email: " . $email . "</p>";
 
@@ -226,14 +226,14 @@
                             echo "<form method=\"POST\" action=\"php/action/approve_deny_public_event.php\">";
                             echo "<input type=\"hidden\" name=\"event_id\" value=\"" . $event_id . "\">";
                             echo "<input type=\"hidden\" name=\"action\" value=\"approve\">";
-                            echo "<input type=\"submit\" value=\"Approve\">";
+                            echo "<button style='margin-top: 0px' type=\"submit\" value=\"Approve\">Approve</button>";
                             echo "</form>";
 
                             // Display the deny button
                             echo "<form method=\"POST\" action=\"php/action/approve_deny_public_event.php\">";
                             echo "<input type=\"hidden\" name=\"event_id\" value=\"" . $event_id . "\">";
                             echo "<input type=\"hidden\" name=\"action\" value=\"deny\">";
-                            echo "<input type=\"submit\" value=\"Deny\">";
+                            echo "<button style='margin-top: 0px' type=\"submit\" value=\"Deny\">Deny</button>";
                             echo "</form>";
 
                             // Close the section
@@ -370,14 +370,14 @@
                             echo "<form method=\"POST\" action=\"php/action/approve_deny_rso.php\">";
                             echo "<input type=\"hidden\" name=\"rso_id\" value=\"" . $rso['id'] . "\">";
                             echo "<input type=\"hidden\" name=\"action\" value=\"approve\">";
-                            echo "<input type=\"submit\" value=\"Approve\">";
+                            echo "<button style='margin-top: 0px' type=\"submit\" value=\"Approve\">Approve</button>";
                             echo "</form>";
 
                             // Display the deny button
                             echo "<form method=\"POST\" action=\"php/action/approve_deny_rso.php\">";
                             echo "<input type=\"hidden\" name=\"rso_id\" value=\"" . $rso['id'] . "\">";
                             echo "<input type=\"hidden\" name=\"action\" value=\"deny\">";
-                            echo "<input type=\"submit\" value=\"Deny\">";
+                            echo "<button style='margin-top: 0px' type=\"submit\" value=\"Deny\">Deny</button>";
                             echo "</form>";
 
                             // Close the section
@@ -481,7 +481,7 @@
                         // Create a button to view the RSOs profile
                         echo "<form action=\"php/profile/profile_rso.php\" method=\"get\">";
                         echo "<input type=\"hidden\" name=\"rso_id\" value=\"" . $rso['id'] . "\">";
-                        echo "<button type=\"submit\">Manage</button>";
+                        echo "<button style='margin-top: 0px' type=\"submit\">Manage</button>";
                         echo "</form>";
 
                         echo "</section>";

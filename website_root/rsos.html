@@ -96,17 +96,18 @@
                         if ($i % $RSOS_PER_ROW == 0)
                             echo "<div class=\"row\">";
 
+                        echo "<section class='justify-space-between'>";
+
                         // Display the RSO information
-                        echo "<section>";
                         echo "<h3>" . $rso['name'] . "</h3>";
                         echo "<p>" . $university['name'] . "</p>";
                         echo "<p>" . $rso['description'] . "</p>";
-                        echo "<p>Members: " . $rso_members->num_rows . "</p>";
+                        echo "<p>Members: " . number_format($rso_members->num_rows) . "</p>";
 
                         // Create a button to view the RSOs profile
                         echo "<form action=\"php/profile/profile_rso.php\" method=\"get\">";
                         echo "<input type=\"hidden\" name=\"rso_id\" value=\"" . $rso['id'] . "\">";
-                        echo "<button type=\"submit\">View Profile</button>";
+                        echo "<button style='margin-top: 0px' type=\"submit\">View Profile</button>";
                         echo "</form>";
 
                         echo "</section>";
@@ -204,11 +205,15 @@
 
                         </script>
 
-                        <!-- Add button -->
-                        <button type="button" onclick="add_student_email_field()">Add another student email</button>
+                        <div style="margin-top: 5px" class="horizontal-button-container">
 
-                        <!-- Request button -->
-                        <input type="submit" value="Request">
+                            <!-- Request Button -->
+                            <button style="flex: 2" type="submit" value="Request">Request</button>
+
+                            <!-- Add Email Button -->
+                            <button style="flex: 1" type="button" onclick="add_student_email_field()">Add another student email field</button>
+
+                        </div>
 
                     </form>
 

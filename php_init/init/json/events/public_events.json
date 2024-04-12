@@ -4,7 +4,8 @@
         "description": "Join us for a deep dive into the world of Quantum Computing.",
         "category": "tech-talk",
         "date": "2022-12-01",
-        "time": "14:00:00",
+        "start_time": "08:00:00",
+        "end_time": "10:00:00",
         "phone_number": "123-456-7890",
         "email": "johndoe@ucf.edu",
         "location": 
@@ -24,7 +25,8 @@
         "description": "A night of fun and philanthropy. All proceeds go to local charities.",
         "category": "fundraising",
         "date": "2022-12-15",
-        "time": "19:00:00",
+        "start_time": "08:00:00",
+        "end_time": "10:00:00",
         "phone_number": "234-567-8901",
         "email": "charliebrown@rollins.edu",
         "location": 
@@ -44,7 +46,8 @@
         "description": "A 24-hour hackathon focused on creating tech solutions for social issues.",
         "category": "social",
         "date": "2023-01-20",
-        "time": "09:00:00",
+        "start_time": "08:00:00",
+        "end_time": "10:00:00",
         "phone_number": "345-678-9012",
         "email": "harrymoore@fsu.edu",
         "location": 
@@ -64,7 +67,8 @@
         "description": "Participate in our annual marathon and help raise funds for student scholarships.",
         "category": "fundraising",
         "date": "2023-04-01",
-        "time": "07:00:00",
+        "start_time": "08:00:00",
+        "end_time": "10:00:00",
         "phone_number": "678-901-2345",
         "email": "laurawhite@ufl.edu",
         "location": 

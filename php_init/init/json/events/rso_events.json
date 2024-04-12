@@ -4,7 +4,8 @@
         "description": "A private Capture The Flag event for CyberKnights members to test their cybersecurity skills.",
         "category": "tech-talk",
         "date": "2022-12-01",
-        "time": "14:00:00",
+        "start_time": "14:00:00",
+        "end_time": "16:00:00",
         "phone_number": "123-456-7890",
         "rso_admin_email": "johndoe@ucf.edu",
         "location": 
@@ -24,7 +25,8 @@
         "description": "A private workshop for CyberKnights members to learn about computer networking.",
         "category": "tech-talk",
         "date": "2022-12-15",
-        "time": "19:00:00",
+        "start_time": "16:00:00",
+        "end_time": "18:00:00",
         "phone_number": "234-567-8901",
         "rso_admin_email": "johndoe@ucf.edu",
         "location": 
@@ -44,7 +46,8 @@
         "description": "A private tree planting event for EcoWarriors members at a local park.",
         "category": "social",
         "date": "2023-01-20",
-        "time": "09:00:00",
+        "start_time": "14:00:00",
+        "end_time": "16:00:00",
         "phone_number": "345-678-9012",
         "rso_admin_email": "charliebrown@rollins.edu",
         "location": 
@@ -64,7 +67,8 @@
         "description": "A private workshop for EcoWarriors members to learn about recycling and waste management.",
         "category": "social",
         "date": "2023-02-10",
-        "time": "14:00:00",
+        "start_time": "16:00:00",
+        "end_time": "18:00:00",
         "phone_number": "456-789-0123",
         "rso_admin_email": "charliebrown@rollins.edu",
         "location": 
@@ -84,7 +88,8 @@
         "description": "A private pottery class for ArtisanAlliance members to learn new pottery techniques.",
         "category": "social",
         "date": "2023-03-15",
-        "time": "10:00:00",
+        "start_time": "14:00:00",
+        "end_time": "16:00:00",
         "phone_number": "567-890-1234",
         "rso_admin_email": "harrymoore@fsu.edu",
         "location": 
@@ -104,7 +109,8 @@
         "description": "A private workshop for ArtisanAlliance members to learn new painting techniques.",
         "category": "social",
         "date": "2023-04-01",
-        "time": "07:00:00",
+        "start_time": "16:00:00",
+        "end_time": "18:00:00",
         "phone_number": "678-901-2345",
         "rso_admin_email": "harrymoore@fsu.edu",
         "location": 
@@ -124,7 +130,8 @@
         "description": "A private seminar for QuantumQuorum members to discuss recent advancements in quantum physics.",
         "category": "tech-talk",
         "date": "2023-05-01",
-        "time": "14:00:00",
+        "start_time": "14:00:00",
+        "end_time": "16:00:00",
         "phone_number": "789-012-3456",
         "rso_admin_email": "laurawhite@ufl.edu",
         "location": 
@@ -144,7 +151,8 @@
         "description": "A private workshop for QuantumQuorum members to learn about quantum computing.",
         "category": "tech-talk",
         "date": "2023-05-15",
-        "time": "19:00:00",
+        "start_time": "16:00:00",
+        "end_time": "18:00:00",
         "phone_number": "890-123-4567",
         "rso_admin_email": "laurawhite@ufl.edu",
         "location": 

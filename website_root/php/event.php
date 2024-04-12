@@ -25,15 +25,15 @@
 
     }
 
-    function create_event($event_name, $event_description, $event_category, $event_email, $event_phone_number, $event_date, $event_time, $location_id)
+    function create_event($event_name, $event_description, $event_category, $event_email, $event_phone_number, $event_date, $event_start_time, $event_end_time, $location_id)
     {
 
         // Connect to the database
         $conn = connect_to_database();
 
         // Prepare an INSERT statement to create the event (location_id, name, description, category, date, time, phone_number, email)
-        $create_event = $conn->prepare("INSERT INTO event (location_id, name, description, category, email, phone_number, date, time) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-        $create_event->bind_param("isssssss", $location_id, $event_name, $event_description, $event_category, $event_email, $event_phone_number, $event_date, $event_time);
+        $create_event = $conn->prepare("INSERT INTO event (location_id, name, description, category, email, phone_number, date, start_time, end_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $create_event->bind_param("issssssss", $location_id, $event_name, $event_description, $event_category, $event_email, $event_phone_number, $event_date, $event_start_time, $event_end_time);
         $create_event->execute();
 
         // Get the ID of the created event

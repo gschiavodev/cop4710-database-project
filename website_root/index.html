@@ -113,7 +113,8 @@
                             $event_category = $public_event['category'];
                             $event_description = $public_event['description'];
                             $event_date = $public_event['date'];
-                            $event_time = $public_event['time'];
+                            $event_start_time = $public_event['start_time'];
+                            $event_end_time = $public_event['end_time'];
                             $phone_number = $public_event['phone_number'];
                             $email = $public_event['email'];
 
@@ -123,14 +124,15 @@
                             if ($i % $EVENTS_PER_ROW == 0)
                                 echo "<div class='row'>";
 
-                            echo "<section>";
+                            echo "<section class='justify-space-between'>";
 
                             // Display the public event information
                             echo "<h3>" . $event_name . "</h3>";
                             echo "<p>Category: " . $event_category . "</p>";
                             echo "<p>Description: " . $event_description . "</p>";
-                            echo "<p>Date: " . $event_date . "</p>";
-                            echo "<p>Time: " . $event_time . "</p>";
+                            echo "<p>Date: " . date("F j, Y", strtotime($event_date)) . "</p>";
+                            echo "<p>Starting Time: " . date("g:i a", strtotime($event_start_time)) . "</p>";
+                            echo "<p>Ending Time: " . date("g:i a", strtotime($event_end_time)) . "</p>";
                             echo "<p>Phone Number: " . $phone_number . "</p>";
                             echo "<p>Email: " . $email . "</p>";
 

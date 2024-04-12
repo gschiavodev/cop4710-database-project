@@ -3,6 +3,33 @@
     // Include the database connection information
     include_once "database.php";
 
+    function get_user_by_user_id($user_id)
+    {
+
+        // Open a connection to the database
+        $conn = connect_to_database();
+
+        // Query to get the user by user ID
+        $sql = "SELECT * FROM user WHERE id = ?";
+
+        // Prepare the query
+        $get_user = $conn->prepare($sql);
+        $get_user->bind_param("i", $user_id);
+
+        // Execute the query to get the user by user ID
+        $get_user->execute();
+
+        // Get the result of the query
+        $result = $get_user->get_result();
+
+        // Close the database connection
+        close_connection_to_database($conn);
+
+        // Return the user
+        return $result->num_rows > 0 ? $result->fetch_assoc() : null;
+
+    }
+
     function get_user_by_university_email($user_university_email)
     {
 

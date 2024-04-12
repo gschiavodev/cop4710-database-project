@@ -10,7 +10,16 @@
         $database = "college_events";
 
         // Create connection
-        $conn = mysqli_connect($servername, $username, $password, $database);
+        $conn = @mysqli_connect($servername, $username, $password, $database);
+
+        // Check connection
+        if (!$conn) 
+        {
+
+            // Connection failed, return null
+            return null;
+            
+        }
 
         // Return connection
         return $conn;

@@ -23,7 +23,8 @@
     $event_email = $_POST["event_email"];
     $event_phone_number = $_POST["event_phone_number"];
     $event_date = $_POST["event_date"];
-    $event_time = $_POST["event_time"];
+    $event_start_time = $_POST["event_start_time"];
+    $event_end_time = $_POST["event_end_time"];
     $location_name = $_POST["location_name"];
     $event_address_line_01 = $_POST["address_line_01"];
     $event_address_line_02 = $_POST["address_line_02"];
@@ -32,7 +33,7 @@
     $event_zip_code = $_POST["zip_code"];
 
     // Check if the POST data is set, otherwise redirect to the create event page
-    if (!isset($event_name) || !isset($event_description) || !isset($event_category) || !isset($event_phone_number) || !isset($event_date) || !isset($event_time) || !isset($location_name) || !isset($event_address_line_01) || !isset($event_city) || !isset($event_state) || !isset($event_zip_code))
+    if (!isset($event_name) || !isset($event_description) || !isset($event_category) || !isset($event_phone_number) || !isset($event_date) || !isset($event_start_time) || !isset($event_end_time) || !isset($location_name) || !isset($event_address_line_01) || !isset($event_city) || !isset($event_state) || !isset($event_zip_code))
     {
 
         // Redirect to the create event page
@@ -110,7 +111,7 @@
     include_once "../event.php";
 
     // Create the event
-    $event_id = create_event($event_name, $event_description, $event_category, $event_email, $event_phone_number, $event_date, $event_time, $location_id);
+    $event_id = create_event($event_name, $event_description, $event_category, $event_email, $event_phone_number, $event_date, $event_start_time, $event_end_time, $location_id);
 
     // Check if the event was created
     if ($event_id === null)

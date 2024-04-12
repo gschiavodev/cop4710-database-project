@@ -99,6 +99,9 @@
     // Load the global configuration file
     require "../data/config.php";
     
+    // Check if user has commented on the event (delcare for later)
+    $user_has_commented = false;
+
 ?>
 
 <!DOCTYPE html>
@@ -164,8 +167,9 @@
                     
                     <section>
                         <h2>Event Details</h2>
-                        <p>Date: <?php echo $event['date']; ?></p>
-                        <p>Time: <?php echo $event['time']; ?></p>
+                        <p>Date: <?php echo date("F j, Y", strtotime($event['date'])); ?></p>
+                        <p>Starting Time: <?php echo date("g:i a", strtotime($event['start_time'])); ?></p>
+                        <p>Ending Time: <?php echo date("g:i a", strtotime($event['end_time'])); ?></p>
                         <p>Category: <?php echo $event['category']; ?></p>
                         <p>Contact Email: <?php echo $event['email']; ?></p>
                         <p>Contact Phone Number: <?php echo $event['phone_number']; ?></p>
@@ -235,7 +239,7 @@
 
             <div class="row">
                     
-                <section>
+                <section id="section_comments">
                     <h2>Event Comments</h2>
                     <?php if (isset($_SESSION['user_university_email'])): ?>
                         <p>Write a comment, or view comments from others.</p>
@@ -245,37 +249,158 @@
                 </section>
 
             </div>
+                    
+            <?php
+
+                // Include necessary files
+                include_once "../user_event_comment.php";
+
+                // Get the event comments
+                $event_comments = get_event_comments_by_event_id($event_id);
+
+                // Check if the event comments exist
+                if ($event_comments->num_rows > 0)
+                {
+
+                    // Loop through each event comment
+                    while ($event_comment = $event_comments->fetch_assoc())
+                    {
+
+                        // Get the user ID
+                        $user_id = $event_comment['user_id'];
+
+                        // Check if the user has commented
+                        if ($user_id == $_SESSION['user_id'])
+                            $user_has_commented = true;
+
+                        // Include the user.php file to get the user
+                        include_once "../user.php";
+
+                        // Get the user by ID
+                        $user = get_user_by_user_id($user_id);
+
+                        // Check if the user was found
+                        if (!$user) continue;
+                
+                        // Get the user information
+                        $first_name = $user['first_name'];
+                        $last_name = $user['last_name'];
+
+                        // Get the comment information
+                        $comment = $event_comment['comment'];
+                        $rating = $event_comment['rating'];
+
+                        echo "<div class='row'>";
+                        echo "<section>";
+
+                        // Output the event comment
+                        echo "<p><strong>$first_name $last_name</strong></p>";
+                        echo "<p>$comment</p>";
+
+                        // Display the rating as stars
+                        echo "<div class='star-rating'>";
+                        for ($i = 1; $i <= 5; $i++)
+                        {
+
+                            // Check if the star is highlighted
+                            $is_star_highlighed = ($i <= $rating);
+                            
+                            // Output the star
+                            if ($is_star_highlighed)
+                                echo "<span class='star highlight' data-value='$i'>&#9733;</span>";
+                            else
+                                echo "<span class='star' data-value='$i'>&#9733;</span>";
+
+                        }
+                        echo "</div>";
+
+
+                        echo "</section>";
+                        echo "</div>";
+
+                    }
+
+                }
+                else
+                {
+
+                    // Output that there are no comments
+                    echo "<div class='row'>";
+                    echo "<section>";
+                    echo "<p>There are no comments for this event.</p>";
+                    echo "</section>";
+                    echo "</div>";
+
+                }
+
+            ?>
 
             <div class="row">
-                    
-                <?php
-
-                    // TODO: Display comments
-
-                ?>
-
                 <section>
-                    
+                        
                     <!-- Comment Form -->
-                    <form action="../comment/create_comment.php" method="post">
+                    <?php if (!$user_has_commented): ?>
+                        <form action="../action/comment/create_comment.php" method="post">
+                    <?php else: ?>
+                        <form action="../action/comment/update_delete_comment.php" method="post">
+                    <?php endif; ?>
+
                         <input type="hidden" name="event_id" value="<?php echo $event_id; ?>">
-                        <textarea name="comment" placeholder="Write a comment..."></textarea>
+
+                        <?php 
+
+                            if ($user_has_commented)
+                            {
+
+                                // Include necessary files
+                                include_once "../user_event_comment.php";
+
+                                // Get the event comment by event ID and user ID
+                                $event_comment = get_event_comment_by_event_id_and_user_id($event_id, $_SESSION['user_id']);
+
+                                // Get the comment
+                                echo "<textarea name='comment' placeholder='Write a comment...' required>";
+                                echo $event_comment['comment'];
+                                echo "</textarea>";
+
+                            }
+                            else
+                            {
+
+                                // Get the comment
+                                echo "<textarea name='comment' placeholder='Write a comment...'' required></textarea>";
+
+                            }
+
+                        ?>
+
                         <div class="star-rating">
-                            <input type="hidden" name="rating" id="rating">
+                            <?php if ($user_has_commented): ?>
+                                <input type="hidden" name="rating" id="rating" value="<?php echo $event_comment['rating']; ?>">
+                            <?php else: ?>
+                                <input type="hidden" name="rating" id="rating" value="3">
+                            <?php endif; ?>
                             <span class="star" data-value="1">&#9733;</span>
                             <span class="star" data-value="2">&#9733;</span>
                             <span class="star" data-value="3">&#9733;</span>
                             <span class="star" data-value="4">&#9733;</span>
                             <span class="star" data-value="5">&#9733;</span>
                         </div>
-                        <button type="submit">Add Comment</button>
+                        
+                        <?php if ($user_has_commented): ?>
+                            <div class="horizontal-button-container">
+                                <button type="submit" name="action" value="update">Update Comment</button>
+                                <button type="submit" name="action" value="delete">Delete Comment</button>
+                            </div>
+                        <?php else: ?>
+                            <button type="submit" name="action" value="add">Add Comment</button>
+                        <?php endif; ?>
                     </form>
 
                     <!-- Link your JavaScript file here -->
                     <script src="../../javascript/stars.js"></script>
 
                 </section>
-
             </div>
 
         </main>

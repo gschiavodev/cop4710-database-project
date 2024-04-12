@@ -27,7 +27,8 @@
             $event_email = $public_event["email"];
             $event_phone_number = $public_event["phone_number"];
             $event_date = $public_event["date"];
-            $event_time = $public_event["time"];
+            $event_start_time = $public_event["start_time"];
+            $event_end_time = $public_event["end_time"];
             $location = $public_event["location"];
 
             // Get the location information
@@ -78,7 +79,7 @@
             }
 
             // Create the event
-            $event_id = create_event($event_name, $event_description, $event_category, $event_email, $event_phone_number, $event_date, $event_time, $location_id);
+            $event_id = create_event($event_name, $event_description, $event_category, $event_email, $event_phone_number, $event_date, $event_start_time, $event_end_time, $location_id);
 
             // Check if the event failed to be created
             if (!$event_id)
@@ -130,7 +131,8 @@
             $event_category = $private_event["category"];
             $event_phone_number = $private_event["phone_number"];
             $event_date = $private_event["date"];
-            $event_time = $private_event["time"];
+            $event_start_time = $private_event["start_time"];
+            $event_end_time = $private_event["end_time"];
             $location = $private_event["location"];
 
             // Get the location information
@@ -210,7 +212,7 @@
             }
 
             // Create the event
-            $event_id = create_event($event_name, $event_description, $event_category, $rso_admin_email, $event_phone_number, $event_date, $event_time, $location_id);
+            $event_id = create_event($event_name, $event_description, $event_category, $rso_admin_email, $event_phone_number, $event_date, $event_start_time, $event_end_time, $location_id);
 
             // Check if the event failed to be created
             if (!$event_id)
@@ -262,7 +264,8 @@
             $event_category = $rso_event["category"];
             $event_phone_number = $rso_event["phone_number"];
             $event_date = $rso_event["date"];
-            $event_time = $rso_event["time"];
+            $event_start_time = $rso_event["start_time"];
+            $event_end_time = $rso_event["end_time"];
             $location = $rso_event["location"];
 
             // Get the location information
@@ -342,7 +345,7 @@
             }
 
             // Create the event
-            $event_id = create_event($event_name, $event_description, $event_category, $rso_admin_email, $event_phone_number, $event_date, $event_time, $location_id);
+            $event_id = create_event($event_name, $event_description, $event_category, $rso_admin_email, $event_phone_number, $event_date, $event_start_time, $event_end_time, $location_id);
 
             // Check if the event failed to be created
             if (!$event_id)

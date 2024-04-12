@@ -191,126 +191,128 @@
 
             <div class="row">
                 <section>
+                    <?php if ($event_type == 'private_or_rso_event'): ?>
+                        <p>Fill out the form below to create an event.</p>
+                    <?php endif; ?>
 
-                    <div class="row">
-                        <section>
+                    <?php if ($event_type == 'public_event'): ?>
+                        <p>Fill out the form below to request a public event.</p>
+                    <?php endif; ?>
+                </section>
+            </div>
+
+            <div class="row">
+                <section>
+                    <form action="../action/create_event.php" method="post">
+                        
+                        <label for="event_name">Event Name:</label>
+                        <input type="text" id="event_name" name="event_name" required>
+
+                        <label for="event_description">Event Description:</label>
+                        <textarea id="event_description" name="event_description" required></textarea>
+
+                        <!-- Event Category -->
+                        <label for="event_category">Event Category:</label>
+                        <select id="event_category" name="event_category" required>
+                            <option value="academic">Academic</option>
+                            <option value="social">Social</option>
+                            <option value="philanthropy">Philanthropy</option>
+                            <option value="fundraising">Fundraising</option>
+                            <option value="tech-talk">Tech-talk</option>
+                        </select>
+
+                        <!-- Event Type -->
+                        <label for="event_type">Event Type:</label>
+                        <select id="event_type" name="event_type" required>
+
                             <?php if ($event_type == 'private_or_rso_event'): ?>
-                                <p>Fill out the form below to create an event.</p>
+                                <option value="rso_event">Organization</option>
+                                <option value="private_event">University</option>
                             <?php endif; ?>
 
                             <?php if ($event_type == 'public_event'): ?>
-                                <p>Fill out the form below to request a public event.</p>
-                            <?php endif; ?>
-                        </section>
-                    </div>
-
-                    <div class="row">
-                        <section>
-                            <form action="../action/create_event.php" method="post">
-                                
-                                <label for="event_name">Event Name:</label>
-                                <input type="text" id="event_name" name="event_name" required>
-
-                                <label for="event_description">Event Description:</label>
-                                <textarea id="event_description" name="event_description" required></textarea>
-
-                                <!-- Event Category -->
-                                <label for="event_category">Event Category:</label>
-                                <select id="event_category" name="event_category" required>
-                                    <option value="academic">Academic</option>
-                                    <option value="social">Social</option>
-                                    <option value="philanthropy">Philanthropy</option>
-                                    <option value="fundraising">Fundraising</option>
-                                    <option value="tech-talk">Tech-talk</option>
-                                </select>
-
-                                <!-- Event Type -->
-                                <label for="event_type">Event Type:</label>
-                                <select id="event_type" name="event_type" required>
-
-                                    <?php if ($event_type == 'private_or_rso_event'): ?>
-                                        <option value="rso_event">Organization</option>
-                                        <option value="private_event">University</option>
-                                    <?php endif; ?>
-
-                                    <?php if ($event_type == 'public_event'): ?>
-                                        <option value="public_event">Public</option>
-                                    <?php endif; ?>
-
-                                </select>
-
-                                <!-- Event Email -->
-                                <label for="event_email">Event Email:</label>
-                                <p style="padding-left: 0px; padding-top: 0px;">Optional: Your email will be used instead if left blank.</p>
-                                <input type="email" id="event_email" name="event_email">
-
-                                <!-- Event Phone Number -->
-                                <label for="event_phone_number">Event Phone Number:</label>
-                                <input type="tel" id="event_phone_number" name="event_phone_number" placeholder="123-456-7890" required>
-
-                                <!-- Event Date -->
-                                <label for="event_date">Event Date:</label>
-                                <input type="date" id="event_date" name="event_date" required>
-
-                                <!-- Event Time -->
-                                <label for="event_time">Event Time:</label>
-                                <input type="time" id="event_time" name="event_time" required>
-
-                                <!-- Event Location Name -->
-                                <label for="location_name">Location Name:</label>
-                                <input type="text" id="location_name" name="location_name" required>
-
-                                <!-- Event Address Fields -->
-                                <label for="address_line_01">Address Line 1:</label>
-                                <input type="text" id="address_line_01" name="address_line_01" required>
-                                <label for="address_line_02">Address Line 2:</label>
-                                <input type="text" id="address_line_02" name="address_line_02">
-
-                                <!-- Event City -->
-                                <label for="city">City:</label>
-                                <input type="text" id="city" name="city" required>
-
-                                <!-- Event State -->
-                                <label for="state">State:</label>
-                                <select id="state" name="state" required>
-                                    <option value="" disabled selected>Select a state</option>
-                                    <?php include "../data/states.php"; ?>
-                                </select>
-
-                                <!-- Event Zip Code -->
-                                <label for="zip_code">Area-code:</label>
-                                <input type="text" id="zip_code" name="zip_code" required>
-                                
-                                <?php if ($event_type == 'private_or_rso_event'): ?>
-
-                                    <!-- Private Event Create Button -->
-                                    <input type="hidden" name="rso_id" value="<?= $rso_id ?>">
-                                    <input type="submit" value="Create Event">
-                                <?php else: ?>
-
-                                    <!-- Public Event Request Button -->
-                                    <input type="submit" value="Request Event">
-
-                                <?php endif; ?>
-
-                                <!-- Include the auto_complete.js file if the Google API key is set -->
-                                <?php if ($google_api_key): ?>
-                                    <script>window.google_api_key = "<?= $google_api_key ?>";</script>
-                                    <script src="../../javascript/auto_complete.js"></script>
-                                <?php endif; ?>
-
-                            </form>
-
-                            <?php if (isset($_SESSION['message_create_event'])): ?>
-                                <p><?php echo $_SESSION['message_create_event']; ?></p>
-                                <?php unset($_SESSION['message_create_event']); ?>
+                                <option value="public_event">Public</option>
                             <?php endif; ?>
 
-                        </section>
-                    </div>
+                        </select>
+
+                        <!-- Event Email -->
+                        <label for="event_email">Event Email:</label>
+                        <p style="padding-left: 0px; padding-top: 0px;">Optional: Your email will be used instead if left blank.</p>
+                        <input type="email" id="event_email" name="event_email">
+
+                        <!-- Event Phone Number -->
+                        <label for="event_phone_number">Event Phone Number:</label>
+                        <input type="tel" id="event_phone_number" name="event_phone_number" placeholder="123-456-7890" required>
+
+                        <!-- Event Date -->
+                        <label for="event_date">Event Date:</label>
+                        <input type="date" id="event_date" name="event_date" required>
+
+                        <!-- Event Start Time -->
+                        <label for="event_start_time">Event Starting Time:</label>
+                        <input type="time" id="event_start_time" name="event_start_time" required>
+
+                        <!-- Event End Time -->
+                        <label for="event_end_time">Event Ending Time:</label>
+                        <input type="time" id="event_end_time" name="event_end_time" required>
+                        
+                        <!-- Include the validate_event_time.js file -->
+                        <script src="../../javascript/validate_event_time.js"></script>
+
+                        <!-- Event Location Name -->
+                        <label for="location_name">Location Name:</label>
+                        <input type="text" id="location_name" name="location_name" required>
+
+                        <!-- Event Address Fields -->
+                        <label for="address_line_01">Address Line 1:</label>
+                        <input type="text" id="address_line_01" name="address_line_01" required>
+                        <label for="address_line_02">Address Line 2:</label>
+                        <input type="text" id="address_line_02" name="address_line_02">
+
+                        <!-- Event City -->
+                        <label for="city">City:</label>
+                        <input type="text" id="city" name="city" required>
+
+                        <!-- Event State -->
+                        <label for="state">State:</label>
+                        <select id="state" name="state" required>
+                            <option value="" disabled selected>Select a state</option>
+                            <?php include "../data/states.php"; ?>
+                        </select>
+
+                        <!-- Event Zip Code -->
+                        <label for="zip_code">Area-code:</label>
+                        <input type="text" id="zip_code" name="zip_code" required>
+                        
+                        <?php if ($event_type == 'private_or_rso_event'): ?>
+
+                            <!-- Private Event Create Button -->
+                            <input type="hidden" name="rso_id" value="<?= $rso_id ?>">
+                            <button type="submit" value="Create Event">Create Event</button>
+                        <?php else: ?>
+
+                            <!-- Public Event Request Button -->
+                            <button type="submit" value="Request Event">Request Event</button>
+
+                        <?php endif; ?>
+
+                        <!-- Include the auto_complete.js file if the Google API key is set -->
+                        <?php if ($google_api_key): ?>
+                            <script>window.google_api_key = "<?= $google_api_key ?>";</script>
+                            <script src="../../javascript/auto_complete.js"></script>
+                        <?php endif; ?>
+
+                    </form>
+
+                    <?php if (isset($_SESSION['message_create_event'])): ?>
+                        <p><?php echo $_SESSION['message_create_event']; ?></p>
+                        <?php unset($_SESSION['message_create_event']); ?>
+                    <?php endif; ?>
 
                 </section>
             </div>
+
         </main>
 
         <footer>

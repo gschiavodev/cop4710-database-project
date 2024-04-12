@@ -59,9 +59,16 @@
                     <form method="POST" action="../action/login.php">
                         <label for="university_email">University Email:</label>
                         <input type="email" name="university_email" id="university_email" required>
+
                         <label for="password">Password:</label>
-                        <input type="password" name="password" id="password" required>
-                        <input type="submit" value="Login">
+                        <div class="password-container">
+                            <input type="password" name="password" id="password" required>
+                            <button type="button" id="toggle_password">Show</button>
+                        </div>
+
+                        <button type="submit" value="Login">Login</button>
+
+                        <script src="../../javascript/toggle_password_visibility.js"></script>
                     </form>
 
                     <?php if (isset($_SESSION['message_login'])): ?>

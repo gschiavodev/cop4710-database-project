@@ -10,7 +10,7 @@
     if (!$conn) {
 
         // Connection failed
-        echo "DB_CONNECTION_CHECK: Connection failed: " . mysqli_connect_error() . "\n\n";
+        echo "DB_CONNECTION_CHECK: " . mysqli_connect_error() . "\n\n";
         exit(1);  // Exit with a non-zero status code
 
     }

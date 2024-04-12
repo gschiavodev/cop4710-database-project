@@ -142,7 +142,8 @@
                             $event_category = $event['category'];
                             $event_description = $event['description'];
                             $event_date = $event['date'];
-                            $event_time = $event['time'];
+                            $event_start_time = $event['start_time'];
+                            $event_end_time = $event['end_time'];
                             $phone_number = $event['phone_number'];
                             $email = $event['email'];
 
@@ -158,8 +159,9 @@
                             echo "<h3>" . $event_name . "</h3>";
                             echo "<p>Category: " . $event_category . "</p>";
                             echo "<p>Description: " . $event_description . "</p>";
-                            echo "<p>Date: " . $event_date . "</p>";
-                            echo "<p>Time: " . $event_time . "</p>";
+                            echo "<p>Date: " . date("F j, Y", strtotime($event_date)) . "</p>";
+                            echo "<p>Starting Time: " . date("g:i a", strtotime($event_start_time)) . "</p>";
+                            echo "<p>Ending Time: " . date("g:i a", strtotime($event_end_time)) . "</p>";
                             echo "<p>Phone Number: " . $phone_number . "</p>";
                             echo "<p>Email: " . $email . "</p>";
                             
@@ -168,7 +170,7 @@
                             // Create a button to view the event details
                             echo "<form action=\"profile_event.php\" method=\"get\">";
                             echo "<input type=\"hidden\" name=\"event_id\" value=\"" . $event_id . "\">";
-                            echo "<button type=\"submit\">View Event</button>";
+                            echo "<button style='margin-top: 0px' type=\"submit\">View Event</button>";
                             echo "</form>";
 
                             echo "</section>";
@@ -220,7 +222,7 @@
                     echo "<form action=\"../form/create_event.html\" method=\"get\">";
                     echo "<input type=\"hidden\" name=\"event_type\" value=\"private_or_rso_event\">";
                     echo "<input type=\"hidden\" name=\"rso_id\" value=\"" . $rso['id'] . "\">";
-                    echo "<button type=\"submit\">Create Event Form</button>";
+                    echo "<button style='margin-top: 0px' type=\"submit\">Create Event Form</button>";
                     echo "</form>";
 
                     echo "</section>";
