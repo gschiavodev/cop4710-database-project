@@ -60,6 +60,29 @@
         
     }
 
+    function get_university_by_user_id($user_id)
+    {
+        
+        // Include necessary files
+        include_once "user.php";
+
+        // Get the user by the user ID
+        $user = get_user_by_user_id($user_id);
+
+        // Check if the user exists
+        if (!$user)
+        {
+
+            // User does not exist
+            return null;
+
+        }
+
+        // Get the university by the user's university email
+        return get_university_by_university_email($user['university_email']);
+        
+    }
+
     function get_university_by_university_email($university_email)
     {
 

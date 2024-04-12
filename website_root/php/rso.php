@@ -212,8 +212,8 @@
         if (get_rso_by_name_and_university_id($rso_name, $rso_university_id) != null)
             return null;
 
-        // Check that there are at least 4 users in the RSO
-        if (count($user_ids) < 4)
+        // Check that there are at least 5 users in the RSO
+        if (count($user_ids) < 5)
             return null;
 
         // Admin ID is the first user ID in the list
@@ -266,7 +266,40 @@
 
             // Add the user to the RSO
             add_user_by_id_to_rso_by_id($user_id, $rso_id);
-        
+            
+            // Approve the user 
+            $success = approve_user_in_rso_by_user_and_rso_id($user_id, $rso_id);
+
+            // Check if the user was approved successfully
+            if (!$success)
+            {
+
+                // Delete the RSO
+                delete_rso_by_id($rso_id);
+
+                // Close connection to the database
+                close_connection_to_database($conn);
+
+                // Return null if the user was not approved successfully
+                return null;
+
+            }
+
+        }
+
+        // Check if the admin was approved successfully
+        if (!$success)
+        {
+
+            // Delete the RSO
+            delete_rso_by_id($rso_id);
+
+            // Close connection to the database
+            close_connection_to_database($conn);
+
+            // Return null if the admin was not approved successfully
+            return null;
+
         }
 
         // Close connection to the database

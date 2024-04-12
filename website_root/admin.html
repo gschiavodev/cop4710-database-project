@@ -329,7 +329,7 @@
                             echo "<p>" . $university['name'] . "</p>";
 
                             // Get the members of the RSO
-                            $rso_members = get_users_in_rso_by_rso_id($rso['id']);
+                            $rso_members = get_approved_users_in_rso_by_rso_id($rso['id']);
 
                             // Display the members of the RSO as a numbered list
                             echo "<p>Members:</p>";
@@ -465,7 +465,7 @@
                         $university = get_university_by_rso_id($rso['id']);
 
                         // Get the members of the RSO
-                        $rso_members = get_users_in_rso_by_rso_id($rso['id']);
+                        $rso_members = get_approved_users_in_rso_by_rso_id($rso['id']);
 
                         // Open a new row after every three RSO sections
                         if ($i % $RSOS_PER_ROW == 0)

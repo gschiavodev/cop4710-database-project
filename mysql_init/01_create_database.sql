@@ -122,9 +122,12 @@ CREATE TABLE IF NOT EXISTS college_events.rso_event
 -- Create 'user_in_rso' table
 CREATE TABLE IF NOT EXISTS college_events.user_in_rso 
 (
+    id INT AUTO_INCREMENT,
     user_id INT NOT NULL,
     rso_id INT NOT NULL,
+    is_approved BOOLEAN NOT NULL,
     PRIMARY KEY (user_id, rso_id),
+    INDEX(id),
     CONSTRAINT fk_user_in_rso_user_id FOREIGN KEY (user_id) REFERENCES college_events.user(id) ON DELETE CASCADE,
     CONSTRAINT fk_user_in_rso_rso_id FOREIGN KEY (rso_id) REFERENCES college_events.rso(id) ON DELETE CASCADE
 );

@@ -24,6 +24,12 @@
         "password": "password123"
     },
     {
+        "first_name": "Peter",
+        "last_name": "Parker",
+        "university_email": "peterparker@ucf.edu",
+        "password": "password123"
+    },
+    {
         "first_name": "Charlie",
         "last_name": "Brown",
         "university_email": "charliebrown@rollins.edu",
@@ -45,6 +51,12 @@
         "first_name": "Grace",
         "last_name": "Wilson",
         "university_email": "gracewilson@rollins.edu",
+        "password": "password123"
+    },
+    {
+        "first_name": "Quincy",
+        "last_name": "Adams",
+        "university_email": "quincyadams@rollins.edu",
         "password": "password123"
     },
     {
@@ -72,6 +84,12 @@
         "password": "password123"
     },
     {
+        "first_name": "Rachel",
+        "last_name": "Green",
+        "university_email": "rachelgreen@fsu.edu",
+        "password": "password123"
+    },
+    {
         "first_name": "Laura",
         "last_name": "White",
         "university_email": "laurawhite@ufl.edu",
@@ -93,6 +111,12 @@
         "first_name": "Oscar",
         "last_name": "Brown",
         "university_email": "oscarbrown@ufl.edu",
+        "password": "password123"
+    },
+    {
+        "first_name": "Samuel",
+        "last_name": "Jackson",
+        "university_email": "samueljackson@ufl.edu",
         "password": "password123"
     }
 ]

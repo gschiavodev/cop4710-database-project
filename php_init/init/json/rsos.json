@@ -7,7 +7,8 @@
             {"university_email": "johndoe@ucf.edu"},
             {"university_email": "janesmith@ucf.edu"},
             {"university_email": "alicejohnson@ucf.edu"},
-            {"university_email": "bobwilliams@ucf.edu"}
+            {"university_email": "bobwilliams@ucf.edu"},
+            {"university_email": "peterparker@ucf.edu"}
         ]
     },
     {
@@ -18,7 +19,8 @@
             {"university_email": "charliebrown@rollins.edu"},
             {"university_email": "emilydavis@rollins.edu"},
             {"university_email": "frankmiller@rollins.edu"},
-            {"university_email": "gracewilson@rollins.edu"}
+            {"university_email": "gracewilson@rollins.edu"},
+            {"university_email": "quincyadams@rollins.edu"}
         ]
     },
     {
@@ -29,7 +31,8 @@
             {"university_email": "harrymoore@fsu.edu"},
             {"university_email": "ivytaylor@fsu.edu"},
             {"university_email": "jackanderson@fsu.edu"},
-            {"university_email": "katiethomas@fsu.edu"}
+            {"university_email": "katiethomas@fsu.edu"},
+            {"university_email": "rachelgreen@fsu.edu"}
         ]
     },
     {
@@ -40,7 +43,8 @@
             {"university_email": "laurawhite@ufl.edu"},
             {"university_email": "michaelgreen@ufl.edu"},
             {"university_email": "nicoleblack@ufl.edu"},
-            {"university_email": "oscarbrown@ufl.edu"}
+            {"university_email": "oscarbrown@ufl.edu"},
+            {"university_email": "samueljackson@ufl.edu"}
         ]
     }
 ]

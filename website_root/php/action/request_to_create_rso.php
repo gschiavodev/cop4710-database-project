@@ -29,12 +29,12 @@
     for ($i = 1; isset($_POST['student_email_' . $i]); $i++)
         array_push($emails, $_POST['student_email_' . $i]);
 
-    // Check that the user has entered at least three emails (size of the $emails array is 3)
-    if (count($emails) < 3)
+    // Check that the user has entered at least four emails (size of the $emails array is 4)
+    if (count($emails) < 4)
     {
 
         // Redirect to the RSOs page with an error message
-        $_SESSION['message_rsos'] = "You must enter at least three student emails.";
+        $_SESSION['message_rsos'] = "You must enter at least four student emails.";
         header("Location: ../../rsos.html");
 
         // Exit the script

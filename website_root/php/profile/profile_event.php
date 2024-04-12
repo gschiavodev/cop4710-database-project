@@ -83,7 +83,7 @@
             include_once "../user_in_rso.php";
 
             // Check if the user is part of the RSO
-            if (!check_if_user_in_rso_by_rso_id_and_user_id($rso_id, $_SESSION['user_id']))
+            if (!check_if_user_in_rso_and_approved_by_rso_id_and_user_id($rso_id, $_SESSION['user_id']))
             {
 
                 // Redirect to the rsos page
