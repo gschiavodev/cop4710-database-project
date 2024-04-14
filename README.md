@@ -10,7 +10,7 @@ overlap, so students didn’t accidentally schedule two events at the same time 
 
 ## Run Locally
 
-To run the webserver, simply install Docker Desktop, this is a very popular software and not invasive. This will let you run programs in an isolated container for security and portability. In this project there are three containers, one php:7.4-apache, mysql:latest, and phpmyadmin:latest. Simply run the following commands from the terminal within the project's root directory.
+To run the webserver, simply install Docker Desktop, this is a very popular software and not invasive. This will let you run programs in an isolated container for security and portability. In this project there are three containers: (the webserver) php:7.4-apache, (the DBMS) mysql:latest, (an admin utility) phpmyadmin:latest. Simply run the following commands from the terminal within the project's root directory.
 
 To start the webserver:
 ```bash
